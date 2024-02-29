@@ -1,12 +1,14 @@
-import React from "react";
-import SliderCantainer from "./layout/slider/SliderCantainer";
-import SpellChecker from "./FolderForTools/SpellChecker/SpellChecker";
-import TextToImage from "./FolderForTools/textToImage/TextToImage";
+// import React from "react";
+// import SliderCantainer from "./layout/slider/SliderCantainer";
+// import SpellChecker from "./FolderForTools/SpellChecker/SpellChecker";
+// import TextToImage from "./FolderForTools/textToImage/TextToImage";
+// // import React from "react";
+import SignUp from "./Signup&login/SignUp";
 function App() {
-  const mainContainer =
-    "w-screen h-auto bg-[#080b10]  grid grid-cols-1 place-content-center place-items-center";
   return (
-    <div className={mainContainer}>{/* <TextToImage></TextToImage> */}</div>
+    <div>
+      <SignUp />
+    </div>
   );
 }
 
