@@ -6,4 +6,14 @@ body {
   box-sizing: border-box;
   background-color: #080b10;
 }
+@media screen and (max-width: 750px) {
+  :root {
+    font-size: 15px;
+  }
+}
+@media screen and (max-width: 450px) {
+  :root {
+    font-size: 15px;
+  }
+}
 @tailwind utilities;
