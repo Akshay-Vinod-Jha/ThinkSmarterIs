@@ -1,0 +1,28 @@
+.slideCantainer {
+    width: 100vw;
+    height: 25vw;
+    display: grid;
+    grid-auto-flow: column !important;
+    gap: 5vw;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    padding: 1rem .75rem;
+    /* background-color: yellow; */
+}
+.slideCantainer::-webkit-scrollbar {
+    display: none;
+}
+
+.whychooseus {
+    color: #fc0001;
+    font-weight: 700;
+    font-size: xx-large;
+}
+
+.whychooseusCantainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    align-items: center;
+}

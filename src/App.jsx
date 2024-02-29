@@ -1,4 +1,5 @@
 import React from "react";
+import SliderCantainer from "./layout/slider/SliderCantainer";
 import SpellChecker from "./FolderForTools/SpellChecker/SpellChecker";
 import TextToImage from "./FolderForTools/textToImage/TextToImage";
 function App() {
