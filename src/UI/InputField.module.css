@@ -2,12 +2,12 @@
   padding-block: 0.5rem;
   background-color: transparent;
   border: 0.001rem solid transparent;
-  border-bottom-color: rgba(255, 255, 255, 1);
+  border-bottom-color: rgba(255, 255, 255, 0.9);
   display: block;
-  color: white;
+  color: rgba(255, 255, 255, 0.9);
   outline: none;
-  /* font-family: "Lexend Peta", sans-serif; */
-  font-family: "Kodchasan", sans-serif;
+  font-family: "Lexend Peta", sans-serif;
+  /* font-family: "Kodchasan", sans-serif; */
 
   font-optical-sizing: auto;
   font-weight: 400;
