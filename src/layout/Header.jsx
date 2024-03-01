@@ -1,6 +1,14 @@
+import OrangeButton from "../UI/OrangeButton";
+import logopng from "../../images/logopng.png";
+import classes from "./Header.module.css";
 const Header = () => {
-    return <header>
-        <img/>
-        <button></button>
+  return (
+    <header className={classes.header}>
+      <img src={logopng} alt="logo" className={classes.headerLogo} />
+      <div className={classes.btns}>
+        <OrangeButton>Login-In</OrangeButton>
+      </div>
     </header>
-}
+  );
+};
+export default Header;

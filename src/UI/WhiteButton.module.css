@@ -1,6 +1,6 @@
 .button {
-  color: white;
-  background-color: #fc0001;
+  background-color: white;
+  color: #fc0001;
   border-radius: 0.25rem;
   padding: 0.5rem 1rem;
   width: 100%;
@@ -14,11 +14,10 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  transition: all ease-in 0.1s 0.1ms;
 }
 .button:hover {
-  color: rgba(252, 0, 1, 1);
-  background-color: white;
+  background-color: rgba(252, 0, 1, 1);
+  color: white;
 }
 .button:active {
   opacity: 0.5;
