@@ -1,11 +1,20 @@
 @tailwind base;
 @tailwind components;
 body {
+  background-color: #080b10 !important;
+  /* color: rgb(255, 255, 9); */
+  /* background-color: black; */
+  caret-color: #fc0001;
+}
+*,
+*::before,
+*::after {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  background-color: #080b10;
-  /* color: rgb(255, 255, 9); */
+}
+*::selection {
+  background-color: rgba(252, 0, 1, 0.75);
 }
 @media screen and (max-width: 750px) {
   :root {

@@ -2,7 +2,8 @@ $size: 400px;
 $primary: 200px;
 $secomdary: 300px;
 $layer: 20;
-
+$primary: 300px;
+$secondary: 350px;
 body {
   background: radial-gradient(
     ellipse at bottom,
@@ -165,5 +166,11 @@ body {
     width: $primary;
     height: $secomdary;
     transform: translate(-50%, -25%);
+  }
+}
+@media screen and (max-width: 750px) {
+  .vr {
+    width: $primary;
+    height: $secondary;
   }
 }

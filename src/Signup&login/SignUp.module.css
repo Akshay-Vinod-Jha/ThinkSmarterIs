@@ -43,6 +43,7 @@
   place-content: center;
   gap: 1rem;
   padding: 1rem;
+  height: 100vh;
 }
 
 .lefttop {
@@ -113,6 +114,42 @@
   color: rgba(255, 255, 255, 0.75);
   text-align: center;
 }
+
+.signupp {
+  color: #fc0001;
+  cursor: pointer;
+}
+.right {
+  background-color: #d7d5d5;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 2rem 5rem;
+}
+.readdy {
+  color: black;
+  font-size: 6rem;
+}
+.start {
+  padding: 1.25rem 1rem;
+  background-color: black;
+  color: white;
+  width: 70%;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: x-large;
+}
+.start:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+.start:active {
+  opacity: 0.5;
+}
+.protected {
+  font-weight: 700;
+}
 @media screen and (max-width: 1000px) {
   .right {
     display: none;
@@ -132,12 +169,4 @@
     display: flex;
     flex-direction: column;
   }
-}
-
-.signIn-cantainer {
-  align-items: start !important;
-}
-.signupp {
-  color: #fc0001;
-  cursor: pointer;
 }
