@@ -8,19 +8,21 @@ const HomeAnimation = () => {
         .map((val, ind) => {
           return <div key={`trigger${ind}`} className="trigger" />;
         })}
-      <div className="camera o-x">
-        <div className="camera o-y">
-          <div className="camera o-z">
-            <div className="vr">
-              {Array(20)
-                .fill()
-                .map((val, ind) => {
-                  return (
-                    <div className="vr_layer" key={`vr_layer${ind}`}>
-                      <div className="vr_layer_item"></div>
-                    </div>
-                  );
-                })}
+      <div className="monitor">
+        <div className="camera o-x">
+          <div className="camera o-y">
+            <div className="camera o-z">
+              <div className="vr">
+                {Array(20)
+                  .fill()
+                  .map((val, ind) => {
+                    return (
+                      <div className="vr_layer" key={`vr_layer${ind}`}>
+                        <div className="vr_layer_item"></div>
+                      </div>
+                    );
+                  })}
+              </div>
             </div>
           </div>
         </div>

@@ -17,8 +17,8 @@
   transition: all ease-in 0.1s 0.1ms;
 }
 .button:hover {
-  color: rgba(252, 0, 1, 1);
-  background-color: white;
+  color: white;
+  background-color: #fc00005f;
 }
 .button:active {
   opacity: 0.5;

@@ -1,23 +1,27 @@
-$size: 350px;
+$size: 400px;
 $layer: 20;
 
 body {
-  // background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-  //   height: 100vh;
-  //   overflow: hidden;
-  //   display: flex;
-  //   font-family: "Anton", sans-serif;
-  //   justify-content: center;
-  //   align-items: center;
-  //   perspective: 1000px;
+  background: radial-gradient(
+    ellipse at bottom,
+    transparent 0%,
+    transparent 100%
+  );
+  // height: 100vh;
+  // overflow: hidden;
+  // display: flex;
+  // font-family: "Anton", sans-serif;
+  // justify-content: center;
+  // align-items: center;
+  perspective: 1000px;
 }
 
 .container {
   position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100000;
   display: grid;
   grid-template-rows: repeat(20, 5vh);
   grid-template-columns: repeat(20, 5vw);
@@ -26,20 +30,23 @@ body {
 
 .monitor {
   position: absolute;
+  z-index: 1000;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
   transform-style: preserve-3d;
+  // transform: rotateZ(45deg);
 }
 
 .trigger {
   &:active ~ .monitor {
     .vr_layer_item {
-      width: 40%;
-      height: 40%;
+      width: 80%;
+      height: 80%;
       border-radius: 5px;
+      // transform: rotateZ(45deg);
     }
   }
 
@@ -70,6 +77,7 @@ body {
   height: 100%;
   transform-style: preserve-3d;
   transition: 500ms;
+  // transform: rotateZ(45deg);
 
   &.o-y {
     transform: rotateY(-30deg);
@@ -92,12 +100,11 @@ body {
     align-items: center;
     width: 100%;
     height: 100%;
-    // border: 1px solid rgba(#fff, 0.2);
     border: 1px solid rgba(#fff, 0.1);
-    // background: rgba(#09f, 0.006);
-    background: transparent;
+    background: rgba(#728894, 0.006);
     border-radius: 10px;
     transform: preserve-3d;
+    transform: rotateZ(45deg);
 
     @for $i from 1 through $layer {
       &:nth-child(#{$i}) {
@@ -119,6 +126,7 @@ body {
           infinite,
         color 5000ms linear alternate infinite;
       transition: 500ms;
+      transform: rotateZ(45deg);
     }
   }
 }
@@ -139,14 +147,14 @@ body {
 
 @keyframes color {
   0% {
-    border-color: rgba(252, 0, 1, 1);
+    border-color: #fc0001;
   }
 
   50% {
-    border-color: rgba(252, 0, 1, 0.5);
+    border-color: yellow;
   }
 
   100% {
-    border-color: rgba(252, 0, 1, 0.75);
+    border-color: rgb(228, 69, 95);
   }
 }

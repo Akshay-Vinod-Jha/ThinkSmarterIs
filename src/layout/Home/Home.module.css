@@ -1,13 +1,21 @@
 .home-cantainer {
   /* width: 100%; */
-  height: 100vh;
+  position: relative;
+  /* z-index: -1; */
+  height: 85vh;
   display: grid;
   grid-auto-flow: row;
   place-content: center;
   gap: 5rem;
   /* position: relative; */
-  perspective: 1000px;
 }
+/* .apply {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  transform: translate(-50%, -50%);
+  z-index: -1111;
+} */
 .heading {
   font-family: "Lexend Tera", sans-serif;
   font-weight: 700;
@@ -27,11 +35,16 @@
 
 .homeBtns {
   width: min(750px, 100%);
+  position: absolute;
+  z-index: 100000000;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, 50%);
   display: flex;
   gap: 1rem;
   justify-content: center;
   align-items: center;
-  margin: 1rem auto;
+  margin: 2rem auto;
 }
 .aitools {
   color: rgba(252, 0, 1, 1);
@@ -80,42 +93,6 @@
 .span:nth-child(9) {
   animation: fade-in 0.8s 0.9s forwards cubic-bezier(0.11, 0, 0.5, 0);
 }
-
-/* .span:nth-child(10) {
-  animation: fade-in 0.8s 1s forwards cubic-bezier(0.11, 0, 0.5, 0);
-}
-
-.span:nth-child(11) {
-  animation: fade-in 0.8s 1.1s forwards cubic-bezier(0.11, 0, 0.5, 0);
-}
-
-.span:nth-child(12) {
-  animation: fade-in 0.8s 1.2s forwards cubic-bezier(0.11, 0, 0.5, 0);
-}
-
-span:nth-child(13) {
-  animation: fade-in 0.8s 1.3s forwards cubic-bezier(0.11, 0, 0.5, 0);
-}
-
-.span:nth-child(14) {
-  animation: fade-in 0.8s 1.4s forwards cubic-bezier(0.11, 0, 0.5, 0);
-}
-
-span:nth-child(15) {
-  animation: fade-in 0.8s 1.5s forwards cubic-bezier(0.11, 0, 0.5, 0);
-}
-
-span:nth-child(16) {
-  animation: fade-in 0.8s 1.6s forwards cubic-bezier(0.11, 0, 0.5, 0);
-}
-
-span:nth-child(17) {
-  animation: fade-in 0.8s 1.7s forwards cubic-bezier(0.11, 0, 0.5, 0);
-}
-
-span:nth-child(18) {
-  animation: fade-in 0.8s 1.8s forwards cubic-bezier(0.11, 0, 0.5, 0);
-} */
 
 @keyframes fade-in {
   100% {
