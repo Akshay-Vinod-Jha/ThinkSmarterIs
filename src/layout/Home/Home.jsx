@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div className={classes["home-cantainer"]}>
       <HomeAnimation />
-      <div>
+      <div className="apply">
         <h1 className={classes.heading}>
           {["Your", "One-Stop", "Shop", "for"].map((val, ind) => {
             return (

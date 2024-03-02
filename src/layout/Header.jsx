@@ -6,7 +6,7 @@ const Header = () => {
     <header className={classes.header}>
       <img src={logopng} alt="logo" className={classes.headerLogo} />
       <div className={classes.btns}>
-        <OrangeButton>Login-In</OrangeButton>
+        <OrangeButton>Log in</OrangeButton>
       </div>
     </header>
   );
