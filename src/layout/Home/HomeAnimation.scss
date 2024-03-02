@@ -88,8 +88,8 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 30%;
-  height: 40%;
+  width: $size;
+  height: $size;
   transform: translate(-50%, -50%);
   transform-style: preserve-3d;
 
@@ -109,11 +109,7 @@ body {
 
     @for $i from 1 through $layer {
       &:nth-child(#{$i}) {
-<<<<<<< HEAD
-        transform: translateZ(calc($i * $size / $layer) - calc($size / 2));
-=======
         transform: translateZ(calc($i * $size / $layer - $size / 2));
->>>>>>> f2b233a7f72d72de04d6bcf87754631a49e5f7c1
       }
 
       &:nth-child(#{$i}) &_item {
