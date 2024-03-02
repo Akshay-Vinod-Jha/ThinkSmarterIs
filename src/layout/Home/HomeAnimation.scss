@@ -1,6 +1,7 @@
 $size: 400px;
 $layer: 20;
-
+$primary: 300px;
+$secondary: 350px;
 body {
   background: radial-gradient(
     ellipse at bottom,
@@ -118,8 +119,8 @@ body {
     }
 
     &_item {
-      width: 100%;
-      aspect-ratio: 1/1;
+      width: 70%;
+      height: 70%;
       border: 3px solid #fff;
       border-radius: 100%;
       background: rgba(#000, 0.05);
@@ -157,5 +158,11 @@ body {
 
   100% {
     border-color: #fc0001;
+  }
+}
+@media screen and (max-width: 750px) {
+  .vr {
+    width: $primary;
+    height: $secondary;
   }
 }
