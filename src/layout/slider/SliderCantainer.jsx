@@ -4,6 +4,7 @@ import timeImage from "../../../images/time.png";
 import aiIntegrationImage from "../../../images/integratedAI.png";
 import learningOptimizationImage from "../../../images/learningOptimization.png";
 import noexternalvisitImage from "../../../images/noexternalvisit.png";
+import Reveal from "../../UI/Reveal";
 // import { useState } from "react";
 const sliderArray = [
   {
@@ -41,18 +42,20 @@ const SliderCantainer = () => {
   return (
     <div className={classes.whychooseusCantainer}>
       <h1 className={classes.whychooseus}>Why Choose Us</h1>
-      <div className={classes.slideCantainer}>
-        {sliderArray.map((slide, ind) => {
-          return (
-            <Slide
-              key={`slider${ind}`}
-              src={slide.src}
-              title={slide.title}
-              description={slide.description}
-            />
-          );
-        })}
-      </div>
+      <Reveal>
+        <div className={classes.slideCantainer}>
+          {sliderArray.map((slide, ind) => {
+            return (
+              <Slide
+                key={`slider${ind}`}
+                src={slide.src}
+                title={slide.title}
+                description={slide.description}
+              />
+            );
+          })}
+        </div>
+      </Reveal>
     </div>
   );
 };

@@ -89,7 +89,7 @@
   cursor: pointer;
 }
 
-.form {
+.form > button {
   margin-block: 1rem;
 }
 .leftbottom {
