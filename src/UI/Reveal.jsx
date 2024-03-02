@@ -6,7 +6,6 @@ const Reveal = (props) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const mainControls = useAnimation();
-  //   console.log(mainControls);
   useEffect(() => {
     isInView && mainControls.start("visible");
   }, [isInView]);
