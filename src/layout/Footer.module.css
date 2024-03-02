@@ -18,4 +18,11 @@
   color: rgba(252, 0, 1, 1);
   display: inline-block;
   margin-inline: 0.5rem;
+  font-weight: 900;
+}
+@media screen and (max-width: 750px) {
+  .footer {
+    font-size: small;
+    padding-inline: 0.5rem;
+  }
 }

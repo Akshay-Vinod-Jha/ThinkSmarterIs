@@ -3,11 +3,12 @@ import OrangeButton from "../../UI/OrangeButton";
 import WhiteButton from "../../UI/WhiteButton";
 import HomeAnimation from "./HomeAnimation";
 import classes from "./Home.module.css";
+import Reveal from "../../UI/Reveal";
 const Home = () => {
   return (
     <div className={classes["home-cantainer"]}>
       <HomeAnimation />
-      <div className="apply">
+      <Reveal>
         <h1 className={classes.heading}>
           {["Your", "One-Stop", "Shop", "for"].map((val, ind) => {
             return (
@@ -16,7 +17,7 @@ const Home = () => {
               </span>
             );
           })}
-          <br />
+          <br className={classes.br} />
           {["AI", "Tools", "and", "Solutions"].map((val, ind) => {
             return (
               <span className={classes.span} key={`spann${ind}`}>
@@ -29,7 +30,7 @@ const Home = () => {
           <OrangeButton>Explore More</OrangeButton>
           <WhiteButton>Know More</WhiteButton>
         </div>
-      </div>
+      </Reveal>
     </div>
   );
 };
