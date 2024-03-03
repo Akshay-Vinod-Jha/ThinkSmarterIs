@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import { TbBulb } from "react-icons/tb";
 
 function TryThese() {

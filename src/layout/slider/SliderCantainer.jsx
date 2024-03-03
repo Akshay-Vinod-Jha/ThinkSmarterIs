@@ -21,7 +21,7 @@ const sliderArray = [
   },
   {
     src: timeImage,
-    title: "significantly Time-Efficient",
+    title: "Significantly Time-Efficient",
     description:
       "Efficiently accomplishes complex tasks and expeditiously delivers solutions, thereby conserving valuable student time.",
   },
