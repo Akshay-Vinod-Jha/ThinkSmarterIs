@@ -4,12 +4,12 @@ import classes from "./History.module.css";
 import { FaRegCopy } from "react-icons/fa6";
 import { AiOutlineMessage } from "react-icons/ai";
 
-const History = (props) => {
+const History = ({ history }) => {
   return (
     <div className={classes["history-container"]}>
       <h2 className={classes.histroyHeading}>History</h2>
       <div className={classes["history-itemContainer"]}>
-        {props.history.map((val, ind) => {
+        {history.map((val, ind) => {
           return (
             <div className={classes["history-item"]} key={`imagetotext${ind}`}>
               <p>{val}</p>
