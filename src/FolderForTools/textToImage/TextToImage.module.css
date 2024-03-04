@@ -1,0 +1,3 @@
+.textToImageContainer::--webkit-scrollbar {
+  display: none !important;
+}
