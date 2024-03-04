@@ -19,7 +19,7 @@ const VisionVerbalizer = () => {
     const inference = new HfInference(HF_TOKEN);
     const data = await inference.imageToText({
       data: blobimage,
-      model: "nlpconnect/vit-gpt2-image-captioning",
+      model: "Salesforce/blip-image-captioning-large",
     });
     // console.log(data)
     setGeneratedText(data.generated_text)
