@@ -1,14 +1,16 @@
-import React from "react";
-import SliderCantainer from "./layout/slider/SliderCantainer";
-import SpellChecker from "./FolderForTools/SpellChecker/SpellChecker";
+// import SliderCantainer from "./layout/slider/SliderCantainer";
+// import Header from "./layout/Header";
+// import Home from "./layout/Home/Home";
+// import Footer from "./layout/Footer";
+// import SignUp from "./Signup&login/SignUp";
+// import TextToImage from "./FolderForTools/textToImage/TextToImage";
+// import SignIN from "./Signup&login/SignIN";
+import VisionVerbalizer from "./FolderForTools/VisionVerbalizer/VisionVerbalizer";
 function App() {
-  const mainContainer =
-    "w-screen h-auto bg-[#080b10] p-1 md:p-4 grid grid-cols-1 place-content-center place-items-center";
   return (
-    <div className={mainContainer}>
-      {/* <SpellChecker></SpellChecker> */}y
-      
-      <SliderCantainer/>
+    <div>
+      {/* <TextToImage /> */}
+      <VisionVerbalizer />
     </div>
   );
 }

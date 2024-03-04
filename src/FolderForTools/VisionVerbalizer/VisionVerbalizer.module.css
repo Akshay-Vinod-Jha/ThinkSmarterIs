@@ -1,0 +1,36 @@
+.VisionVerbalizer {
+  display: grid;
+  grid-template-columns: 1fr;
+  background-color: #1e1e1e;
+}
+.VisionVerbalizer * {
+  font-family: "Lexend Peta", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+.upper {
+  display: grid;
+  padding: 1rem;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+  background-color: black;
+  margin: 1rem;
+  border-radius: 1rem;
+}
+.lower {
+  padding: 1rem;
+  margin: 1rem;
+  background-color: #000000;
+  border-radius: 1rem;
+}
+@media screen and (max-width: 750px) {
+  .upper {
+    grid-template-columns: 1fr;
+  }
+  .upper,
+  .lower {
+    margin: 0.5rem;
+    padding: 0.5rem;
+  }
+}

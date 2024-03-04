@@ -1,0 +1,24 @@
+.button {
+  background-color: white;
+  color: #fc0001;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  margin-block: 1rem;
+  font-family: "Lexend Peta", sans-serif;
+  /* font-family: "Kodchasan", sans-serif; */
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.button:hover {
+  background-color: rgba(255, 255, 255, 0.372);
+  color: white;
+}
+.button:active {
+  opacity: 0.5;
+}
