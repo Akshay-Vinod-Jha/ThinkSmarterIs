@@ -53,6 +53,8 @@
   background-color: #1e1e1e;
   padding: 0.5rem;
   border-radius: 0.5rem;
+  font-size: small;
+
 }
 .copy:hover {
   color: rgba(255, 255, 255, 1);

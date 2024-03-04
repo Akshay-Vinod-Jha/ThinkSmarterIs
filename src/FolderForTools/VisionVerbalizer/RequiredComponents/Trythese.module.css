@@ -1,5 +1,5 @@
 .samples {
-  width: min(325px, 100vw);
+  width: min(275px, 100vw);
 
   aspect-ratio: 1/1;
   object-fit: cover;

@@ -1,0 +1,53 @@
+.output {
+    min-height: 100px;
+    max-height: 25vw;
+    background-color: black;
+    margin: 1rem;
+    border-radius: 1rem;
+    padding: 0 1rem 2rem;
+    overflow-y: scroll;
+}
+.h2 {
+    font-weight: 800;
+    color: #728894;
+    background-color: black;
+    font-size: large;
+}
+.text {
+    font-size: small;
+    color: rgba(255,255,255,.75);
+    font-size: large;
+
+
+}
+.output::-webkit-scrollbar {
+    display: none;
+}
+.headerr {
+    display: flex;
+    justify-content: space-between;
+    color: rgba(255,255,255,.9);
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: black;
+    padding-block: 1rem;
+}
+
+
+.copy {
+    transition: all ease-in 0.1s 1ms;
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.75);
+    cursor: pointer;
+    background-color: #1e1e1e;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    font-size: small;
+  }
+  .copy:hover {
+    color: rgba(255, 255, 255, 1);
+  }

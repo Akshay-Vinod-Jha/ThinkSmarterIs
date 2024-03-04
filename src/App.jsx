@@ -8,10 +8,9 @@
 import VisionVerbalizer from "./FolderForTools/VisionVerbalizer/VisionVerbalizer";
 function App() {
   return (
-    <div>
-      {/* <TextToImage /> */}
+   <div>
       <VisionVerbalizer />
-    </div>
+   </div>
   );
 }
 
