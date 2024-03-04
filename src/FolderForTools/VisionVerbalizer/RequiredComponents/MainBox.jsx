@@ -3,7 +3,7 @@ import OrangeButton from "../../../UI/OrangeButton";
 import { CiImageOn } from "react-icons/ci";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import classes from "./MainBox.module.css";
-
+// import Loader from '../../../UI/Loader'
 const MainBox = ({ src, updateSrc }) => {
   const inputRef = useRef(null);
   const getImageHandler = (image) => {
@@ -39,6 +39,7 @@ const MainBox = ({ src, updateSrc }) => {
           <p className={classes.upload}>Upload one image at a time</p>
           <div className={classes.browse}>
             <OrangeButton onClick={() => inputRef.current.click()}>
+              {/* <Loader/> */}
               Browse
               <FaCloudUploadAlt color="white" fontSize="1.5rem" />
             </OrangeButton>
