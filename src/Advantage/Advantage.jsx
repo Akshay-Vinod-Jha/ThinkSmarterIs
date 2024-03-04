@@ -17,7 +17,7 @@ function Advantage(props) {
       <h1 className="tracking-widest font-extrabold text-white mt-4 uppercase text-base md:text-lg lg:text-xl xl:text-2xl border-b-2 border-[#728894]">
         {props.information.name}
       </h1>
-      <div className="w-full border-2 border-[#72889426] hover:border-[#728894] duration-150 rounded-xl py-4 md:pl-6 mt-8">
+      <div className="w-full border-2 border-[#72889426] hover:border-[#728894] duration-150 rounded-xl py-4 pl-3 md:pl-6 mt-8">
         <h1 className="tracking-widest font-extrabold text-[white] text-base md:text-lg flex justify-start group/hii  lg:text-xl xl:text-2xl items-start">
           Why Choose Our Expertise ?
           <GiThink className="ml-2 group-hover/hii:text-yellow-500"></GiThink>
