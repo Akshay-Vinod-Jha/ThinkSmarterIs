@@ -3,7 +3,7 @@
   font-weight: 900 !important;
   text-decoration: underline solid #728894;
   text-decoration-thickness: 0.1rem;
-  font-size: x-large;
+  font-size: xx-large;
   text-align: left;
 }
 
@@ -19,7 +19,7 @@
   gap: 1rem;
   padding: 1rem;
   margin: 1rem auto 0;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   position: relative;
 }
 .browse {
@@ -39,7 +39,7 @@
   object-fit: contain;
   margin-inline: auto;
   border-radius: 1rem;
-  height: 410px;
+  height: 405px;
 }
 .get {
   justify-self: flex-end !important;
@@ -51,6 +51,16 @@
   position: absolute;
   bottom: 1.25rem;
 }
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+.history {
+  display: none;
+  /* cursor: pointer; */
+}
 @media screen and (max-width: 750px) {
   .getImageHeading {
     font-size: large;
@@ -58,6 +68,7 @@
   .image {
     max-width: 100%;
     height: auto;
+    margin-block: 1rem;
   }
   .get {
     position: static;
@@ -65,5 +76,11 @@
   .getImage {
     height: auto;
     justify-content: flex-start;
+  }
+  .title {
+    font-size: x-large;
+  }
+  .history {
+    display: block;
   }
 }

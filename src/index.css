@@ -6,12 +6,14 @@ body {
   /* background-color: black; */
   caret-color: #fc0001;
 }
+
 *,
 *::before,
 *::after {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 *::selection {
   background-color: rgba(252, 0, 1, 0.75);

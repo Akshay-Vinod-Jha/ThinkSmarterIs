@@ -4,7 +4,10 @@ import { CiImageOn } from "react-icons/ci";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import classes from "./MainBox.module.css";
 // import Loader from '../../../UI/Loader'
-const MainBox = ({ src, updateSrc }) => {
+
+import { MdHistory } from "react-icons/md";
+
+const MainBox = ({ src, updateSrc, setShowHistory }) => {
   const inputRef = useRef(null);
   const getImageHandler = (image) => {
     const reader = new FileReader();
@@ -24,7 +27,15 @@ const MainBox = ({ src, updateSrc }) => {
   );
   return (
     <div className={classes["mainBox-cantainer"]}>
-      <h1 className={classes.title}>Vision Verbalizer</h1>
+      <div className={classes.titleContainer}>
+        <h1 className={classes.title}>Vision Verbalizer </h1>
+        <MdHistory
+          color="#728894"
+          fontSize="2rem"
+          className={classes.history}
+          onClick={() => setShowHistory(true)}
+        />
+      </div>
       <div
         className={classes.getImage}
         onDragOver={(e) => e.preventDefault()}

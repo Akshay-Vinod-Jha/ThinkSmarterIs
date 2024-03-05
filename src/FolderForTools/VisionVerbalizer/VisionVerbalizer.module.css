@@ -16,13 +16,14 @@
   gap: 1rem;
   background-color: black;
   margin: 1rem;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
+  position: relative;
 }
 .lower {
   padding: 1rem;
   margin: 1rem;
   background-color: #000000;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
 }
 @media screen and (max-width: 750px) {
   .upper {
