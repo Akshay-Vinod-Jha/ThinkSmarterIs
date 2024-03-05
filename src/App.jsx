@@ -10,16 +10,10 @@ import TextToImage from "./FolderForTools/textToImage/TextToImage";
 import AllToolsMainPage from "./layout/AllToolsMainPage/AllToolsMainPage";
 function App() {
   return (
-<<<<<<< HEAD
-    <div>
-      {/* <TextToImage /> */}
-      <AllToolsMainPage />
-    </div>
-=======
+
    <div>
       <VisionVerbalizer/>
    </div>
->>>>>>> 4cce22fe171a6f284b6564e1e44b86127776d57c
   );
 }
 
