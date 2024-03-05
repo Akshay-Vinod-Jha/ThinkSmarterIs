@@ -3,7 +3,7 @@ import { GiThink } from "react-icons/gi";
 import OrangeButton from "../UI/OrangeButton";
 import { FaBackward } from "react-icons/fa";
 import { FaForward } from "react-icons/fa";
-
+import AdvantageText from "./AdvantageText";
 function Advantage(props) {
   return (
     <div className="w-full flex flex-col justify-center items-center p-6 md:p-6 font-mono ">
@@ -26,6 +26,7 @@ function Advantage(props) {
           {props.information.slogan}
         </h1>
       </div>
+      <AdvantageText advantages={props.information.advantages}></AdvantageText>
       <div className="w-screen h-auto flex  flex-col-reverse  md:flex-row justify-center items-center px-6 md:px-6 gap-4 my-4">
         <div className="w-full md:col-span-1 md:w-[50%] lg:w-[25%]">
           <OrangeButton onClick={props.updateState}>
