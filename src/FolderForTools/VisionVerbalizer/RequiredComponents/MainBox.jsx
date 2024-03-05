@@ -1,9 +1,9 @@
 import { useRef } from "react";
 import OrangeButton from "../../../UI/OrangeButton";
 import { CiImageOn } from "react-icons/ci";
-import { FaCloudUploadAlt } from "react-icons/fa";
 import classes from "./MainBox.module.css";
 // import Loader from '../../../UI/Loader'
+import { MdOutlineFileUpload } from "react-icons/md";
 
 import { MdHistory } from "react-icons/md";
 
@@ -50,9 +50,8 @@ const MainBox = ({ src, updateSrc, setShowHistory }) => {
           <p className={classes.upload}>Upload one image at a time</p>
           <div className={classes.browse}>
             <OrangeButton onClick={() => inputRef.current.click()}>
-              {/* <Loader/> */}
-              Browse
-              <FaCloudUploadAlt color="white" fontSize="1.5rem" />
+              <MdOutlineFileUpload color="white" fontSize="1.5rem" />
+              Click to Upload
             </OrangeButton>
             <input
               type="file"

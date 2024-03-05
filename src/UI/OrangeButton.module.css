@@ -1,6 +1,6 @@
 .button {
   color: white;
-  background-color: #fc0001;
+  background-color: rgb(252, 0, 1);
   border-radius: 0.25rem;
   padding: 0.5rem 1rem;
   width: 100%;
@@ -16,6 +16,7 @@
   gap: 0.5rem;
   transition: all ease-in 0.1s 0.1ms;
 }
+
 .button:hover {
   color: white;
   background-color: #fc00005f;

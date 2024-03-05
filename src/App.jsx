@@ -17,7 +17,7 @@ function App() {
     </div>
 =======
    <div>
-      <VisionVerbalizer />
+      <VisionVerbalizer/>
    </div>
 >>>>>>> 4cce22fe171a6f284b6564e1e44b86127776d57c
   );

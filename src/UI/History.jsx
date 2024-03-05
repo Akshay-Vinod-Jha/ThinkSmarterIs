@@ -1,11 +1,9 @@
-// import React from 'react'
 import classes from "./History.module.css";
 import { FaRegCopy } from "react-icons/fa6";
 import { AiOutlineMessage } from "react-icons/ai";
 import { MdHistory } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
-
-import { copyTextToClipboard } from "../../../common-funtions/copy";
+import {copyTextToClipboard} from '../common-funtions/copy.jsx';
 const History = ({ history, showHistory, setShowHistory }) => {
   return (
     <div
