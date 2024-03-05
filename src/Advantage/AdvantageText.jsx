@@ -6,8 +6,8 @@ import { GoEyeClosed } from "react-icons/go";
 function AdvantageText(props) {
   const [visible, setVisible] = useState(false);
   return (
-    <div className="w-full py-4 mt-4 text-white font-mono flex flex-col justify-center items-center border-2 border-[#72889426] hover:border-[#728894] duration-150 rounded-xl">
-      <h1 className="w-full pl-4 capatilize text-lg md:text-lg lg:text-xl xl:text-2xl">
+    <div className="w-full py-4 mt-4 text-white font-lexend flex flex-col justify-center items-center border-2 border-[#72889426] hover:border-[#728894] duration-150 rounded-xl">
+      <h1 className="w-full pl-4 capatilize text-base md:text-lg lg:text-xl xl:text-xl">
         Advantages
       </h1>
       <ul className="w-full text-[#728894] list-disc pl-8 mt-2 text-base md:text-lg lg:text-xl xl:text-xl">

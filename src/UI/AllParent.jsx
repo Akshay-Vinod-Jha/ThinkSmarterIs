@@ -103,9 +103,82 @@ function AllParent(props) {
         "Generates accurate code based on the provided prompt.",
       ],
     },
+    {
+      name: "ChatBot",
+      imageUrl: "../../images/chatbot.png",
+      slogan:
+        "An automated conversational agent designed to simulate <span className='text-[#fc0001]'>human-like interaction</span> through text or voice interfaces.",
+      slogan2:
+        "Chatbots can be invaluable tools for students, providing instant access to information, assistance, and guidance. Whether it's answering questions about coursework, providing study tips, or offering support for mental health and well-being, chatbots offer a convenient and accessible resource for students to enhance their learning experience. With their ability to quickly respond to inquiries and adapt to individual needs, chatbots can help students navigate academic challenges more effectively and efficiently.",
+      advantages: [
+        "Deliver responses based on the entered prompt.",
+        "Ensure time efficiency in the generation process.",
+        "Preserve a comprehensive history for repeated utilization.",
+        "Provide a feature to easily copy the generated result.",
+      ],
+    },
+  ];
+  const arrayOfSteps = [
+    [
+      "Input the prompt to generate the desired output image.",
+      "click on generate image button.",
+      "Await the completion of the output generation process.",
+      "View the output image in the designated output box.",
+      "Additionally, copy the generated image for integration into your project.",
+    ],
+    [
+      "Provide the image input functionality with the option to either drag and drop, copy and paste, or browse from the local disk for additional feature incorporation.",
+      "Await the completion of the output generation process.",
+      "Observe the generated text displayed in the output box.",
+      "Additionally, utilize the option to copy the generated text for further use in your project.",
+    ],
+    [
+      "Input the YouTube video URL into the designated input area.",
+      "Initiate the output generation process by clicking the corresponding 'Generate' button.",
+      "Exercise patience while awaiting the completion of the output generation.",
+      "Observe the output displayed in the designated area; if the output is extensive, utilize the scrolling function for thorough review.",
+      "Employ the copy button located below the output area to efficiently duplicate the generated output for further use.",
+    ],
+    [
+      "Input the context into the designated input area.",
+      "Initiate the generation of summarized text by clicking the corresponding button.",
+      "Patiently await the completion of the output generation process.",
+      "Review the generated summarized text displayed in the designated output area.",
+      "Utilize the copy button to efficiently copy the summarized text for further use.",
+    ],
+    [
+      "Input the context into the designated input area.",
+      "Pose a question pertaining to the provided context in the designated question box.",
+      "Initiate the answer retrieval process by clicking the 'Answer' button.",
+      "Exercise patience while awaiting the generation of the answer.",
+      "Observe the provided answer displayed in the answer box; if the response is extensive, utilize the scrolling feature for comprehensive reading.",
+    ],
+    [
+      "Input a sentence or context into the designated input area.",
+      "Initiate the spelling and grammar verification process by clicking the 'Check' button.",
+      "Identify errors through the display of a squiggly line beneath the affected sentences.",
+      "Upon clicking the erroneous sentence, the starting and ending points are indicated below.",
+      "In the replacement box, the accurate spelling or sentence is presented upon selecting a specific error.",
+      "Utilize the provided copy button to efficiently replicate the correct answer.",
+    ],
+    [
+      "Input a prompt relevant to the desired output.",
+      "Choose the programming language from the provided selection box.",
+      "Initiate the output generation process by clicking the 'Generate' button.",
+      "Exercise patience while awaiting the completion of the output generation.",
+      "Observe the generated output displayed in the designated output area.",
+      "Utilize the button located below the output area to efficiently copy the generated code for further use.",
+    ],
+    [
+      "Input the prompt to generate the desired output.",
+      "Initiate the output generation process by clicking the arrow icon.",
+      "Exercise patience while awaiting the completion of the output generation.",
+      "Observe the generated output displayed on the screen.",
+      "Utilize the copy button to efficiently duplicate the output for further use.",
+    ],
   ];
   return (
-    <div className="w-[100%] rounded-xl md:grid-rows-4 grid-rows-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 place-content-center place-items-center gap-2 md:gap-3 lg:gap-10 p-1 md:p-2 lg:p-10 my-10">
+    <div className="w-[100%] rounded-xl md:grid-rows-4 grid-rows-9 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 place-content-center place-items-center gap-2 md:gap-3 lg:gap-10 p-1 md:p-2 lg:p-10 my-10">
       {arrayOfTools.map((value, index) => {
         return (
           <ToolsBox
@@ -118,6 +191,7 @@ function AllParent(props) {
               props.updateClicked({
                 ...arrayOfTools[index],
                 slogan: arrayOfTools[index].slogan2,
+                steps: arrayOfSteps[index],
               });
             }}
           ></ToolsBox>
