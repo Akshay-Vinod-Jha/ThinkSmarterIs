@@ -9,7 +9,7 @@ import VisionVerbalizer from "./FolderForTools/VisionVerbalizer/VisionVerbalizer
 function App() {
   return (
    <div>
-      <VisionVerbalizer />
+      <VisionVerbalizer/>
    </div>
   );
 }

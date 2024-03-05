@@ -1,10 +1,10 @@
 .title {
   color: #728894;
   font-weight: 900 !important;
-  text-decoration: underline solid #728894;
-  text-decoration-thickness: 0.1rem;
+
   font-size: xx-large;
   text-align: left;
+  border-bottom: .25rem solid #728894;
 }
 
 .getImage {
