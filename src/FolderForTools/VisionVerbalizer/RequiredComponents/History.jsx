@@ -1,13 +1,28 @@
 // import React from 'react'
-// import { MdOutlineMarkUnreadChatAlt } from "react-icons/md";
 import classes from "./History.module.css";
 import { FaRegCopy } from "react-icons/fa6";
 import { AiOutlineMessage } from "react-icons/ai";
+import { MdHistory } from "react-icons/md";
+import { IoClose } from "react-icons/io5";
 
-const History = ({ history }) => {
+import { copyTextToClipboard } from "../../../common-funtions/copy";
+const History = ({ history, showHistory, setShowHistory }) => {
   return (
-    <div className={classes["history-container"]}>
-      <h2 className={classes.histroyHeading}>History</h2>
+    <div
+      className={`${classes["history-container"]} ${showHistory ? classes.show : classes.hide}`}
+    >
+      <div className={classes["history-title"]}>
+        <h2 className={classes.histroyHeading}>
+          <MdHistory fontSize="2rem" />
+          History
+        </h2>
+        <IoClose
+          fontSize={`2rem`}
+          color="#728894"
+          onClick={() => setShowHistory(false)}
+          className={classes.close}
+        />
+      </div>
       <div className={classes["history-itemContainer"]}>
         {history.map((val, ind) => {
           return (
@@ -19,7 +34,10 @@ const History = ({ history }) => {
                   fontSize="1.5rem"
                   color="rgba(255,255,255,0.75)"
                 />
-                <div className={classes.copy}>
+                <div
+                  className={classes.copy}
+                  onClick={() => copyTextToClipboard(val)}
+                >
                   Copy
                   <FaRegCopy
                     fontSize="1.5rem"
