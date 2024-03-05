@@ -1,14 +1,20 @@
 import React from "react";
 import { FaRepeat, FaWandMagicSparkles } from "react-icons/fa6";
 import { MdDownloading } from "react-icons/md";
-
+import cssClasses from "./TextToImage.module.css";
 import TryThese from "./RequiredComponents/TryThese";
 import HistoryBox from "./RequiredComponents/HistoryBox";
 import MainBox from "./RequiredComponents/MainBox";
+import OrangeButton from "../../UI/OrangeButton";
 function TextToImage() {
   return (
     //   {/* //outemost */}
-    <div className="w-[99vw]  h-auto min-h-auto bg-[#1E1E1E] grid grid-cols-1 grid-rows-3 md:grid-rows-3 lg:grid-rows-4 gap-2 p-1 md:p-2 lg:p-3 xl:p-4">
+    <div
+      className={
+        cssClasses.textToImageContainer +
+        "  w-[99vw] h-auto lg:h-[120vh] min-h-screen bg-[#1E1E1E] grid grid-cols-1 grid-rows-3 md:grid-rows-3 lg:grid-rows-4 gap-2 p-1 md:p-2 lg:p-3 xl:p-4"
+      }
+    >
       {/* firstChild */}
       <div className="bg-black row-span-2  md:row-span-2 lg:row-span-3 rounded-xl grid grid-cols-4 gap-4 p-2">
         {/* 1c */}
@@ -26,9 +32,11 @@ function TextToImage() {
                 autoFocus="true"
                 placeholder="Enter Propmt Here..."
               />
-              <button className="w-full lg:col-span-1 bg-[#fc0001] p-1 rounded-md text-white hover:bg-white hover:text-[#fc0001] flex justify-center items-center gap-1">
-                Generate Image<FaWandMagicSparkles></FaWandMagicSparkles>
-              </button>
+              <div className="w-full lg:col-span-1 rounded-md text-white flex justify-center items-center">
+                <OrangeButton>
+                  Generate Image<FaWandMagicSparkles></FaWandMagicSparkles>
+                </OrangeButton>
+              </div>
             </div>
             <div className="w-full rounded-xl bg-black flex justify-center items-center p-2">
               <img
@@ -41,27 +49,42 @@ function TextToImage() {
               <h1 className="flex justify-center items-center gap-1 hover:text-white">
                 Regenerate Image<FaRepeat></FaRepeat>
               </h1>
-              <button className="bg-[#fc0001] lg:w-[50%]  lg:place-self-end p-1 rounded-md text-white hover:bg-white hover:text-[#fc0001] flex justify-center items-center gap-3">
-                Export<MdDownloading></MdDownloading>
-              </button>
+              <div className="w-[100%] col-span-1  lg:w-[50%]  lg:place-self-end p-1 rounded-md flex justify-center items-center">
+                <OrangeButton>
+                  {" "}
+                  Export<MdDownloading></MdDownloading>
+                </OrangeButton>
+              </div>
             </div>
           </div>
         </div>
         {/* 2nd */}
-        <div className="hidden lg:flex col-span-1 bg-[#1E1E1E] rounded-xl overflow-y-auto">
-          <div className="w-full h-full overflow-auto text-[#728894] gap-2 font-mono font-extrabold text-base tracking-widest bg-transparent flex flex-col justify-center items-center p-2">
+        <div
+          className={
+            cssClasses.textToImageContainer +
+            "  hidden lg:flex col-span-1 no-scrollbar  border-4 border-[#1E1E1E] overflow-auto bg-[#1E1E1E] rounded-xl"
+          }
+        >
+          <div className="w-full h-full no-scrollbar text-[#728894] gap-2 font-mono font-extrabold text-base tracking-widest bg-transparent flex flex-col justify-center items-center p-2">
             <h1 className="ml-2 hover:border-none w-max place-self-start text-2xl border-b-2  border-[#728894] mb-4">
               History
             </h1>
-            {Array(5)
-              .fill(3)
-              .map((value, index) => {
-                return (
-                  <HistoryBox key={index}>
-                    {Math.random().toString()}
-                  </HistoryBox>
-                );
-              })}
+            <div
+              className={
+                cssClasses.textToImageContainer +
+                "  w-full h-[80%] no-scrollbar flex flex-col gap-2"
+              }
+            >
+              {Array(15)
+                .fill(13)
+                .map((value, index) => {
+                  return (
+                    <HistoryBox key={index}>
+                      {Math.random().toString()}
+                    </HistoryBox>
+                  );
+                })}
+            </div>
           </div>
         </div>
       </div>
