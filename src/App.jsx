@@ -11,10 +11,7 @@ import SpellChecker from "./FolderForTools/SpellChecker/SpellChecker";
 // import AllToolsMainPage from "./layout/AllToolsMainPage/AllToolsMainPage";
 function App() {
   return (
-    <div>
-      {/* <TextToImage /> */}
-      <SpellChecker />
-    </div>
+
 
   );
 }
