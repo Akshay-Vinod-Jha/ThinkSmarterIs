@@ -12,7 +12,7 @@ const History = ({ history, showHistory, setShowHistory }) => {
       <div className={classes["history-title"]}>
         <h2 className={classes.histroyHeading}>
           <MdHistory fontSize="1.5rem" />
-          History
+          Recent
         </h2>
         <IoClose
           fontSize={`2rem`}

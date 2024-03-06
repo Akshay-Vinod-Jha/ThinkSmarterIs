@@ -5,14 +5,14 @@
 // import SignUp from "./Signup&login/SignUp";
 // import TextToImage from "./FolderForTools/textToImage/TextToImage";
 // import SignIN from "./Signup&login/SignIN";
-// import VisionVerbalizer from "./FolderForTools/VisionVerbalizer/VisionVerbalizer";
+import VisionVerbalizer from "./FolderForTools/VisionVerbalizer/VisionVerbalizer";
 import TextToImage from "./FolderForTools/textToImage/TextToImage";
 // import AllToolsMainPage from "./layout/AllToolsMainPage/AllToolsMainPage";
 function App() {
   return (
     <div>
-      <TextToImage />
-      {/* <VisionVerbalizer /> */}
+      {/* <TextToImage /> */}
+      <VisionVerbalizer />
     </div>
   );
 }
