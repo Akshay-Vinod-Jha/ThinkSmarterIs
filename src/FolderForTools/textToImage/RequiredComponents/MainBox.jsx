@@ -6,7 +6,11 @@ function MainBox() {
       {Array(5)
         .fill(6)
         .map((value, index) => {
-          return <ActualBoxes>{Math.random().toString()}</ActualBoxes>;
+          return (
+            <ActualBoxes key={`txttoimgActualBoxes${index}`}>
+              {Math.random().toString()}
+            </ActualBoxes>
+          );
         })}
     </div>
   );

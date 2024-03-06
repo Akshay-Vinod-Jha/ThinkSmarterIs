@@ -7,13 +7,7 @@
 // import SignIN from "./Signup&login/SignIN";
 // import VisionVerbalizer from "./FolderForTools/VisionVerbalizer/VisionVerbalizer";
 import TextToImage from "./FolderForTools/textToImage/TextToImage";
-import AllToolsMainPage from "./layout/AllToolsMainPage/AllToolsMainPage";
-import SpellChecker from "./FolderForTools/SpellChecker/SpellChecker";
-function App() {
-  return (
-   <div>
-      <SpellChecker />
-   </div>
+
   );
 }
 
