@@ -12,8 +12,8 @@ import TextToImage from "./FolderForTools/textToImage/TextToImage";
 function App() {
   return (
     <div>
-      {/* <TextToImage /> */}
-      <VisionVerbalizer />
+      <TextToImage />
+      {/* <VisionVerbalizer /> */}
     </div>
 
   );

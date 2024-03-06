@@ -1,9 +1,10 @@
 import classes from "./History.module.css";
-import { FaRegCopy } from "react-icons/fa6";
+// import { FaRegCopy } from "react-icons/fa6";
 import { AiOutlineMessage } from "react-icons/ai";
 import { MdHistory } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
-import { copyTextToClipboard } from "../common-funtions/copy.jsx";
+// import { copyTextToClipboard } from "../common-funtions/copy.jsx";
+import Copy from "./Copy.jsx";
 const History = ({ history, showHistory, setShowHistory }) => {
   return (
     <div
@@ -32,17 +33,7 @@ const History = ({ history, showHistory, setShowHistory }) => {
                   fontSize="1.5rem"
                   color="rgba(255,255,255,0.75)"
                 />
-                <div
-                  className={classes.copy}
-                  onClick={() => copyTextToClipboard(val)}
-                >
-                  Copy
-                  <FaRegCopy
-                    fontSize="1rem"
-                    color="rgba(255,255,255,0.75)"
-                    className={classes.icon}
-                  />
-                </div>
+               <Copy size="small" text={val}/>
               </div>
             </div>
           );
