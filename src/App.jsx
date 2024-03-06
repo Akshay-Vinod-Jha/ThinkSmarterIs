@@ -8,10 +8,11 @@
 // import VisionVerbalizer from "./FolderForTools/VisionVerbalizer/VisionVerbalizer";
 import TextToImage from "./FolderForTools/textToImage/TextToImage";
 import SpellChecker from "./FolderForTools/SpellChecker/SpellChecker";
+import { textToImage } from "@huggingface/inference";
 // import AllToolsMainPage from "./layout/AllToolsMainPage/AllToolsMainPage";
 function App() {
   return (
-
+<div><TextToImage/></div>
 
   );
 }
