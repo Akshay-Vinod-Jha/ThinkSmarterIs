@@ -5,21 +5,15 @@
 // import SignUp from "./Signup&login/SignUp";
 // import TextToImage from "./FolderForTools/textToImage/TextToImage";
 // import SignIN from "./Signup&login/SignIN";
-import VisionVerbalizer from "./FolderForTools/VisionVerbalizer/VisionVerbalizer";
+// import VisionVerbalizer from "./FolderForTools/VisionVerbalizer/VisionVerbalizer";
 import TextToImage from "./FolderForTools/textToImage/TextToImage";
-import AllToolsMainPage from "./layout/AllToolsMainPage/AllToolsMainPage";
+// import AllToolsMainPage from "./layout/AllToolsMainPage/AllToolsMainPage";
 function App() {
   return (
-<<<<<<< HEAD
     <div>
-      {/* <TextToImage /> */}
-      <AllToolsMainPage />
+      <TextToImage />
+      {/* <VisionVerbalizer /> */}
     </div>
-=======
-   <div>
-      <VisionVerbalizer/>
-   </div>
->>>>>>> 4cce22fe171a6f284b6564e1e44b86127776d57c
   );
 }
 
