@@ -6,7 +6,7 @@ const PromptInputField = forwardRef((props, ref) => {
       rows={3}
       ref={ref}
       type={props.type}
-      className="w-[100%] lg:col-span-3 bg-[#1E1E1E] p-1 rounded-md px-4 overflow-scroll no-scrollbar resize-none"
+      className="w-[100%] border-none outline-none lg:col-span-3 bg-[#1E1E1E] p-1 rounded-md text-white px-4 overflow-scroll no-scrollbar resize-none font-lexend text-base md:text-base lg:text-lg"
       autoFocus={true}
       placeholder={props.placeholder}
     />
