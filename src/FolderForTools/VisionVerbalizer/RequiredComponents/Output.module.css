@@ -14,7 +14,7 @@
 .text {
   font-size: small;
   color: rgba(255, 255, 255, 0.6);
-  font-size: large;
+  font-size: 1.15rem;
 }
 .output::-webkit-scrollbar {
   display: none;
@@ -28,21 +28,7 @@
   padding-block: 1rem;
 }
 
-.copy {
-  transition: all ease-in 0.1s 1ms;
-  display: flex;
-  gap: 0.25rem;
-  align-items: center;
-  color: rgba(255, 255, 255, 0.75);
-  cursor: pointer;
-  background-color: #1e1e1e;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  font-size: small;
-}
-.copy:hover {
-  color: rgba(255, 255, 255, 1);
-}
+
 @media screen and (max-width: 750px) {
   .output {
     margin: 0.5rem;

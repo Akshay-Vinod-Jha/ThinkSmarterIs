@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from "react";
-import { FaRepeat, FaWandMagicSparkles } from "react-icons/fa6";
+import { FaWandMagicSparkles } from "react-icons/fa6";
 import { MdDownloading } from "react-icons/md";
 import cssClasses from "./TextToImage.module.css";
 import TryThese from "./RequiredComponents/TryThese";
@@ -15,6 +15,7 @@ import PopUp from "../../UI/PopUp.jsx";
 import { MdError } from "react-icons/md";
 import Loader from "../../UI/Loader.jsx";
 import { MdHistory } from "react-icons/md";
+import {downloadImage} from '../../common-funtions/download.jsx'
 
 function TextToImage() {
   const HF_TOKEN = "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";
@@ -25,12 +26,13 @@ function TextToImage() {
   const promptInputRef = useRef(null);
 
   const get = useCallback(async (temp) => {
+    window.scroll(0,0)
     setIsLoding(true);
     try {
       const inference = new HfInference(HF_TOKEN);
       const data = await inference.textToImage({
         model: "runwayml/stable-diffusion-v1-5",
-        inputs: `a High Quality and High Resolution image of ${temp}`,
+        inputs: `${temp}`,
         parameters: {
           negative_prompt: "high quality, high resolution",
         },
@@ -65,7 +67,7 @@ function TextToImage() {
     <div
       className={
         cssClasses.textToImageContainer +
-        "  w-[99vw] h-auto lg:h-[120vh] min-h-screen bg-[#1E1E1E] grid grid-cols-1 grid-rows-3 md:grid-rows-3 lg:grid-rows-4 gap-2 p-1 md:p-2 lg:p-3 xl:p-4"
+        "  w-[99vw] lg:h-[150vh] min-h-screen bg-[#1E1E1E] grid grid-cols-1   gap-2 p-1 md:p-2 lg:p-3 xl:p-4"
       }
     >
       {error &&
@@ -81,9 +83,9 @@ function TextToImage() {
           document.getElementById("popup")
         )}
       {/* firstChild */}
-      <div className="bg-black row-span-2  md:row-span-2 lg:row-span-3 rounded-xl grid grid-cols-4 gap-4 p-2">
+      <div className="bg-black h-[95vh] row-span-2  md:row-span-2 lg:row-span-3 rounded-xl grid grid-cols-4 gap-4 p-2">
         {/* 1c */}
-        <div className="col-span-4 p-1 lg:col-span-3 bg-[black] rounded-xl grid grid-cols-1">
+        <div className="col-span-4 p-1 lg:col-span-3  rounded-xl grid grid-cols-1">
           <div className="bg-transparent rounded-xl flex flex-col gap-2 justify-evenly items-center font-mono font-extrabold tracking-widest text-base text-[#728894]">
             <div className={cssClasses.titleContainer}>
               <h1 className="ml-2 w-max text-2xl border-b-2 hover:border-none  border-[#728894]">
@@ -96,7 +98,7 @@ function TextToImage() {
                 onClick={() => setShowHistory(true)}
               />
             </div>
-            <div className="w-[100%] p-1 lg:p-3 bg-black rounded-xl grid grid-col-1 gap-4 lg:grid-cols-4">
+            <div className="w-[100%] p-1 lg:p-3 bg-black rounded-xl grid grid-col-1 gap-4 lg:grid-cols-4 items-end">
               <PromptInputField
                 placeholder="Enter Propmt Here..."
                 type="text"
@@ -111,21 +113,15 @@ function TextToImage() {
             </div>
             <div className={cssClasses.generatedImageContainer}>
               {isLoading ? (
-                <div className={cssClasses.loadingContainer}>
-                  <Loading />
-                  <p>Generating Image...</p>
-                </div>
+                  <Loading label="Generating Image..." size="50px"/>
               ) : (
                 content
               )}
             </div>
-            <div className="w-full p-1 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:place-items-start">
-              <h1 className="flex justify-center items-center gap-1 hover:text-white">
-                Regenerate Image
-                <FaRepeat />
-              </h1>
-              <div className="w-[100%] col-span-1  lg:w-[50%]  lg:place-self-end p-1 rounded-md flex justify-center items-center">
-                <OrangeButton>
+            <div className="w-full p-1 grid grid-cols-1 gap-4 lg:place-items-start">
+            
+              <div className="w-[100%] col-span-1 lg:w-[25%] lg:place-self-end p-1 rounded-md flex justify-center items-center">
+                <OrangeButton onClick={()=>downloadImage(src)}>
                   Export
                   <MdDownloading />
                 </OrangeButton>
@@ -149,10 +145,13 @@ function TextToImage() {
           />
         </div>
       </div>
-      <div className="bg-black rounded-xl flex flex-col justify-center items-center p-2">
-        <div className="w-full h-full p-2">
+      <div className="bg-black rounded-xl h-[50vh] flex flex-col justify-center items-center overflow-scroll no-scrollbar">
+        <div className="w-full h-full overflow-scroll no-scrollbar">
           <TryThese />
-          <MainBox />
+          <MainBox setPrompt={(prompt)=>{
+                 promptInputRef.current.value = prompt;
+                 get(prompt)
+          }}/>          
         </div>
       </div>
     </div>
