@@ -3,7 +3,7 @@ import { FaRegCopy } from "react-icons/fa6";
 import { AiOutlineMessage } from "react-icons/ai";
 import { MdHistory } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
-import {copyTextToClipboard} from '../common-funtions/copy.jsx';
+import { copyTextToClipboard } from "../common-funtions/copy.jsx";
 const History = ({ history, showHistory, setShowHistory }) => {
   return (
     <div
@@ -11,7 +11,7 @@ const History = ({ history, showHistory, setShowHistory }) => {
     >
       <div className={classes["history-title"]}>
         <h2 className={classes.histroyHeading}>
-          <MdHistory fontSize="2rem" />
+          <MdHistory fontSize="1.5rem" />
           History
         </h2>
         <IoClose
@@ -38,7 +38,7 @@ const History = ({ history, showHistory, setShowHistory }) => {
                 >
                   Copy
                   <FaRegCopy
-                    fontSize="1.5rem"
+                    fontSize="1rem"
                     color="rgba(255,255,255,0.75)"
                     className={classes.icon}
                   />

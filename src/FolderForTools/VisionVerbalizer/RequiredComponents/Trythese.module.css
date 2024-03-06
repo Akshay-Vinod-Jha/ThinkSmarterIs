@@ -4,6 +4,10 @@
   object-fit: cover;
   border-radius: 0.5rem;
   cursor: pointer;
+  transition: all ease-in 0.1s 1ms;
+}
+.samples:hover {
+  scale: 1.01;
 }
 .tryThisCantainer {
   display: flex;
