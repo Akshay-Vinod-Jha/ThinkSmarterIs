@@ -1,7 +1,6 @@
 .histroyHeading {
   color: #728894;
   font-size: large;
-  font-weight: 700 !important;
   display: flex;
   align-items: center;
   gap: 0.25rem;
@@ -17,7 +16,7 @@
   overflow-y: scroll;
   background-color: #1e1e1e;
   border-radius: 0.5rem;
-  height: 665px;
+  height: 600px;
   scroll-padding-block: 1rem;
   scroll-margin-block: 1rem;
   border: 0.1rem solid #1e1e1e;
@@ -46,22 +45,6 @@
   display: none;
 }
 
-.copy {
-  transition: all ease-in 0.1s 1ms;
-  display: flex;
-  gap: 0.25rem;
-  align-items: center;
-  color: rgba(255, 255, 255, 0.75);
-  cursor: pointer;
-  background-color: #1e1e1e;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  font-size: smaller;
-}
-
-.copy:hover {
-  color: rgba(255, 255, 255, 1);
-}
 
 .hide {
   right: -100vw;

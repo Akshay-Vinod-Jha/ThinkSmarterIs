@@ -1,5 +1,5 @@
 .loader {
-    width: 50px;
+    /* width: 50px; */
     aspect-ratio: 1;
     display: grid;
     border-radius: 50%;
@@ -21,6 +21,14 @@
   .loader::after {
      opacity: 0.83;
      transform: rotate(60deg);
+  }
+  .loadingContainer {
+    color: #728894;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
   }
   @keyframes l23 {
     100% {transform: rotate(1turn)}

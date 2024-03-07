@@ -7,22 +7,7 @@ import TextToImage from "./FolderForTools/textToImage/TextToImage";
 import SignIN from "./Signup&login/SignIN";
 import VisionVerbalizer from "./FolderForTools/VisionVerbalizer/VisionVerbalizer";
 import SpellChecker from "./FolderForTools/SpellChecker/SpellChecker";
-import AllToolsMainPage from "./layout/AllToolsMainPage/AllToolsMainPage";
 function App() {
-  return (
-    <div>
-      <Header></Header>
-      <Home></Home>
-      <SliderCantainer></SliderCantainer>
-      <Footer></Footer>
-      {/* <SignIN></SignIN> */}
-      {/* <SignUp></SignUp> */}
-      {/* <VisionVerbalizer></VisionVerbalizer> */}
-      {/* <TextToImage /> */}
-      {/* <SpellChecker /> */}
-      {/* <AllToolsMainPage></AllToolsMainPage> */}
-    </div>
-  );
 }
 
 export default App;

@@ -31,6 +31,7 @@ const VisionVerbalizer = () => {
         data: blobimage,
         model: "Salesforce/blip-image-captioning-large",
       });
+      console.log(data)
       setGeneratedText(data.generated_text);
     } catch (err) {
       console.log(err.message);
