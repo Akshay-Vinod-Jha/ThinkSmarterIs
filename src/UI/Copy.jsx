@@ -1,4 +1,6 @@
 import { copyTextToClipboard } from "../common-funtions/copy";
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
+
 import { FaRegCopy } from "react-icons/fa6";
 import classes from "./Copy.module.css";
 import { useState, Fragment } from "react";
@@ -17,7 +19,10 @@ const Copy = ({ size, text }) => {
       }}
     >
       {copy ? (
-        <p>Copied</p>
+        <p className="flex justify-center items-center gap-2">
+          Copied
+          <IoCheckmarkDoneCircle className="text-green-500 text-2xl"></IoCheckmarkDoneCircle>
+        </p>
       ) : (
         <Fragment>
           {" "}
