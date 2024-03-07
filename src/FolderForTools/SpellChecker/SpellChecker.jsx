@@ -89,13 +89,22 @@ function SpellChecker() {
         </div>
         {display && (
           <div
-            className="absolute p-4 rounded-xl flex justify-center text-base md:text-base lg:text-lg xl:text-lg font-lexend  items-center bg-[#fc0001]"
+            className="absolute  rounded-xl flex justify-center  font-lexend  items-center bg-[#728894] text-[#fc0001]"
             style={{
               top: location.y - 100 + "px",
               left: location.x + "px",
+              transform: "translateX(-50%)",
             }}
           >
-            {location.text}
+            <div className="w-full h-full relative font-extrabold p-4 text-sm md:text-base lg:text-lg xl:text-lg">
+              {location.text}{" "}
+              <div
+                className="absolute top-[95%] left-[50%] -translate-x-[50%] bg-[#728894] w-10 h-4"
+                style={{
+                  clipPath: "polygon(0 0, 46% 100%, 100% 0)",
+                }}
+              ></div>
+            </div>
           </div>
         )}
         <div className="w-full mt-4 px-2 md:px-4 flex flex-row justify-between items-center">
@@ -109,6 +118,7 @@ function SpellChecker() {
                     return previousIndex - 1;
                   });
                 }
+                setShowBelow(false);
               }}
             >
               <FaBackward></FaBackward>
@@ -124,6 +134,7 @@ function SpellChecker() {
                     return previousIndex + 1;
                   });
                 }
+                setShowBelow(false);
               }}
             >
               <FaForward></FaForward>
@@ -133,8 +144,25 @@ function SpellChecker() {
       </div>
       {showBelow && (
         <div className="mt-4 w-[100%] lg:w-[92.5%] p-2 rounded-xl lg:ml-4 flex flex-col justify-center items-center text-white bg-[#1E1E1E]">
-          {content.general_error_type}
-          {content.replacement}
+          {[
+            ["General Error Type", content.general_error_type],
+            ["Replacement String ", content.replacement],
+          ].map((value, index) => {
+            return (
+              <div
+                className="w-full text-base md:text-base  pb-2 lg:text-lg font-lexend px-1   grid grid-cols-1 md:grid-cols-2 place-content-center items-start gap-2 md:justify-between md:gap-0"
+                style={{
+                  borderBottom: index === 0 ? ".10rem solid #72889435" : "none",
+                }}
+              >
+                <h1 className="w-full font-extrabold pt-2">
+                  {value[0]}
+                  <span className="inline lg:hidden"> :-</span>
+                </h1>
+                <h1 className="w-full text-[#fc0001] pt-4 pb-2">{value[1]}</h1>
+              </div>
+            );
+          })}
         </div>
       )}
     </div>
