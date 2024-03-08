@@ -3,9 +3,10 @@ import ToolsTitle from "../../UI/ToolsTitle";
 import PromptInputField from "../../UI/PromptInputField";
 import { LuMonitorCheck } from "react-icons/lu";
 import OrangeButton from "../../UI/OrangeButton";
-import WhiteButton from "../../UI/WhiteButton";
-import { FaBackward } from "react-icons/fa";
-import { FaForward } from "react-icons/fa";
+import PrevNextContainer from "./PrevNextContainer";
+import ShowingCorrectOne from "./ShowingCorrectOne";
+import MainParentErrorBox from "./MainParentErrorBox";
+import ErrorTypeIndicator from "./ErrorTypeIndicator";
 function SpellChecker() {
   const sentenceRef = useRef();
   const [state, setState] = useState([
@@ -17,9 +18,40 @@ function SpellChecker() {
   const [index, setIndex] = useState(0);
   const [showBelow, setShowBelow] = useState(false);
   const [content, setContent] = useState([]);
+  const [color, setColor] = useState([false, "#728894"]);
+  const [v, setV] = useState(true);
+  const [correctone, setCorrectedOne] = useState(false);
+  const [sentence, setSentence] = useState("");
+  const updateTheColor = (received) => {
+    setColor([...received]);
+  };
+  const updateShowBelow = (received) => {
+    setShowBelow(received);
+  };
+  const updateTheCorrectedOne = (received) => {
+    setCorrectedOne(received);
+  };
+  const updateTheV = (received) => {
+    setV(received);
+  };
+  const updateTheIndex = (updatedIndexIs) => {
+    setIndex(updatedIndexIs);
+  };
   useEffect(() => {
     setState(JSON.parse(localStorage.getItem("SpellChecker")).edits);
   }, []);
+
+  const callMe = (temp) => {
+    state.map((value) => {
+      let result = "";
+      for (let j = value.start; j < value.end; j++) {
+        result = result + value.sentence[j];
+      }
+      temp = temp.replace(result, value.replacement);
+      return [result, value.replacement];
+    });
+    setSentence(temp);
+  };
   return (
     <div className="w-screen p-2 mt-4 grid grid-cols-1 place-content-center place-items-center">
       {/* first Title */}
@@ -52,9 +84,9 @@ function SpellChecker() {
             return cindex >= state[index].start &&
               cindex <= state[index].end ? (
               <span
-                className="text-white font-lexend underline decoration-wavy decoration-red-600 underline-offset-2 md:underline-offset-8 text-base md:text-base lg:text-lg"
+                key={`span${cindex}`}
+                className="text-white cursor-pointer font-lexend underline decoration-wavy decoration-red-600 underline-offset-2 md:underline-offset-8 text-base md:text-base lg:text-lg"
                 onMouseOver={(e) => {
-                  console.log("hii", e.clientX, e.clientY);
                   setLocation({
                     text: state[index].error_type,
                     x: e.clientX,
@@ -66,14 +98,11 @@ function SpellChecker() {
                   setShowBelow((previousState) => {
                     return !previousState;
                   });
-                  console.log(state[index]);
                   setContent(state[index]);
                 }}
                 onMouseOut={(e) => {
-                  console.log("hello");
                   setDisplay(false);
                 }}
-                key={cindex}
               >
                 {value}
               </span>
@@ -88,82 +117,32 @@ function SpellChecker() {
           })}
         </div>
         {display && (
-          <div
-            className="absolute  rounded-xl flex justify-center  font-lexend  items-center bg-[#728894] text-[#fc0001]"
-            style={{
-              top: location.y - 100 + "px",
-              left: location.x + "px",
-              transform: "translateX(-50%)",
-            }}
-          >
-            <div className="w-full h-full relative font-extrabold p-4 text-sm md:text-base lg:text-lg xl:text-lg">
-              {location.text}{" "}
-              <div
-                className="absolute top-[95%] left-[50%] -translate-x-[50%] bg-[#728894] w-10 h-4"
-                style={{
-                  clipPath: "polygon(0 0, 46% 100%, 100% 0)",
-                }}
-              ></div>
-            </div>
-          </div>
+          <ErrorTypeIndicator location={location}></ErrorTypeIndicator>
         )}
-        <div className="w-full mt-4 px-2 md:px-4 flex flex-row justify-between items-center">
-          <div className="w-max">
-            <OrangeButton
-              onClick={() => {
-                if (index === 0) {
-                  setIndex(state.length - 1);
-                } else {
-                  setIndex((previousIndex) => {
-                    return previousIndex - 1;
-                  });
-                }
-                setShowBelow(false);
-              }}
-            >
-              <FaBackward></FaBackward>
-            </OrangeButton>
-          </div>
-          <div className="w-max">
-            <WhiteButton
-              onClick={() => {
-                if (index === state.length - 1) {
-                  setIndex(0);
-                } else {
-                  setIndex((previousIndex) => {
-                    return previousIndex + 1;
-                  });
-                }
-                setShowBelow(false);
-              }}
-            >
-              <FaForward></FaForward>
-            </WhiteButton>
-          </div>
-        </div>
+        <PrevNextContainer
+          index={index}
+          setIndex={setIndex}
+          state={state}
+          updateTheColor={updateTheColor}
+          updateTheV={updateTheV}
+          updateShowBelow={updateShowBelow}
+          updateTheCorrectedOne={updateTheCorrectedOne}
+        ></PrevNextContainer>
       </div>
       {showBelow && (
-        <div className="mt-4 w-[100%] lg:w-[92.5%] p-2 rounded-xl lg:ml-4 flex flex-col justify-center items-center text-white bg-[#1E1E1E]">
-          {[
-            ["General Error Type", content.general_error_type],
-            ["Replacement String ", content.replacement],
-          ].map((value, index) => {
-            return (
-              <div
-                className="w-full text-base md:text-base  pb-2 lg:text-lg font-lexend px-1   grid grid-cols-1 md:grid-cols-2 place-content-center items-start gap-2 md:justify-between md:gap-0"
-                style={{
-                  borderBottom: index === 0 ? ".10rem solid #72889435" : "none",
-                }}
-              >
-                <h1 className="w-full font-extrabold pt-2">
-                  {value[0]}
-                  <span className="inline lg:hidden"> :-</span>
-                </h1>
-                <h1 className="w-full text-[#fc0001] pt-4 pb-2">{value[1]}</h1>
-              </div>
-            );
-          })}
-        </div>
+        <MainParentErrorBox
+          content={content}
+          color={color}
+          updateTheColor={updateTheColor}
+          state={state}
+          v={v}
+          callMe={callMe}
+          updateTheCorrectedOne={updateTheCorrectedOne}
+          updateTheV={updateTheV}
+        ></MainParentErrorBox>
+      )}
+      {correctone && (
+        <ShowingCorrectOne sentence={sentence}></ShowingCorrectOne>
       )}
     </div>
   );
