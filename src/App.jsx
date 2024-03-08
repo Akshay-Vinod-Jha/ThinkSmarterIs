@@ -8,6 +8,7 @@ import SignIN from "./Signup&login/SignIN";
 import VisionVerbalizer from "./FolderForTools/VisionVerbalizer/VisionVerbalizer";
 import SpellChecker from "./FolderForTools/SpellChecker/SpellChecker";
 function App() {
+  return <SpellChecker></SpellChecker>;
 }
 
 export default App;
