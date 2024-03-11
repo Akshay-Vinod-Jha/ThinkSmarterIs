@@ -12,7 +12,7 @@ import PopUp from "./UI/PopUp";
 import { useSelector } from "react-redux";
 import { getPopUpState } from "./store/popupSlice";
 import TextExtraction from "./FolderForTools/TextExtraction/TextExtraction";
-function App() {
+const App = () => {
   const showPop = useSelector(getPopUpState);
   return (
     <div>
@@ -22,8 +22,7 @@ function App() {
           document.getElementById("popup")
         )}
       <TextToImage />
-    
     </div>
   );
-
+};
 export default App;
