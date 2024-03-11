@@ -12,7 +12,7 @@
 .upper {
   display: grid;
   padding: 0.5rem;
-  grid-template-columns: 3.25fr 1fr;
+  grid-template-columns: 3fr 1fr;
   gap: 0.5rem;
   background-color: black;
   margin: 0.5rem 1rem;

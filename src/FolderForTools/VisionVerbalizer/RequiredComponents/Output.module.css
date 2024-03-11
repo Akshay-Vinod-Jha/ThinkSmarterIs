@@ -28,7 +28,6 @@
   padding-block: 1rem;
 }
 
-
 @media screen and (max-width: 750px) {
   .output {
     margin: 0.5rem;

@@ -5,10 +5,11 @@ import { MdHistory } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
 // import { copyTextToClipboard } from "../common-funtions/copy.jsx";
 import Copy from "./Copy.jsx";
-const History = ({ history, showHistory, setShowHistory }) => {
+const History = ({ history, showHistory, setShowHistory, height }) => {
   return (
     <div
       className={`${classes["history-container"]} ${showHistory ? classes.show : classes.hide}`}
+      style={{ height: height }}
     >
       <div className={classes["history-title"]}>
         <h2 className={classes.histroyHeading}>
@@ -33,7 +34,7 @@ const History = ({ history, showHistory, setShowHistory }) => {
                   fontSize="1.5rem"
                   color="rgba(255,255,255,0.75)"
                 />
-               <Copy size="small" text={val}/>
+                <Copy size="small" text={val} />
               </div>
             </div>
           );

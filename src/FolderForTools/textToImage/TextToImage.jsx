@@ -10,41 +10,52 @@ import History from "../../UI/History";
 import { CiImageOn } from "react-icons/ci";
 import Loading from "../../UI/Loading";
 import { HfInference } from "@huggingface/inference";
-import { createPortal } from "react-dom";
-import PopUp from "../../UI/PopUp.jsx";
 import { MdError } from "react-icons/md";
 import Loader from "../../UI/Loader.jsx";
 import { MdHistory } from "react-icons/md";
-import {downloadImage} from '../../common-funtions/download.jsx'
+import { downloadImage } from "../../common-funtions/download.jsx";
+import { useDispatch } from "react-redux";
+import { hidePopUp, showPopUp } from "../../store/popupSlice.jsx";
+import { client } from "@gradio/client";
 
 function TextToImage() {
+  const dispatch = useDispatch();
   const HF_TOKEN = "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";
   const [src, setSrc] = useState(null);
   const [showHistory, setShowHistory] = useState(false);
   const [isLoading, setIsLoding] = useState(false);
-  const [error, setError] = useState(null);
   const promptInputRef = useRef(null);
 
   const get = useCallback(async (temp) => {
-    window.scroll(0,0)
+    window.scroll(0, 0);
     setIsLoding(true);
     try {
       const inference = new HfInference(HF_TOKEN);
+
       const data = await inference.textToImage({
-        model: "runwayml/stable-diffusion-v1-5",
+        model: "playgroundai/playground-v2-1024px-aesthetic",
         inputs: `${temp}`,
-        parameters: {
-          negative_prompt: "high quality, high resolution",
-        },
+        negative_prompt: "blurry, ugly, noisy, poorly",
       });
       let reader = new FileReader();
       reader.readAsDataURL(data);
-      reader.onloadend = () => {
-        setSrc(reader.result);
-      };
-    } catch {
-      setError("Failed to Generate Image");
-      setTimeout(() => setError(null), 3000);
+      reader.onloadend = () => setSrc(reader.result);
+    } catch (err) {
+      console.log(err);
+      dispatch(
+        showPopUp({
+          color: "#892330",
+          bgColor: "#e5c2c2",
+          title: "Something went Wrong!",
+          description: "Failed to Generate Image",
+          icon: <MdError color="#892330" fontSize="4rem" />,
+        })
+      );
+      promptInputRef.current.value = ``;
+      setSrc(null);
+      setTimeout(() => {
+        dispatch(hidePopUp());
+      }, 5000);
     } finally {
       setIsLoding(false);
     }
@@ -67,26 +78,15 @@ function TextToImage() {
     <div
       className={
         cssClasses.textToImageContainer +
-        "  w-[99vw] lg:h-[150vh] min-h-screen bg-[#1E1E1E] grid grid-cols-1   gap-2 p-1 md:p-2 lg:p-3 xl:p-4"
+        "  w-[99vw] lg:h-[auto] min-h-screen bg-[#1E1E1E] grid grid-cols-1  gap-2 p-1 md:p-2 lg:p-3 xl:p-2"
       }
     >
-      {error &&
-        createPortal(
-          <PopUp
-            closePopUp={() => setError(null)}
-            color={"#892330"}
-            bgColor={"#e5c2c2"}
-            title="Something went Wrong!"
-            description={error}
-            icon={<MdError color={"#892330"} fontSize={"4rem"} />}
-          />,
-          document.getElementById("popup")
-        )}
       {/* firstChild */}
-      <div className="bg-black h-[95vh] row-span-2  md:row-span-2 lg:row-span-3 rounded-xl grid grid-cols-4 gap-4 p-2">
+
+      <div className="bg-black h-[auto] row-span-2  md:row-span-2 lg:row-span-3 rounded-xl grid grid-cols-4 gap-2 p-2">
         {/* 1c */}
         <div className="col-span-4 p-1 lg:col-span-3  rounded-xl grid grid-cols-1">
-          <div className="bg-transparent rounded-xl flex flex-col gap-2 justify-evenly items-center font-mono font-extrabold tracking-widest text-base text-[#728894]">
+          <div className="bg-transparent rounded-xl flex flex-col gap-2 justify-between items-center text-base text-[#728894]">
             <div className={cssClasses.titleContainer}>
               <h1 className="ml-2 w-max text-2xl border-b-2 hover:border-none  border-[#728894]">
                 Visiualize AI
@@ -98,61 +98,64 @@ function TextToImage() {
                 onClick={() => setShowHistory(true)}
               />
             </div>
-            <div className="w-[100%] p-1 lg:p-3 bg-black rounded-xl grid grid-col-1 gap-4 lg:grid-cols-4 items-end">
+
+            {src && !isLoading && (
+              <div className="w-[100%] col-span-1 lg:w-[25%] lg:place-self-end rounded-md flex justify-center items-center">
+                <OrangeButton onClick={() => downloadImage(src)}>
+                  Export
+                  <MdDownloading />
+                </OrangeButton>
+              </div>
+            )}
+
+            <div className={cssClasses.generatedImageContainer}>
+              {isLoading ? (
+                <Loading label="Generating Image..." size="50px" />
+              ) : (
+                content
+              )}
+            </div>
+            {/* <div className="w-full p-1 grid grid-cols-1 gap-4 lg:place-items-start"> */}
+
+            {/* </div> */}
+            <div className="w-[100%] lg:p-1 bg-black rounded-xl grid grid-col-1 gap-2 lg:grid-cols-4 items-end">
               <PromptInputField
                 placeholder="Enter Propmt Here..."
                 type="text"
                 ref={promptInputRef}
               />
-              <div className="w-full lg:col-span-1 rounded-md text-white flex justify-center items-center">
-                <OrangeButton onClick={() => get(promptInputRef.current.value)}>
-                  {isLoading && <Loader />}Generate Image
+              <div className="w-full lg:col-span-1 rounded-md text-white flex-col justify-center items-center">
+                <OrangeButton
+                  onClick={() => get(promptInputRef.current.value)}
+                  isLoading={isLoading}
+                >
+                  {isLoading && <Loader />}
+                  {isLoading ? "Generating..." : "Generate Image"}
                   {!isLoading && <FaWandMagicSparkles />}
-                </OrangeButton>
-              </div>
-            </div>
-            <div className={cssClasses.generatedImageContainer}>
-              {isLoading ? (
-                  <Loading label="Generating Image..." size="50px"/>
-              ) : (
-                content
-              )}
-            </div>
-            <div className="w-full p-1 grid grid-cols-1 gap-4 lg:place-items-start">
-            
-              <div className="w-[100%] col-span-1 lg:w-[25%] lg:place-self-end p-1 rounded-md flex justify-center items-center">
-                <OrangeButton onClick={()=>downloadImage(src)}>
-                  Export
-                  <MdDownloading />
                 </OrangeButton>
               </div>
             </div>
           </div>
         </div>
         {/* 2nd */}
-        <div
-          className={
-            cssClasses.textToImageContainer +
-            "   lg:flex col-span-1 no-scrollbar  border-4 border-[#1E1E1E] overflow-auto bg-[#1E1E1E] rounded-xl"
-          }
-        >
-          <History
-            showHistory={showHistory}
-            setShowHistory={setShowHistory}
-            history={Array(5).fill(
-              "The Generated text History from the uploaded image is displayed here."
-            )}
-          />
-        </div>
+
+        <History
+          height="95vh"
+          showHistory={showHistory}
+          setShowHistory={setShowHistory}
+          history={Array(10).fill(
+            "The Generated text History from the uploaded image is displayed here."
+          )}
+        />
       </div>
-      <div className="bg-black rounded-xl h-[50vh] flex flex-col justify-center items-center overflow-scroll no-scrollbar">
-        <div className="w-full h-full overflow-scroll no-scrollbar">
-          <TryThese />
-          <MainBox setPrompt={(prompt)=>{
-                 promptInputRef.current.value = prompt;
-                 get(prompt)
-          }}/>          
-        </div>
+      <div className="bg-black rounded-xl h-[fit-content]">
+        <TryThese />
+        <MainBox
+          setPrompt={(prompt) => {
+            promptInputRef.current.value = prompt;
+            get(prompt);
+          }}
+        />
       </div>
     </div>
   );
