@@ -22,10 +22,8 @@ function App() {
           document.getElementById("popup")
         )}
       <TextToImage />
-      {/* <VisionVerbalizer /> */}
-      {/* <TextExtraction /> */}
+    
     </div>
   );
-}
 
 export default App;

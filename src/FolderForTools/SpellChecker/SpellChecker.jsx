@@ -1,12 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import ToolsTitle from "../../UI/ToolsTitle";
-import PromptInputField from "../../UI/PromptInputField";
-import { LuMonitorCheck } from "react-icons/lu";
-import OrangeButton from "../../UI/OrangeButton";
-import PrevNextContainer from "./PrevNextContainer";
 import ShowingCorrectOne from "./ShowingCorrectOne";
 import MainParentErrorBox from "./MainParentErrorBox";
-import ErrorTypeIndicator from "./ErrorTypeIndicator";
+import MainErrorMessageDescriberParent from "./MainErrorMessageDescriberParent";
+import PromptAndButton from "./PromptAndButton";
 function SpellChecker() {
   const sentenceRef = useRef();
   const [state, setState] = useState([
@@ -54,7 +51,6 @@ function SpellChecker() {
   };
   return (
     <div className="w-screen p-2 mt-4 grid grid-cols-1 place-content-center place-items-center">
-      {/* first Title */}
       <ToolsTitle>Spell Checker</ToolsTitle>
       {/* input box */}
       <div className="w-full flex lg:flex-row mt-4 flex-col gap-2 lg:gap-0 justify-evenly  lg:pl-4  items-center">
@@ -127,6 +123,23 @@ function SpellChecker() {
           updateTheCorrectedOne={updateTheCorrectedOne}
         />
       </div>
+      <PromptAndButton sentenceRef={sentenceRef} ref={sentenceRef} />
+      <MainErrorMessageDescriberParent
+        display={display}
+        state={state}
+        index={index}
+        setLocation={setLocation}
+        setDisplay={setDisplay}
+        setShowBelow={setShowBelow}
+        setContent={setContent}
+        location={location}
+        setIndex={setIndex}
+        updateTheColor={updateTheColor}
+        updateTheV={updateTheV}
+        updateShowBelow={updateShowBelow}
+        updateTheCorrectedOne={updateTheCorrectedOne}
+      />
+
       {showBelow && (
         <MainParentErrorBox
           content={content}
