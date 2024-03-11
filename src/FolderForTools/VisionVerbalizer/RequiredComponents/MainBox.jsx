@@ -58,6 +58,7 @@ const MainBox = ({ src, updateSrc, setShowHistory }) => {
               ref={inputRef}
               style={{ display: "none" }}
               onChange={(e) => getImageHandler(e.target.files[0])}
+              accept="image/*"
             />
           </div>
         </div>

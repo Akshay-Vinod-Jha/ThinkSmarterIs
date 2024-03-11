@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ToolsTitle from "../../UI/ToolsTitle";
 import PromptInputField from "../../UI/PromptInputField";
 import { LuMonitorCheck } from "react-icons/lu";
@@ -63,7 +63,7 @@ function SpellChecker() {
             placeholder="Enter Sentence Here"
             type="text"
             ref={sentenceRef}
-          ></PromptInputField>
+          />
         </div>
         <div className="lg:w-[20%] flex justify-end items-end h-full w-[50%] text-base md:text-base lg:text-lg xl:text-lg">
           <OrangeButton
@@ -116,9 +116,7 @@ function SpellChecker() {
             );
           })}
         </div>
-        {display && (
-          <ErrorTypeIndicator location={location}></ErrorTypeIndicator>
-        )}
+        {display && <ErrorTypeIndicator location={location} />}
         <PrevNextContainer
           index={index}
           setIndex={setIndex}
@@ -127,7 +125,7 @@ function SpellChecker() {
           updateTheV={updateTheV}
           updateShowBelow={updateShowBelow}
           updateTheCorrectedOne={updateTheCorrectedOne}
-        ></PrevNextContainer>
+        />
       </div>
       {showBelow && (
         <MainParentErrorBox
@@ -139,11 +137,9 @@ function SpellChecker() {
           callMe={callMe}
           updateTheCorrectedOne={updateTheCorrectedOne}
           updateTheV={updateTheV}
-        ></MainParentErrorBox>
+        />
       )}
-      {correctone && (
-        <ShowingCorrectOne sentence={sentence}></ShowingCorrectOne>
-      )}
+      {correctone && <ShowingCorrectOne sentence={sentence} />}
     </div>
   );
 }
