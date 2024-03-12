@@ -5,13 +5,15 @@ const Output = ({ children, isLoading }) => {
   return (
     <div className={classes.output}>
       <div className={classes.headerr}>
-        <h2 className={classes.h2}>Generated Text from Image</h2>
+        <h2 className={classes.h2}>Extracted Text from Image</h2>
         {!isLoading && <Copy size="1.15rem" text={children} />}
       </div>
       {isLoading ? (
-        <Loading label="Captioning Text..." size="40px" />
+        <Loading label="Extracting Text..." size="40px" />
       ) : (
-        <p className={classes.text}>{children}</p>
+        <pre className={classes.text}>
+          <p>{children}</p>
+        </pre>
       )}
     </div>
   );

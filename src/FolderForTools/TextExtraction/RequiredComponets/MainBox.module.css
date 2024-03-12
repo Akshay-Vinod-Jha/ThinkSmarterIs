@@ -44,7 +44,7 @@
   height: 400px;
 }
 .get {
-  justify-self: flex-end !important;
+  /* justify-self: flex-end !important; */
   display: flex;
   flex-direction: column;
   justify-content: center;

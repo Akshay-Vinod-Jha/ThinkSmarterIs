@@ -7,9 +7,22 @@ import TextToImage from "./FolderForTools/textToImage/TextToImage";
 import SignIN from "./Signup&login/SignIN";
 import VisionVerbalizer from "./FolderForTools/VisionVerbalizer/VisionVerbalizer";
 import SpellChecker from "./FolderForTools/SpellChecker/SpellChecker";
-import Summarizer from "./FolderForTools/Summarizer/Summarizer";
-function App() {
-  return <Summarizer></Summarizer>;
-}
-
+import { createPortal } from "react-dom";
+import PopUp from "./UI/PopUp";
+import { useSelector } from "react-redux";
+import { getPopUpState } from "./store/popupSlice";
+import TextExtraction from "./FolderForTools/TextExtraction/TextExtraction";
+const App = () => {
+  const showPop = useSelector(getPopUpState);
+  return (
+    <div>
+      {showPop.visible &&
+        createPortal(
+          <PopUp content={showPop.style} />,
+          document.getElementById("popup")
+        )}
+      <TextToImage />
+    </div>
+  );
+};
 export default App;

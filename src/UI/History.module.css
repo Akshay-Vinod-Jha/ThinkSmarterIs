@@ -14,12 +14,16 @@
 
 .history-container {
   overflow-y: scroll;
+  overflow-x: hidden;
   background-color: #1e1e1e;
   border-radius: 0.5rem;
-  height: 600px;
+  /* height: 600px; */
   scroll-padding-block: 1rem;
   scroll-margin-block: 1rem;
   border: 0.1rem solid #1e1e1e;
+  position: sticky;
+  right: 0;
+  top: 1rem;
 }
 .history-container::-webkit-scrollbar {
   display: none;
@@ -44,7 +48,6 @@
 .close {
   display: none;
 }
-
 
 .hide {
   right: -100vw;

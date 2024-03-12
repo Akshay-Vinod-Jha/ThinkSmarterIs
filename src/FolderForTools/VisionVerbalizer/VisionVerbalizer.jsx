@@ -6,10 +6,10 @@ import { useEffect, useState, useCallback } from "react";
 import { HfInference } from "@huggingface/inference";
 import Output from "./RequiredComponents/Output";
 import History from "../../UI/History";
-import PopUp from "../../UI/PopUp";
-import { createPortal } from "react-dom";
-const HF_TOKEN = "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";
 import { MdError } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { showPopUp, hidePopUp } from "../../store/popupSlice";
+const HF_TOKEN = "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";
 
 const VisionVerbalizer = () => {
   const [src, setSrc] = useState(null);
@@ -18,7 +18,7 @@ const VisionVerbalizer = () => {
     "Generated Text will be Display Here"
   );
   const [isLoading, setIsLoding] = useState(false);
-  const [error, setError] = useState(null);
+  const dispatch = useDispatch();
 
   const get = useCallback(async (temp) => {
     setIsLoding(true);
@@ -31,16 +31,22 @@ const VisionVerbalizer = () => {
         data: blobimage,
         model: "Salesforce/blip-image-captioning-large",
       });
-      console.log(data)
       setGeneratedText(data.generated_text);
     } catch (err) {
       console.log(err.message);
-      setError(
-        "Provided Image Format is Not Supported, Try Another Image Format!"
+      dispatch(
+        showPopUp({
+          color: "#892330",
+          bgColor: "#e5c2c2",
+          title: "Something went Wrong!",
+          description:
+            "Provided Image Format is Not Supported, Try Another Image Format!",
+          icon: <MdError color="#892330" fontSize="4rem" />,
+        })
       );
       setTimeout(() => {
-        setError(null);
-      }, 3000);
+        dispatch(hidePopUp());
+      }, 5000);
     } finally {
       setIsLoding(false);
     }
@@ -52,21 +58,10 @@ const VisionVerbalizer = () => {
 
   return (
     <div className={classes.VisionVerbalizer}>
-      {error &&
-        createPortal(
-          <PopUp
-            closePopUp={() => setError(null)}
-            color={"#892330"}
-            bgColor={"#e5c2c2"}
-            title="Something went Wrong!"
-            description={error}
-            icon={<MdError color={"#892330"} fontSize={"4rem"} />}
-          />,
-          document.getElementById("popup")
-        )}
       <div className={classes.upper}>
         <MainBox src={src} updateSrc={setSrc} setShowHistory={setShowHistory} />
         <History
+          height="650px"
           showHistory={showHistory}
           setShowHistory={setShowHistory}
           history={Array(5).fill(

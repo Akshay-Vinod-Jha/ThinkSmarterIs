@@ -7,15 +7,8 @@ import { MdOutlineFileUpload } from "react-icons/md";
 
 import { MdHistory } from "react-icons/md";
 
-const MainBox = ({ src, updateSrc, setShowHistory }) => {
+const MainBox = ({ src, setShowHistory, getImageHandler }) => {
   const inputRef = useRef(null);
-  const getImageHandler = (image) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(image);
-    reader.onloadend = () => {
-      updateSrc(reader.result);
-    };
-  };
 
   const content = src ? (
     <img className={classes.image} src={src} alt="input image" />
@@ -28,7 +21,7 @@ const MainBox = ({ src, updateSrc, setShowHistory }) => {
   return (
     <div className={classes["mainBox-cantainer"]}>
       <div className={classes.titleContainer}>
-        <h1 className={classes.title}>Vision Verbalizer </h1>
+        <h1 className={classes.title}>Text Extraction</h1>
         <MdHistory
           color="#728894"
           fontSize="2rem"
@@ -58,7 +51,7 @@ const MainBox = ({ src, updateSrc, setShowHistory }) => {
               ref={inputRef}
               style={{ display: "none" }}
               onChange={(e) => getImageHandler(e.target.files[0])}
-              accept="image/*"
+              accept="image/*,.pdf"
             />
           </div>
         </div>
