@@ -9,6 +9,8 @@ import Copy from "../../UI/Copy";
 import InputField from "../../UI/InputField";
 import { Input } from "postcss";
 import { TbBulb } from "react-icons/tb";
+import { FiMinimize2 } from "react-icons/fi";
+import { FiMaximize2 } from "react-icons/fi";
 
 const Summarizer = () => {
   const [requested, setRequested] = useState(false);
@@ -42,19 +44,27 @@ const Summarizer = () => {
   const HF_TOKEN = "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";
   const inference = new HfInference(HF_TOKEN);
   async function getSummarizeddViaText(data, length) {
-    console.log(length);
-    const response = await inference.summarization({
-      model: "facebook/bart-large-cnn",
-      inputs: data + "",
-      parameters: {
-        min_length: length,
-        max_length: length + 25,
-      },
-    });
-    setText(response.summary_text);
-    setBhetla(true);
-    setRequested(false);
-    showmm(true);
+    try {
+      console.log(length);
+      const response = await inference.summarization({
+        model: "facebook/bart-large-cnn",
+        inputs: data + "",
+        parameters: {
+          min_length: length,
+          max_length: length + 25,
+        },
+      });
+      setText(response.summary_text);
+      setBhetla(true);
+      setRequested(false);
+      showmm(true);
+    } catch (errror) {
+      console.log(errror);
+      setRequested(false);
+      setTyping(false);
+      setText("");
+      setBhetla(false);
+    }
   }
   const [mail, setMail] = useState(false);
   const callThisFunction = (passedValue) => {
@@ -71,6 +81,10 @@ const Summarizer = () => {
       })
       .catch((error) => {
         console.log(error);
+        setRequested(false);
+        setTyping(false);
+        setText("");
+        setBhetla(false);
       });
   };
   return (
@@ -78,13 +92,13 @@ const Summarizer = () => {
       <div className="w-screen flex overflow-scroll no-scrollbar flex-col justify-center items-center h-auto p-3 md:p-3 lg:p-4 font-lexend font-extrabold text-sm md:text-base lg:text-lg xl:text-lg gap-4">
         {/* title */}
         <div className="w-full flex justify-start items-center mb-2 mt-4 text-white">
-          <h1 className="border-b-[.15rem] border-transparent hover:border-white">
-            Text Summarizer
+          <h1 className="border-b-[.15rem] text-base md:text-lg lg:text-xl xl:text-2xl border-transparent hover:border-[#728894] font-lexend text-[#728894]">
+            AI Brief Buddy
           </h1>
         </div>
         {/* input and button */}
         {!mail && (
-          <div className="w-full h-auto flex flex-col lg:flex-row justify-center items-end  gap-2 lg:gap-4">
+          <div className="w-full h-auto flex flex-col lg:flex-row justify-center items-end font-bold text-justify  gap-2 lg:gap-4">
             <div className="w-full lg:w-[75%]">
               <PromptInputField
                 placeholder="Enter Your Text Here..."
@@ -93,7 +107,7 @@ const Summarizer = () => {
                 ref={inputRef}
               ></PromptInputField>
             </div>
-            <div className="w-full lg:w-[25%] flex justify-center items-end mb-2">
+            <div className="w-full lg:w-[25%] px-8 flex justify-center items-end mb-2">
               <OrangeButton
                 onClick={(e) => {
                   clickHandler(e, temp);
@@ -108,7 +122,7 @@ const Summarizer = () => {
         )}
         {/* input and button for link */}
         {mail && (
-          <div className="w-full h-auto flex flex-col lg:flex-row justify-center items-end  gap-2 lg:gap-4">
+          <div className="w-full h-auto flex flex-col lg:flex-row justify-center font-bold items-end  gap-2 lg:gap-4">
             <div className="w-full lg:w-[75%]">
               <InputField
                 placeholder="Enter Your Text Here..."
@@ -133,10 +147,10 @@ const Summarizer = () => {
         {/* result */}
         {typing && (
           <>
-            <div className="w-full p-4 rounded-xl bg-[#1E1E1E] text-[#ffffff8f]  max-h-[50vh]">
+            <div className="w-full font-normal text-justify px-8 py-4 rounded-xl bg-[#1E1E1E] text-[#ffffff8f]  max-h-[50vh]">
               {bhetla && text}
               {bhetla && (
-                <div className="w-full flex justify-end items-center">
+                <div className="w-full text-justify flex justify-end items-center">
                   <Copy text={text}></Copy>
                 </div>
               )}
@@ -149,36 +163,38 @@ const Summarizer = () => {
             </div>
             {mm && (
               <>
-                <div className="w-full text-white text-[#ffffff8f] text-sm md:text-base lg:text-lg grid grid-cols-2 place-content-center">
+                <div className="w-full px-8 text-white text-[#ffffff8f] mb-8 text-sm md:text-base lg:text-lg grid grid-cols-2 place-content-center">
                   {!(temp > 25) && <h1 className="w-full"></h1>}
                   {temp > 25 && (
                     <h1
-                      className="w-full cursor-pointer hover:text-white flex justify-start items-center"
+                      className="w-full cursor-pointer  underline-offset-4 gap-1  decoration-solid underline hover:text-[#ffffff8f] text-[#fc0001] flex justify-start items-center"
                       onClick={() => {
                         let another = temp - 25;
                         setTemp(another);
                         maxmin(another);
                       }}
                     >
+                      <FiMinimize2 className="font-extrabold text-2xl" />
                       Minimize{" "}
                       <h1 className="hidden lg:inline ml-2"> Length</h1>
                     </h1>
                   )}
                   <h1
-                    className="w-full cursor-pointer flex hover:text-white justify-end items-center"
+                    className="w-full cursor-pointer flex decoration-solid gap-1 underline underline-offset-4 hover:text-[#ffffff8f] text-[#fc0001] justify-end items-center"
                     onClick={() => {
                       let another = temp + 25;
                       setTemp(another);
                       maxmin(another);
                     }}
                   >
+                    <FiMaximize2 className="font-extrabold text-2xl"></FiMaximize2>
                     Maximize <h1 className="hidden lg:inline ml-2">Length</h1>
                   </h1>
                 </div>
                 {!mail && (
                   <h1 className="w-full flex justify-start items-center text-[#728894]">
                     <h1
-                      className="border-b-2 mb-2 border-[#728894] hover:text-white cursor-pointer hover:border-white"
+                      className=" underline decoration-solid underline-offset-4   mb-2 px-8 text-sm md:text-base lg:text-lg decoration-[#728894] hover:text-white cursor-pointer hover:decoration-white"
                       onClick={() => {
                         setMail(true);
                         showmm(false);
@@ -193,7 +209,7 @@ const Summarizer = () => {
                 {mail && (
                   <h1 className="w-full flex justify-start items-center text-[#728894]">
                     <h1
-                      className="border-b-2 mb-2 border-[#728894] hover:text-white cursor-pointer hover:border-white"
+                      className="underline decoration-solid underline-offset-4  text-sm md:text-base lg:text-lg mb-2 decoration-[#728894] hover:text-white cursor-pointer hover:decoration-white"
                       onClick={() => {
                         setMail(false);
                         showmm(false);
@@ -210,13 +226,13 @@ const Summarizer = () => {
           </>
         )}
         {/* trying List */}
-        <div className="w-full fle flex-col justify-center items-center gap-2 bg-[#1E1E1E]">
+        <div className="w-full fle flex-col justify-center items-center gap-2 bg-[#1E1E1E] rounded-xl">
           <h1 className="w-full text-center flex justify-center gap-2 items-center py-2 text-base text-white">
             <TbBulb color="yellow" fontSize="1.5rem" />
             Don’t have idea ? Try these!
           </h1>
           {!mail && (
-            <div className="w-full p-4 rounded-lg  grid grid-cols-1 lg:grid-cols-2 place-content-center place-items-center gap-2">
+            <div className="w-full p-4 rounded-lg font-normal grid grid-cols-1 lg:grid-cols-2 place-content-center place-items-center gap-2">
               {[
                 [
                   "Full stack web development involves the creation of dynamic web applications that encompass both front-end and back-end development aspects. In essence, it requires proficiency in a wide range of technologies, frameworks, and tools to build a fully functional web application from start to finish.On the front-end side, full stack developers are skilled in languages such as HTML, CSS, and JavaScript, along with frameworks like React, Angular, or Vue.js. They're responsible for creating the user interface (UI) and ensuring a seamless user experience across different devices and browsers.In the back-end realm, full stack developers work with server-side languages like Node.js, Python, Ruby, or Java, as well as databases such as MySQL, MongoDB, or PostgreSQL. They handle server-side logic, database interactions, user authentication, and data management to ensure the application's functionality and performance.Additionally, full stack developers must be familiar with various development tools and technologies such as Git for version control, RESTful APIs for communication between the front-end and back-end, and cloud platforms like AWS or Azure for deployment and hosting.Overall, full stack web development requires a versatile skill set, adaptability to evolving technologies, and a holistic understanding of both front-end and back-end development processes to create robust, scalable, and efficient web applications.",
@@ -224,13 +240,14 @@ const Summarizer = () => {
                 [
                   "React Native is a popular open-source framework developed by Facebook for building cross-platform mobile applications using JavaScript and React. It allows developers to leverage their existing knowledge of web technologies to create native-like experiences for both iOS and Android platforms, saving time and effort in the development process.One of the key advantages of React Native is its ability to provide a truly native performance by rendering UI components using native APIs. This ensures that the applications built with React Native deliver smooth animations, fast load times, and excellent user experiences comparable to those developed with native technologies.Moreover, React Native promotes code reusability, enabling developers to write a single codebase that can be shared across multiple platforms. This not only streamlines the development process but also facilitates easier maintenance and updates, as changes made to the codebase are automatically reflected on both iOS and Android platforms.Furthermore, React Native boasts a vibrant ecosystem with a plethora of third-party libraries, tools, and community-driven resources, which enhance developer productivity and enable them to extend the framework's capabilities according to project requirements.In summary, React Native empowers developers to build high-quality mobile applications efficiently, utilizing their existing JavaScript and React skills while delivering native-like performance and user experiences across different platforms.",
                 ],
-              ].map((value) => {
+              ].map((value, index) => {
                 return (
                   <div
+                    key={index}
                     onClick={() => {
                       inputRef.current.value = value;
                     }}
-                    className="w-full px-2 py-1 max-h-40 overflow-scroll no-scrollbar text-sm bg-[#728894] border-2 border-black hover:border-[#728894] hover:bg-black hover:text-[#728894] rounded-md text-black"
+                    className="w-full px-8 py-4 text-justify max-h-40 overflow-scroll no-scrollbar text-sm bg-[#080b10] border-2 border-black hover:border-[#728894] hover:bg-black  rounded-md text-[#ffffffa0]"
                   >
                     {value}
                   </div>
@@ -239,17 +256,18 @@ const Summarizer = () => {
             </div>
           )}
           {mail && (
-            <div className="w-full p-4 rounded-lg  grid grid-cols-1 lg:grid-cols-2 place-content-center place-items-center gap-2">
+            <div className="w-full p-4 rounded-lg  font-normal grid grid-cols-1 lg:grid-cols-2 place-content-center place-items-center gap-2">
               {[
                 ["https://en.wikipedia.org/wiki/Facebook"],
                 ["https://en.wikipedia.org/wiki/Instagram"],
-              ].map((value) => {
+              ].map((value, index) => {
                 return (
                   <div
+                    key={index}
                     onClick={() => {
                       inputRefs.current.value = value;
                     }}
-                    className="w-full px-4 py-4 max-h-40 overflow-scroll no-scrollbar text-sm bg-[#728894] border-2 border-black hover:border-[#728894] hover:bg-black hover:text-[#728894] rounded-md text-black"
+                    className="w-full px-8 py-4 text-justify max-h-40 overflow-scroll no-scrollbar text-sm bg-[#080b10] border-2 border-black hover:border-[#728894] hover:bg-black  rounded-md text-[#ffffffa0]"
                   >
                     {value}
                   </div>
