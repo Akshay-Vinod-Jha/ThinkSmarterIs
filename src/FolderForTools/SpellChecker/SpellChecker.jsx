@@ -4,12 +4,21 @@ import ShowingCorrectOne from "./ShowingCorrectOne";
 import MainParentErrorBox from "./MainParentErrorBox";
 import MainErrorMessageDescriberParent from "./MainErrorMessageDescriberParent";
 import PromptAndButton from "./PromptAndButton";
+import { useDispatch } from "react-redux";
+import { hidePopUp, showPopUp } from "../../store/popupSlice.jsx";
+import { MdError } from "react-icons/md";
+import History from "../../UI/History.jsx";
+import { MdHistory } from "react-icons/md";
+import cssClasses from "./SpellChecker.module.css";
+import { TbBulb } from "react-icons/tb";
 function SpellChecker() {
   const sentenceRef = useRef();
   const [state, setState] = useState([
     { sentence: "", start: 0, end: 0 },
     { sentence: "", start: 0, end: 0 },
   ]);
+  const [showHistory, setShowHistory] = useState(false);
+
   const [location, setLocation] = useState({ text: "", x: 0, y: 0 });
   const [display, setDisplay] = useState(false);
   const [index, setIndex] = useState(0);
@@ -49,110 +58,91 @@ function SpellChecker() {
     });
     setSentence(temp);
   };
+  const [a, setA] = useState(false);
+
   return (
-    <div className="w-screen p-2 mt-4 grid grid-cols-1 place-content-center place-items-center">
-      <ToolsTitle>Spell Checker</ToolsTitle>
-      {/* input box */}
-      <div className="w-full flex lg:flex-row mt-4 flex-col gap-2 lg:gap-0 justify-evenly  lg:pl-4  items-center">
-        <div className="lg:w-[70%] w-[100%] text-base md:text-base lg:text-lg xl:text-lg">
-          <PromptInputField
-            placeholder="Enter Sentence Here"
-            type="text"
-            ref={sentenceRef}
+    <div
+      className={`w-screen ${a ? "h-[100vh]" : "h-auto"} grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 place-content-center place-items-start pt-2`}
+    >
+      <div className="w-full col-span-1 md:col-span-3 lg:col-span-3 p-2 mt-4 grid grid-cols-1 place-content-center place-items-center">
+        <div className="w-full flex justify-between items-center mb-2 mt-4 text-white">
+          <h1 className="border-b-[.15rem] text-base md:text-lg lg:text-xl xl:text-2xl border-transparent hover:border-[#728894] font-lexend text-[#728894]">
+            Spell Checker
+          </h1>
+          <MdHistory
+            color="#728894"
+            fontSize="2rem"
+            className={cssClasses.history}
+            onClick={() => setShowHistory(true)}
           />
         </div>
-        <div className="lg:w-[20%] flex justify-end items-end h-full w-[50%] text-base md:text-base lg:text-lg xl:text-lg">
-          <OrangeButton
-            onClick={() => {
-              console.log(sentenceRef.current.value);
-            }}
-          >
-            Check It
-            <LuMonitorCheck className="text-base md:text-lg lg:text-xl"></LuMonitorCheck>
-          </OrangeButton>
-        </div>
-      </div>
-      {/* error box */}
-      <div className="mt-4 w-[100%] lg:w-[92.5%] p-2 rounded-xl lg:ml-4 flex flex-col justify-center items-center bg-[#1E1E1E]">
-        {/* error message */}
-        <div>
-          {state[index].sentence.split("").map((value, cindex) => {
-            return cindex >= state[index].start &&
-              cindex <= state[index].end ? (
-              <span
-                key={`span${cindex}`}
-                className="text-white cursor-pointer font-lexend underline decoration-wavy decoration-red-600 underline-offset-2 md:underline-offset-8 text-base md:text-base lg:text-lg"
-                onMouseOver={(e) => {
-                  setLocation({
-                    text: state[index].error_type,
-                    x: e.clientX,
-                    y: e.clientY,
-                  });
-                  setDisplay(true);
-                }}
-                onClick={() => {
-                  setShowBelow((previousState) => {
-                    return !previousState;
-                  });
-                  setContent(state[index]);
-                }}
-                onMouseOut={(e) => {
-                  setDisplay(false);
-                }}
-              >
-                {value}
-              </span>
-            ) : (
-              <span
-                className="text-white font-lexend text-base md:text-base lg:text-lg"
-                key={cindex}
-              >
-                {value}
-              </span>
-            );
-          })}
-        </div>
-        {display && <ErrorTypeIndicator location={location} />}
-        <PrevNextContainer
-          index={index}
-          setIndex={setIndex}
+        <PromptAndButton sentenceRef={sentenceRef} ref={sentenceRef} />
+        <MainErrorMessageDescriberParent
+          display={display}
           state={state}
+          index={index}
+          setLocation={setLocation}
+          setDisplay={setDisplay}
+          setShowBelow={setShowBelow}
+          setContent={setContent}
+          location={location}
+          setIndex={setIndex}
           updateTheColor={updateTheColor}
           updateTheV={updateTheV}
           updateShowBelow={updateShowBelow}
           updateTheCorrectedOne={updateTheCorrectedOne}
         />
-      </div>
-      <PromptAndButton sentenceRef={sentenceRef} ref={sentenceRef} />
-      <MainErrorMessageDescriberParent
-        display={display}
-        state={state}
-        index={index}
-        setLocation={setLocation}
-        setDisplay={setDisplay}
-        setShowBelow={setShowBelow}
-        setContent={setContent}
-        location={location}
-        setIndex={setIndex}
-        updateTheColor={updateTheColor}
-        updateTheV={updateTheV}
-        updateShowBelow={updateShowBelow}
-        updateTheCorrectedOne={updateTheCorrectedOne}
-      />
 
-      {showBelow && (
-        <MainParentErrorBox
-          content={content}
-          color={color}
-          updateTheColor={updateTheColor}
-          state={state}
-          v={v}
-          callMe={callMe}
-          updateTheCorrectedOne={updateTheCorrectedOne}
-          updateTheV={updateTheV}
-        />
-      )}
-      {correctone && <ShowingCorrectOne sentence={sentence} />}
+        {showBelow && (
+          <MainParentErrorBox
+            content={content}
+            color={color}
+            updateTheColor={updateTheColor}
+            state={state}
+            v={v}
+            callMe={callMe}
+            updateTheCorrectedOne={updateTheCorrectedOne}
+            updateTheV={updateTheV}
+          />
+        )}
+        {correctone && <ShowingCorrectOne sentence={sentence} />}
+        <div className="w-full fle flex-col my-4 font-lexend text-sm md:text-base lg:text-lg xl:text-xl justify-center items-center gap-2 bg-[#1E1E1E] rounded-xl">
+          <h1 className="w-full text-center flex justify-center text-sm md:text-base lg:text-lg xl:text-xl gap-2 font-extrabold items-center py-2 text-white">
+            <TbBulb color="yellow" fontSize="1.5rem" />
+            Don’t have idea ? Try these!
+          </h1>
+          <div className="w-full p-4 rounded-lg bg-[#1E1E1E]  font-normal grid grid-cols-1 lg:grid-cols-2 place-content-center place-items-center gap-2">
+            {[
+              ["Their going to there house for they're dinner."],
+              ["I seen him yesterday at the store."],
+              ["She don't want no cake."],
+              ["His going to the store to buy milk."],
+              ["Your going to love this movie."],
+              ["I could of done better on the test."],
+            ].map((value, index) => {
+              return (
+                <div
+                  key={index}
+                  onClick={() => {
+                    sentenceRef.current.value = value;
+                  }}
+                  className="w-full px-8 py-4 text-justify max-h-40 overflow-scroll no-scrollbar text-sm bg-[#080b10] border-2 border-black hover:border-[#728894] hover:bg-black  rounded-md text-[#ffffffa0]"
+                >
+                  {value}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+      <History
+        height="650px"
+        showHistory={showHistory}
+        setShowHistory={setShowHistory}
+        history={Array(5).fill(
+          "The Generated text History from the uploaded image is displayed here."
+        )}
+      />
     </div>
   );
 }
