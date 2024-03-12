@@ -135,7 +135,7 @@ const Summarizer = () => {
   return (
     <React.Fragment>
       <div
-        className={`w-screen ${a ? "h-[100vh]" : "h-auto"} overflow-hidden grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 place-content-center place-items-start`}
+        className={`w-screen ${a ? "h-[100vh]" : "h-auto"} grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 place-content-center place-items-start pt-2`}
       >
         <div
           ref={divRef}
