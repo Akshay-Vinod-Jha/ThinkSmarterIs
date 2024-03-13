@@ -19,7 +19,6 @@ import { MdHistory } from "react-icons/md";
 import cssClasses from "./Summarizer.module.css";
 const Summarizer = () => {
   const [showHistory, setShowHistory] = useState(false);
-
   const [requested, setRequested] = useState(false);
   const [typing, setTyping] = useState(false);
   const [text, setText] = useState("");
@@ -81,7 +80,7 @@ const Summarizer = () => {
           bgColor: "#e5c2c2",
           title: "Something went Wrong!",
           description:
-            "Provided Image Format is Not Supported, Try Another Image Format!",
+            "This Can Be Due to Poor Interenet Connection or Inaccurate Propmt!",
           icon: <MdError color="#892330" fontSize="4rem" />,
         })
       );
@@ -119,9 +118,8 @@ const Summarizer = () => {
           showPopUp({
             color: "#892330",
             bgColor: "#e5c2c2",
-            title: "Something went Wrong!",
-            description:
-              "Provided Image Format is Not Supported, Try Another Image Format!",
+            title: "Inaccurate URL Passeed!",
+            description: "No Such Corresponding URL Found to Search!!!",
             icon: <MdError color="#892330" fontSize="4rem" />,
           })
         );

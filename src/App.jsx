@@ -26,7 +26,7 @@ const App = () => {
           <PopUp content={showPop.style} />,
           document.getElementById("popup")
         )}
-      <QA />
+      <Summarizer />
 
     </div>
   );
