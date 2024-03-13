@@ -4,7 +4,7 @@ import ErrorTypeIndicator from "./ErrorTypeIndicator";
 import PrevNextContainer from "./PrevNextContainer";
 function MainErrorMessageDescriberParent(received) {
   return (
-    <div className="mt-4 w-[100%] lg:w-[100%] rounded-xl flex flex-col justify-center items-center bg-[#1E1E1E]">
+    <div className="mt-4 w-[100%] lg:w-[100%] rounded-xl flex flex-col justify-center items-center bg-[#1E1E1E] p-2">
       {/* error message */}
       <UnderlinedError
         state={received.state}
