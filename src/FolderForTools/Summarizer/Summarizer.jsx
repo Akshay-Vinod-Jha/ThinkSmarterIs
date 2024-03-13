@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import PromptInputField from "../../UI/PromptInputField";
 import OrangeButton from "../../UI/OrangeButton";
 import { MdCompress } from "react-icons/md";
 import Loader from "../../UI/Loader";
@@ -7,16 +6,16 @@ import { HfInference } from "@huggingface/inference";
 import Loading from "../../UI/Loading";
 import Copy from "../../UI/Copy";
 import InputField from "../../UI/InputField";
-import { Input } from "postcss";
 import { TbBulb } from "react-icons/tb";
+import Title from "./RequiredComponents/Title.jsx";
 import { FiMinimize2 } from "react-icons/fi";
 import { FiMaximize2 } from "react-icons/fi";
 import { useDispatch } from "react-redux";
 import { hidePopUp, showPopUp } from "../../store/popupSlice.jsx";
 import { MdError } from "react-icons/md";
 import History from "../../UI/History.jsx";
-import { MdHistory } from "react-icons/md";
-import cssClasses from "./Summarizer.module.css";
+import PromptAreaForText from "./RequiredComponents/PromptAreaForText.jsx";
+import PromptAreaForMail from "./RequiredComponents/PromptAreaForMail.jsx";
 const Summarizer = () => {
   const [showHistory, setShowHistory] = useState(false);
   const [requested, setRequested] = useState(false);
@@ -69,26 +68,10 @@ const Summarizer = () => {
       setRequested(false);
       showmm(true);
     } catch (errror) {
-      console.log(errror);
-      setRequested(false);
-      setTyping(false);
-      setText("");
-      setBhetla(false);
-      dispatch(
-        showPopUp({
-          color: "#892330",
-          bgColor: "#e5c2c2",
-          title: "Something went Wrong!",
-          description:
-            "This Can Be Due to Poor Interenet Connection or Inaccurate Propmt!",
-          icon: <MdError color="#892330" fontSize="4rem" />,
-        })
+      errorOccured(
+        "Oops Something Went Wrong!",
+        "This can be either due to Poor Internet Connection or Inaccurate Prompt!!!!"
       );
-      setA(true);
-      setTimeout(() => {
-        dispatch(hidePopUp());
-        setA(false);
-      }, 5000);
     }
   }
   const [mail, setMail] = useState(false);
@@ -110,25 +93,31 @@ const Summarizer = () => {
       })
       .catch((error) => {
         console.log(error);
-        setRequested(false);
-        setTyping(false);
-        setText("");
-        setBhetla(false);
-        dispatch(
-          showPopUp({
-            color: "#892330",
-            bgColor: "#e5c2c2",
-            title: "Inaccurate URL Passeed!",
-            description: "No Such Corresponding URL Found to Search!!!",
-            icon: <MdError color="#892330" fontSize="4rem" />,
-          })
+        errorOccured(
+          "Inaccurate URL Passeed!",
+          "No Such Corresponding URL Found to Search!!!"
         );
-        setA(true);
-        setTimeout(() => {
-          dispatch(hidePopUp());
-          setA(false);
-        }, 5000);
       });
+  };
+  const errorOccured = (title, description) => {
+    setRequested(false);
+    setTyping(false);
+    setText("");
+    setBhetla(false);
+    dispatch(
+      showPopUp({
+        color: "#892330",
+        bgColor: "#e5c2c2",
+        title: title,
+        description: description,
+        icon: <MdError color="#892330" fontSize="4rem" />,
+      })
+    );
+    setA(true);
+    setTimeout(() => {
+      dispatch(hidePopUp());
+      setA(false);
+    }, 5000);
   };
   return (
     <React.Fragment>
@@ -140,64 +129,26 @@ const Summarizer = () => {
           className="w-full md:col-span-3 lg:col-span-3 col-span-1 flex overflow-scroll no-scrollbar flex-col justify-center items-center h-auto p-3 md:p-3 lg:p-4 font-lexend font-extrabold text-sm md:text-base lg:text-lg xl:text-lg gap-4"
         >
           {/* title */}
-          <div className="w-full flex justify-between items-center mb-2 mt-4 text-white">
-            <h1 className="border-b-[.15rem] text-base md:text-lg lg:text-xl xl:text-2xl border-transparent hover:border-[#728894] font-lexend text-[#728894]">
-              AI Brief Buddy
-            </h1>
-            <MdHistory
-              color="#728894"
-              fontSize="2rem"
-              className={cssClasses.history}
-              onClick={() => setShowHistory(true)}
-            />
-          </div>
+          <Title />
           {/* input and button */}
           {!mail && (
-            <div className="w-full h-auto flex flex-col lg:flex-row justify-center items-end font-bold text-justify  gap-2 lg:gap-4">
-              <div className="w-full lg:w-[75%]">
-                <PromptInputField
-                  placeholder="Enter Your Text Here..."
-                  onChange={changeHandler}
-                  change={true}
-                  ref={inputRef}
-                ></PromptInputField>
-              </div>
-              <div className="w-full lg:w-[25%] lg:px-8 flex justify-center items-end mb-2">
-                <OrangeButton
-                  onClick={(e) => {
-                    clickHandler(e, temp);
-                  }}
-                >
-                  {requested && <Loader />}
-                  Summarize
-                  <MdCompress className="text-base lg:text-lg" />
-                </OrangeButton>
-              </div>
-            </div>
+            <PromptAreaForText
+              temp={temp}
+              ref={inputRef}
+              onChange={changeHandler}
+              clickHandler={clickHandler}
+              change={true}
+              requested={requested}
+            />
           )}
           {/* input and button for link */}
           {mail && (
-            <div className="w-full h-auto flex flex-col lg:flex-row justify-center font-bold items-end  gap-2 lg:gap-4">
-              <div className="w-full lg:w-[75%]">
-                <InputField
-                  placeholder="Enter Your Text Here..."
-                  onChange={changeHandler}
-                  change={true}
-                  ref={inputRefs}
-                ></InputField>
-              </div>
-              <div className="w-full lg:w-[25%] flex justify-center items-end mb-2">
-                <OrangeButton
-                  onClick={(e) => {
-                    callThisFunction(inputRefs.current.value);
-                  }}
-                >
-                  {requested && <Loader />}
-                  Summarize It
-                  <MdCompress className="text-base lg:text-lg" />
-                </OrangeButton>
-              </div>
-            </div>
+            <PromptAreaForMail
+              changeHandler={changeHandler}
+              change={true}
+              callThisFunction={callThisFunction}
+              ref={inputRefs}
+            />
           )}
           {/* result */}
           {typing && (
@@ -344,5 +295,4 @@ const Summarizer = () => {
     </React.Fragment>
   );
 };
-
 export default Summarizer;

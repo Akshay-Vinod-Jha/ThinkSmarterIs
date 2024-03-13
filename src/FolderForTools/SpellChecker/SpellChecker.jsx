@@ -12,6 +12,58 @@ import { MdHistory } from "react-icons/md";
 import cssClasses from "./SpellChecker.module.css";
 import { TbBulb } from "react-icons/tb";
 function SpellChecker() {
+  const dispatch = useDispatch();
+  const importantFun = async (text) => {
+    setUnderlinedText(true);
+    try {
+      const response = await fetch("https://api.sapling.ai/api/v1/edits", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          key: "SZ8UPZQ1YFFHDJRL3BPERB2OZ7GANIPY", // replace with your API key
+          session_id: "test session",
+          text,
+        }),
+      });
+      const important = await response.json();
+      console.log(important);
+      if (important.edits.length === 0) {
+        throw Error("Error Occurred");
+      }
+      setState(important.edits);
+
+      setBhetla(true);
+    } catch (err) {
+      console.log(err);
+      closeAll();
+      dispatch(
+        showPopUp({
+          color: "#892330",
+          bgColor: "#e5c2c2",
+          title: "Something went Wrong!",
+          description:
+            "Either Your Provided Statement Is a Correct one or You entered Nothing...",
+          icon: <MdError color="#892330" fontSize="4rem" />,
+        })
+      );
+      setTimeout(() => {
+        dispatch(hidePopUp());
+      }, 5000);
+    } finally {
+      setRequested(false);
+    }
+  };
+  const closeAll = () => {
+    setUnderlinedText(false);
+    setBhetla(false);
+    setDisplay(false);
+    setShowBelow(false);
+    setColor([false, "#728894"]);
+    setCorrectedOne(false);
+  };
+  // importantFun("I seen him yesterday at the store.");
   const sentenceRef = useRef();
   const [state, setState] = useState([
     { sentence: "", start: 0, end: 0 },
@@ -28,6 +80,8 @@ function SpellChecker() {
   const [v, setV] = useState(true);
   const [correctone, setCorrectedOne] = useState(false);
   const [sentence, setSentence] = useState("");
+  const [requested, setRequested] = useState(false);
+
   const updateTheColor = (received) => {
     setColor([...received]);
   };
@@ -59,7 +113,8 @@ function SpellChecker() {
     setSentence(temp);
   };
   const [a, setA] = useState(false);
-
+  const [underlinedText, setUnderlinedText] = useState(false);
+  const [bhetla, setBhetla] = useState(false);
   return (
     <div
       className={`w-screen ${a ? "h-[100vh]" : "h-auto"} grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 place-content-center place-items-start pt-2`}
@@ -76,8 +131,16 @@ function SpellChecker() {
             onClick={() => setShowHistory(true)}
           />
         </div>
-        <PromptAndButton sentenceRef={sentenceRef} ref={sentenceRef} />
+        <PromptAndButton
+          sentenceRef={sentenceRef}
+          ref={sentenceRef}
+          importantFun={importantFun}
+          requested={requested}
+          setRequested={setRequested}
+        />
         <MainErrorMessageDescriberParent
+          bhetla={bhetla}
+          underlinedText={underlinedText}
           display={display}
           state={state}
           index={index}
@@ -115,8 +178,8 @@ function SpellChecker() {
             {[
               ["Their going to there house for they're dinner."],
               ["I seen him yesterday at the store."],
-              ["She don't want no cake."],
-              ["His going to the store to buy milk."],
+              ["I cant believe its raining hear, its such a dissapointment."],
+              ["u r mine."],
               ["Your going to love this movie."],
               ["I could of done better on the test."],
             ].map((value, index) => {
@@ -125,6 +188,7 @@ function SpellChecker() {
                   key={index}
                   onClick={() => {
                     sentenceRef.current.value = value;
+                    closeAll();
                   }}
                   className="w-full px-8 py-4 text-justify max-h-40 overflow-scroll no-scrollbar text-sm bg-[#080b10] border-2 border-black hover:border-[#728894] hover:bg-black  rounded-md text-[#ffffffa0]"
                 >
