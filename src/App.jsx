@@ -24,7 +24,7 @@ const App = () => {
           <PopUp content={showPop.style} />,
           document.getElementById("popup")
         )}
-      <SpellChecker />
+      <Summarizer />
     </div>
   );
 };

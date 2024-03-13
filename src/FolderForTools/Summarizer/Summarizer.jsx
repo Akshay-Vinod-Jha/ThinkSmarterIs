@@ -1,12 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import OrangeButton from "../../UI/OrangeButton";
-import { MdCompress } from "react-icons/md";
-import Loader from "../../UI/Loader";
 import { HfInference } from "@huggingface/inference";
 import Loading from "../../UI/Loading";
 import Copy from "../../UI/Copy";
-import InputField from "../../UI/InputField";
 import { TbBulb } from "react-icons/tb";
+import { convert } from "html-to-text";
 import Title from "./RequiredComponents/Title.jsx";
 import { FiMinimize2 } from "react-icons/fi";
 import { FiMaximize2 } from "react-icons/fi";
@@ -89,7 +86,9 @@ const Summarizer = () => {
         }
       })
       .then((anotherRes) => {
-        getSummarizeddViaText(anotherRes, 25);
+        const temp = convert(anotherRes);
+        console.log(temp);
+        getSummarizeddViaText(temp, 25);
       })
       .catch((error) => {
         console.log(error);
