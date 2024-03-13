@@ -11,6 +11,8 @@ function CheckItButton(parameters) {
           parameters.importantFun(parameters.sentenceRef.current.value);
           parameters.setRequested(true);
           parameters.setBhetla(false);
+          parameters.setIndex(0);
+          parameters.setV(true);
         }}
       >
         {parameters.requested && <Loader />}

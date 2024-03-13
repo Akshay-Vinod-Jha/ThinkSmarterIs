@@ -97,10 +97,6 @@ function SpellChecker() {
   const updateTheIndex = (updatedIndexIs) => {
     setIndex(updatedIndexIs);
   };
-  useEffect(() => {
-    setState(JSON.parse(localStorage.getItem("SpellChecker")).edits);
-  }, []);
-
   const callMe = (temp) => {
     state.map((value) => {
       let result = "";
@@ -138,6 +134,8 @@ function SpellChecker() {
           requested={requested}
           setRequested={setRequested}
           setBhetla={setBhetla}
+          setIndex={setIndex}
+          setV={setV}
         />
         <MainErrorMessageDescriberParent
           bhetla={bhetla}

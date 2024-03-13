@@ -11,6 +11,8 @@ const PromptAndButton = forwardRef((props, ref) => {
         requested={props.requested}
         setRequested={props.setRequested}
         setBhetla={props.setBhetla}
+        setIndex={props.setIndex}
+        setV={props.setV}
       />
     </div>
   );
