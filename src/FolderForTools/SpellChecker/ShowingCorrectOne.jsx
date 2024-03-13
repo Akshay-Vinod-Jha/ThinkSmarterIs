@@ -2,7 +2,7 @@ import React from "react";
 import Copy from "../../UI/Copy";
 function ShowingCorrectOne(props) {
   return (
-    <div className="mt-4 w-[100%] mb-4 text-base md:text-lg lg:text-xl font-lexend lg:w-[92.5%] p-2 rounded-xl lg:ml-4 flex flex-col justify-center items-center text-white bg-[#1E1E1E]">
+    <div className="mt-4 w-[100%] mb-4 text-base md:text-lg lg:text-xl font-lexend lg:w-[100%] px-4 py-4 rounded-xl flex flex-col justify-center items-center text-white bg-[#1E1E1E]">
       <h1 className="w-full flex justify-center text-center mt-2 items-center">
         {"'" + props.sentence + "'"}
       </h1>

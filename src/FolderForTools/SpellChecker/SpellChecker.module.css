@@ -1,0 +1,9 @@
+.history {
+  display: none;
+  /* cursor: pointer; */
+}
+@media screen and (max-width: 750px) {
+  .history {
+    display: block;
+  }
+}
