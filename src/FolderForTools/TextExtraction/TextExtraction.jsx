@@ -8,9 +8,9 @@ import History from "../../UI/History";
 import { MdError } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { showPopUp, hidePopUp } from "../../store/popupSlice";
-
 const TextExtraction = () => {
   const [src, setSrc] = useState(null);
+  const [type, setType] = useState(null);
   const [showHistory, setShowHistory] = useState(false);
   const [generatedText, setGeneratedText] = useState(
     "Generated Text will be Display Here"
@@ -80,6 +80,7 @@ const TextExtraction = () => {
   }, []);
 
   const getImageHandler = async (file) => {
+    setType(file.type);
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
@@ -95,6 +96,7 @@ const TextExtraction = () => {
           src={src}
           setShowHistory={setShowHistory}
           getImageHandler={getImageHandler}
+          type={type}
         />
         <History
           height="650px"

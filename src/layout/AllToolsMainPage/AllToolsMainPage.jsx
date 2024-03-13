@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import cssclasses from "./AllToolsMainPage.module.css";
 import Advantage from "../../Advantage/Advantage";
 import AllParent from "../../UI/AllParent";

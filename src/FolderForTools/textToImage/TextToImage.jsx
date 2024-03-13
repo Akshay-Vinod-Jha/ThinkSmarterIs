@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from "react";
 import { FaWandMagicSparkles } from "react-icons/fa6";
-import { MdDownloading } from "react-icons/md";
+// import { MdDownloading } from "react-icons/md";
 import cssClasses from "./TextToImage.module.css";
 import TryThese from "./RequiredComponents/TryThese";
 import MainBox from "./RequiredComponents/MainBox";
@@ -10,19 +10,16 @@ import History from "../../UI/History";
 import { CiImageOn } from "react-icons/ci";
 import Loading from "../../UI/Loading";
 import { HfInference } from "@huggingface/inference";
-import { MdError } from "react-icons/md";
+import { MdError, MdDownloading } from "react-icons/md";
 import Loader from "../../UI/Loader.jsx";
 import { MdHistory } from "react-icons/md";
 import { downloadImage } from "../../common-funtions/download.jsx";
 import { useDispatch } from "react-redux";
 import { hidePopUp, showPopUp } from "../../store/popupSlice.jsx";
-import { TbDownload } from "react-icons/tb";
-import { BsArrowRepeat } from "react-icons/bs";
 
 
 function TextToImage() {
   const dispatch = useDispatch();
-  const HF_TOKEN = "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";
   const [src, setSrc] = useState(null);
   const [showHistory, setShowHistory] = useState(false);
   const [isLoading, setIsLoding] = useState(false);
@@ -116,7 +113,7 @@ function TextToImage() {
            
             <div className="w-[100%] lg:p-1 bg-black rounded-xl grid grid-col-1 gap-2 lg:grid-cols-4 items-end">
               <PromptInputField
-                placeholder="Enter Propmt Here..."
+                placeholder="what do you want to see here?"
                 type="text"
                 ref={promptInputRef}
               />

@@ -6,14 +6,16 @@ const PopUp = ({ content }) => {
   return (
     <div className={classes.overlay}>
       <Reveal>
-        <div
-          className={classes.model}
-          style={{ backgroundColor: bgColor, color: color }}
-        >
-          {icon}
-          <div className={classes.right}>
-            <h2 className={classes.h3}>{title}</h2>
-            <p>{`${description}`}</p>
+        <div className={classes.lastOption}>
+          <div
+            className={classes.model}
+            style={{ backgroundColor: bgColor, color: color }}
+          >
+            {icon}
+            <div className={classes.right}>
+              <h2 className={classes.h3}>{title}</h2>
+              <p>{`${description}`}</p>
+            </div>
           </div>
         </div>
       </Reveal>
