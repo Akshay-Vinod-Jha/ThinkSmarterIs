@@ -137,6 +137,7 @@ function SpellChecker() {
           importantFun={importantFun}
           requested={requested}
           setRequested={setRequested}
+          setBhetla={setBhetla}
         />
         <MainErrorMessageDescriberParent
           bhetla={bhetla}

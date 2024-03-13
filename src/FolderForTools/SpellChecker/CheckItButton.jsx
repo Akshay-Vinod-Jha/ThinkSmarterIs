@@ -10,6 +10,7 @@ function CheckItButton(parameters) {
           console.log(parameters.sentenceRef.current.value);
           parameters.importantFun(parameters.sentenceRef.current.value);
           parameters.setRequested(true);
+          parameters.setBhetla(false);
         }}
       >
         {parameters.requested && <Loader />}
