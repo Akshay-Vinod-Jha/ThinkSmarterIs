@@ -16,7 +16,9 @@ import { MdHistory } from "react-icons/md";
 import { downloadImage } from "../../common-funtions/download.jsx";
 import { useDispatch } from "react-redux";
 import { hidePopUp, showPopUp } from "../../store/popupSlice.jsx";
-import { client } from "@gradio/client";
+import { TbDownload } from "react-icons/tb";
+import { BsArrowRepeat } from "react-icons/bs";
+
 
 function TextToImage() {
   const dispatch = useDispatch();
@@ -85,28 +87,24 @@ function TextToImage() {
 
       <div className="bg-black h-[auto] row-span-2  md:row-span-2 lg:row-span-3 rounded-xl grid grid-cols-4 gap-2 p-2">
         {/* 1c */}
-        <div className="col-span-4 p-1 lg:col-span-3  rounded-xl grid grid-cols-1">
+        <div className="col-span-4 md:col-span-3 p-1 lg:col-span-3  rounded-xl grid grid-cols-1">
           <div className="bg-transparent rounded-xl flex flex-col gap-2 justify-between items-center text-base text-[#728894]">
             <div className={cssClasses.titleContainer}>
               <h1 className="ml-2 w-max text-2xl border-b-2 hover:border-none  border-[#728894]">
                 Visiualize AI
               </h1>
+              <div className={cssClasses.iconCantainer}>
+                {src && !isLoading && (
+                <TbDownload onClick={() => downloadImage(src) }color="#728894" fontSize="2rem" className={cssClasses.download}/>
+            )} 
               <MdHistory
                 color="#728894"
                 fontSize="2rem"
                 className={cssClasses.history}
                 onClick={() => setShowHistory(true)}
-              />
+              /></div>
             </div>
 
-            {src && !isLoading && (
-              <div className="w-[100%] col-span-1 lg:w-[25%] lg:place-self-end rounded-md flex justify-center items-center">
-                <OrangeButton onClick={() => downloadImage(src)}>
-                  Export
-                  <MdDownloading />
-                </OrangeButton>
-              </div>
-            )}
 
             <div className={cssClasses.generatedImageContainer}>
               {isLoading ? (
@@ -115,9 +113,7 @@ function TextToImage() {
                 content
               )}
             </div>
-            {/* <div className="w-full p-1 grid grid-cols-1 gap-4 lg:place-items-start"> */}
-
-            {/* </div> */}
+           
             <div className="w-[100%] lg:p-1 bg-black rounded-xl grid grid-col-1 gap-2 lg:grid-cols-4 items-end">
               <PromptInputField
                 placeholder="Enter Propmt Here..."
@@ -125,6 +121,7 @@ function TextToImage() {
                 ref={promptInputRef}
               />
               <div className="w-full lg:col-span-1 rounded-md text-white flex-col justify-center items-center">
+              {src && !isLoading && <div className={cssClasses.regenerate}><BsArrowRepeat fontSize={'1.5rem'}/>Regenerate image</div>}
                 <OrangeButton
                   onClick={() => get(promptInputRef.current.value)}
                   isLoading={isLoading}

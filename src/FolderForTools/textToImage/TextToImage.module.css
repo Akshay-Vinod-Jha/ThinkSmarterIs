@@ -28,10 +28,35 @@
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
+  margin-bottom: 1rem;
 }
 .history {
   display: none;
   /* cursor: pointer; */
+}
+.iconCantainer {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.download {
+  cursor: pointer;
+}
+.download:active {
+  opacity: .5;
+}
+.regenerate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: .75rem;
+  gap: .25rem;
+  color: #728894;
+  cursor: pointer;
+  font-size: .85rem;
+}
+.regenerate:active {
+  opacity: .5;
 }
 @media screen and (max-width: 750px) {
   .history {
@@ -43,5 +68,9 @@
   .generatedImageContainer {
     min-height: 450px;
     height: fit-content;
+  }.regenerate {
+    justify-content: start;
+    margin: 1rem auto;
+
   }
 }

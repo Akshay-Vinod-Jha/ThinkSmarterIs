@@ -19,6 +19,7 @@ const TextExtraction = () => {
   const dispatch = useDispatch();
 
   const get = useCallback(async (file) => {
+    console.log(file.url)
     window.scrollTo(0, 400);
     setIsLoding(true);
 
@@ -27,11 +28,11 @@ const TextExtraction = () => {
 
     const optionalParameters = {
       language: "eng", // Language code
-      // isOverlayRequired: true, // Return bounding box coordinates
+      isOverlayRequired: true, // Return bounding box coordinates
       filetype: file.type.split("/")[1].toUpperCase(), // Overwrite automatic file type detection
       detectOrientation: true, // Auto-rotate the image
-      // isCreateSearchablePdf: true, // Generate a searchable PDF
-      // isSearchablePdfHideTextLayer: false, // Hide text layer in searchable PDF
+      isCreateSearchablePdf: true, // Generate a searchable PDF
+      isSearchablePdfHideTextLayer: false, // Hide text layer in searchable PDF
       scale: true, // Upscale the image
       isTable: true, // Ensure line by line text result
       OCREngine: 2, // Use OCR Engine 2
@@ -52,6 +53,7 @@ const TextExtraction = () => {
       });
       const response = await fetch(req);
       const jsonData = await response.json();
+      console.log(jsonData)
       setGeneratedText(
         jsonData.ParsedResults.map((val) => val.ParsedText).join("\n\n")
       );
