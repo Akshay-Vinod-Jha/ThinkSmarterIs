@@ -1,0 +1,21 @@
+.output-container {
+  padding: 1rem;
+  display: grid;
+  grid-auto-flow: row;
+  gap: 1rem;
+  background-color: #1e1e1e;
+  border-radius: 0.5rem;
+}
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+}
+.title {
+  color: #728894;
+  font-size: large;
+}
+.output {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.9rem;
+  padding-block: 0.5rem;
+}

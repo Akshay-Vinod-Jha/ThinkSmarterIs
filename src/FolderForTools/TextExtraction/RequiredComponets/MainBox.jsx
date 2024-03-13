@@ -4,20 +4,29 @@ import { CiImageOn } from "react-icons/ci";
 import classes from "./MainBox.module.css";
 // import Loader from '../../../UI/Loader'
 import { MdOutlineFileUpload } from "react-icons/md";
+import { FaRegFilePdf } from "react-icons/fa6";
 
 import { MdHistory } from "react-icons/md";
 
-const MainBox = ({ src, setShowHistory, getImageHandler }) => {
+const MainBox = ({ src, setShowHistory, getImageHandler, type }) => {
+  console.log(type);
   const inputRef = useRef(null);
 
-  const content = src ? (
-    <img className={classes.image} src={src} alt="input image" />
-  ) : (
-    <CiImageOn
-      color="rgba(255,255,255,.5)"
-      fontSize="clamp(20rem,25vw,30rem)"
-    />
-  );
+  const content =
+    src && type === "image" ? (
+      <img className={classes.image} src={src} alt="input image" />
+    ) : type === "application/pdf" ? (
+      <FaRegFilePdf
+        color="rgba(255,255,255,.5)"
+        fontSize="clamp(15rem,20vw,20rem)"
+      />
+    ) : (
+      <CiImageOn
+        color="rgba(255,255,255,.5)"
+        fontSize="clamp(20rem,25vw,30rem)"
+      />
+    );
+
   return (
     <div className={classes["mainBox-cantainer"]}>
       <div className={classes.titleContainer}>
@@ -50,7 +59,10 @@ const MainBox = ({ src, setShowHistory, getImageHandler }) => {
               type="file"
               ref={inputRef}
               style={{ display: "none" }}
-              onChange={(e) => getImageHandler(e.target.files[0])}
+              onChange={(e) => {
+                console.log(e);
+                getImageHandler(e.target.files[0]);
+              }}
               accept="image/*,.pdf"
             />
           </div>
