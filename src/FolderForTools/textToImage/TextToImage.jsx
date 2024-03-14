@@ -127,7 +127,7 @@ function TextToImage() {
                 {src && !isLoading && (
                   <div
                     className={cssClasses.regenerate}
-                    onClick={regenerateHandler}>
+                    onClick={() => get(promptInputRef.current.value)}>
                     <BsArrowRepeat fontSize={"1.5rem"} />
                     Regenerate image
                   </div>

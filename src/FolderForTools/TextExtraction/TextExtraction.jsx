@@ -16,51 +16,11 @@ const TextExtraction = () => {
   const [type, setType] = useState(null);
   const [showHistory, setShowHistory] = useState(false);
   const [generatedText, setGeneratedText] = useState(
-    "Generated Text will be Display Here"
+    "Generated Text will be Display Here",
   );
+
   const [isLoading, setIsLoding] = useState(false);
   const dispatch = useDispatch();
-
-
-  const get = useCallback(async (file) => {
-    console.log(file.url)
-    window.scrollTo(0, 400);
-    setIsLoding(true);
-
-    const apiKey = "K86779100088957"; // Replace with your actual API key
-    const base64Image = file.url; // Replace with your Base64 encoded image or PDF
-
-    const optionalParameters = {
-      language: "eng", // Language code
-      isOverlayRequired: true, // Return bounding box coordinates
-      filetype: file.type.split("/")[1].toUpperCase(), // Overwrite automatic file type detection
-      detectOrientation: true, // Auto-rotate the image
-      isCreateSearchablePdf: true, // Generate a searchable PDF
-      isSearchablePdfHideTextLayer: false, // Hide text layer in searchable PDF
-      scale: true, // Upscale the image
-      isTable: true, // Ensure line by line text result
-      OCREngine: 2, // Use OCR Engine 2
-    };
-    const formData = new FormData();
-    formData.append("base64Image", base64Image);
-    Object.keys(optionalParameters).forEach((key) => {
-      formData.append(key, optionalParameters[key]);
-    });
-    try {
-      const url = "https://api.ocr.space/parse/image";
-      const req = new Request(url, {
-        method: "POST",
-        headers: {
-          apikey: apiKey,
-        },
-        body: formData,
-      });
-      const response = await fetch(req);
-      const jsonData = await response.json();
-      console.log(jsonData)
-      setGeneratedText(
-        jsonData.ParsedResults.map((val) => val.ParsedText).join("\n\n")
-      );
 
   const errorHandler = () => {
     dispatch(
@@ -71,7 +31,7 @@ const TextExtraction = () => {
         description:
           "Provided Image Format is Not Supported, Try Another Image Format!",
         icon: <MdError color="#892330" fontSize="4rem" />,
-      })
+      }),
     );
     setSrc(null);
     setGeneratedText("Generated Text will be Display Here");
@@ -124,14 +84,13 @@ const TextExtraction = () => {
         text = await getTextFromImage(url);
         setGeneratedText(text);
       }
-
     } catch (err) {
       console.log(err.message);
       errorHandler();
     } finally {
       setIsLoding(false);
     }
-  }, []);
+  });
 
   const getImageHandler = async (file) => {
     setType(file.type);
@@ -154,7 +113,7 @@ const TextExtraction = () => {
           showHistory={showHistory}
           setShowHistory={setShowHistory}
           history={Array(5).fill(
-            "The Generated text History from the uploaded image is displayed here."
+            "The Generated text History from the uploaded image is displayed here.",
           )}
         />
       </div>
