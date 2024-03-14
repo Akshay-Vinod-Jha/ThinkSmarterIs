@@ -141,6 +141,7 @@ const Summarizer = () => {
               clickHandler={clickHandler}
               change={true}
               requested={requested}
+              processState={processState}
               buttonText="Summarize"
               icon={<MdCompress className="text-base lg:text-lg" />}
             />
@@ -153,6 +154,8 @@ const Summarizer = () => {
               change={true}
               callThisFunction={callThisFunction}
               ref={inputRefs}
+              buttonText="Summarize"
+              icon={<MdCompress className="text-base lg:text-lg" />}
             />
           )}
           {/* result */}

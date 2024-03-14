@@ -21,8 +21,8 @@ const PromptAreaForMail = forwardRef((props, ref) => {
           }}
         >
           {props.requested && <Loader />}
-          Summarize It
-          <MdCompress className="text-base lg:text-lg" />
+          {props.buttonText}
+          {props.icon}
         </OrangeButton>
       </div>
     </div>
