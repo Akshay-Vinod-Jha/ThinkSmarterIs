@@ -9,7 +9,7 @@ import { FaRegFilePdf } from "react-icons/fa6";
 import { MdHistory } from "react-icons/md";
 
 const MainBox = ({ src, setShowHistory, getImageHandler, type }) => {
-  console.log(type);
+  // console.log(type);
   const inputRef = useRef(null);
 
   const content =
@@ -59,10 +59,7 @@ const MainBox = ({ src, setShowHistory, getImageHandler, type }) => {
               type="file"
               ref={inputRef}
               style={{ display: "none" }}
-              onChange={(e) => {
-                console.log(e);
-                getImageHandler(e.target.files[0]);
-              }}
+              onChange={(e) => getImageHandler(e.target.files[0])}
               accept="image/*,.pdf"
             />
           </div>

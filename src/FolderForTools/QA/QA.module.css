@@ -15,6 +15,7 @@
   display: grid;
   grid-template-columns: 3fr 1fr;
   gap: 1rem;
+  margin-bottom: 1rem;
 }
 .lower {
   margin-block: 1rem 2rem;
