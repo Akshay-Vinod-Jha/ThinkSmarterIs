@@ -24,8 +24,7 @@ const App = () => {
           <PopUp content={showPop.style} />,
           document.getElementById("popup")
         )}
-      <Chatbot />
-
+      <SpellChecker />
     </div>
   );
 };

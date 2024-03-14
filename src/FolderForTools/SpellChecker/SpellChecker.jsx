@@ -14,6 +14,7 @@ import { TbBulb } from "react-icons/tb";
 function SpellChecker() {
   const dispatch = useDispatch();
   const importantFun = async (text) => {
+    closeAll();
     setUnderlinedText(true);
     try {
       const response = await fetch("https://api.sapling.ai/api/v1/edits", {
