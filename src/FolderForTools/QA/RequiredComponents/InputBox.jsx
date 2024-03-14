@@ -21,7 +21,7 @@ const InputBox = ({ setShowHistory, getAnswer, isLoading }) => {
       <div>
         <textarea
           ref={contextRef}
-          rows={20}
+          rows={19}
           placeholder="Enter The Paragraph"
           className={classes.QAteatarea}
         />

@@ -25,6 +25,7 @@ const App = () => {
           document.getElementById("popup")
         )}
       <Chatbot />
+
     </div>
   );
 };
