@@ -1,12 +1,14 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { MdHistory } from "react-icons/md";
 import classes from "./InputBox.module.css";
 import PromptInputField from "../../../UI/PromptInputField";
 import OrangeButton from "../../../UI/OrangeButton";
 import Loader from "../../../UI/Loader";
+import MainBox from "./MainBox";
+
 const InputBox = ({ setShowHistory, getAnswer, isLoading }) => {
-  const contextRef = useRef();
   const questionRef = useRef();
+
   return (
     <div className={classes["InputBox-container"]}>
       <div className={classes.titleContainer}>
@@ -18,22 +20,14 @@ const InputBox = ({ setShowHistory, getAnswer, isLoading }) => {
           onClick={() => setShowHistory(true)}
         />
       </div>
-      <div>
-        <textarea
-          ref={contextRef}
-          rows={19}
-          placeholder="Enter The Paragraph"
-          className={classes.QAteatarea}
-        />
-      </div>
+      <MainBox />
       <div className={classes.question}>
         <PromptInputField placeholder="Ask Any Question?" ref={questionRef} />
         <div className={classes.answer}>
           <OrangeButton
             onClick={() =>
               getAnswer(contextRef.current.value, questionRef.current.value)
-            }
-          >
+            }>
             {isLoading && <Loader />}
             Answer
           </OrangeButton>

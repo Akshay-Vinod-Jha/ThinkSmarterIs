@@ -17,6 +17,7 @@ import Summarizer from "./FolderForTools/Summarizer/Summarizer";
 import Chatbot from "./FolderForTools/ChatBot/Chatbot";
 const App = () => {
   const showPop = useSelector(getPopUpState);
+
   return (
     <div>
       {showPop.visible &&
