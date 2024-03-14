@@ -47,7 +47,7 @@ const MainBox = ({ src, setShowHistory, getImageHandler, type }) => {
         <div className={classes.receiveImage}>{content}</div>
         <div className={classes.get}>
           <h3 className={classes.getImageHeading}>
-            Drag and Drop, Upload or Paste image
+            Drag and Drop, Upload or Paste image and PDF
           </h3>
           <p className={classes.upload}>Upload one image at a time</p>
           <div className={classes.browse}>
