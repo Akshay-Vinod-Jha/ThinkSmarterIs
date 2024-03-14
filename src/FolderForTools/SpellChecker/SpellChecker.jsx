@@ -168,7 +168,7 @@ function SpellChecker() {
           />
         )}
         {correctone && <ShowingCorrectOne sentence={sentence} />}
-        <div className="w-full fle flex-col my-4 font-lexend text-sm md:text-base lg:text-lg xl:text-xl justify-center items-center gap-2 bg-[#1E1E1E] rounded-xl">
+        <div className="w-full flex flex-col my-4 font-lexend text-sm md:text-base lg:text-lg xl:text-xl justify-center items-center gap-2 bg-[#1E1E1E] rounded-xl">
           <h1 className="w-full text-center flex justify-center text-sm md:text-base lg:text-lg xl:text-xl gap-2 font-extrabold items-center py-2 text-white">
             <TbBulb color="yellow" fontSize="1.5rem" />
             Don’t have idea ? Try these!
@@ -189,7 +189,7 @@ function SpellChecker() {
                     sentenceRef.current.value = value;
                     closeAll();
                   }}
-                  className="w-full px-8 py-4 text-justify max-h-40 overflow-scroll no-scrollbar text-sm bg-[#080b10] border-2 border-black hover:border-[#728894] hover:bg-black  rounded-md text-[#ffffffa0]"
+                  className="w-full px-8 py-4 text-justify h-20 overflow-scroll no-scrollbar text-sm bg-[#080b10] border-2 border-black hover:border-[#728894] hover:bg-black  rounded-md text-[#ffffffa0]"
                 >
                   {value}
                 </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { HfInference } from "@huggingface/inference";
 import Loading from "../../UI/Loading";
 import Copy from "../../UI/Copy";
+import { MdCompress } from "react-icons/md";
 import { TbBulb } from "react-icons/tb";
 import { convert } from "html-to-text";
 import Title from "./RequiredComponents/Title.jsx";
@@ -20,6 +21,7 @@ const Summarizer = () => {
   const [text, setText] = useState("");
   const [bhetla, setBhetla] = useState(false);
   const [mm, showmm] = useState(false);
+  const [processState, setProcessState] = useState(false);
   const [temp, setTemp] = useState(25);
   const inputRef = useRef();
   const inputRefs = useRef();
@@ -128,21 +130,25 @@ const Summarizer = () => {
           className="w-full md:col-span-3 lg:col-span-3 col-span-1 flex overflow-scroll no-scrollbar flex-col justify-center items-center h-auto p-3 md:p-3 lg:p-4 font-lexend font-extrabold text-sm md:text-base lg:text-lg xl:text-lg gap-4"
         >
           {/* title */}
-          <Title />
+          <Title title="Ai BriefBuddy" setShowHistory={setShowHistory} />
           {/* input and button */}
           {!mail && (
             <PromptAreaForText
+              placeholder="Enter Your Text Here..."
               temp={temp}
               ref={inputRef}
               onChange={changeHandler}
               clickHandler={clickHandler}
               change={true}
               requested={requested}
+              buttonText="Summarize"
+              icon={<MdCompress className="text-base lg:text-lg" />}
             />
           )}
           {/* input and button for link */}
           {mail && (
             <PromptAreaForMail
+              placeholder="Enter Your URL Here."
               changeHandler={changeHandler}
               change={true}
               callThisFunction={callThisFunction}
@@ -272,7 +278,7 @@ const Summarizer = () => {
                       onClick={() => {
                         inputRefs.current.value = value;
                       }}
-                      className="w-full px-8 py-4 text-justify max-h-40 overflow-scroll no-scrollbar text-sm bg-[#080b10] border-2 border-black hover:border-[#728894] hover:bg-black  rounded-md text-[#ffffffa0]"
+                      className="w-full px-8 py-4 text-justify h-20 overflow-scroll no-scrollbar text-sm bg-[#080b10] border-2 border-black hover:border-[#728894] hover:bg-black  rounded-md text-[#ffffffa0]"
                     >
                       {value}
                     </div>

@@ -8,7 +8,7 @@ const PromptAreaForMail = forwardRef((props, ref) => {
     <div className="w-full h-auto flex flex-col lg:flex-row justify-center font-bold items-end  gap-2 lg:gap-4">
       <div className="w-full lg:w-[75%]">
         <InputField
-          placeholder="Enter Your Text Here..."
+          placeholder={props.placeholder}
           onChange={props.changeHandler}
           change={props.onChange}
           ref={ref}
