@@ -13,7 +13,7 @@ const QA = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
-  const [answer, setAnswer] = useState("Answer Will be display Here..");
+  const [answer, setAnswer] = useState("Ouput will be display here...");
   const getAnswer = async (context, question) => {
     window.scroll(0, 500);
     setIsLoading(true);
