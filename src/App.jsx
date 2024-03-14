@@ -18,14 +18,16 @@ import Chatbot from "./FolderForTools/ChatBot/Chatbot";
 import Dictionary from "./FolderForTools/Dictionary/Dictionary";
 const App = () => {
   const showPop = useSelector(getPopUpState);
+
   return (
     <div>
       {showPop.visible &&
         createPortal(
           <PopUp content={showPop.style} />,
-          document.getElementById("popup")
+          document.getElementById("popup"),
         )}
       <Dictionary />
+
     </div>
   );
 };

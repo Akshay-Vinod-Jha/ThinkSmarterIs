@@ -40,8 +40,7 @@ const MainBox = ({ src, updateSrc, setShowHistory }) => {
         className={classes.getImage}
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => getImageHandler(e.dataTransfer.files[0])}
-        onPaste={(e) => getImageHandler(e.clipboardData.files[0])}
-      >
+        onPaste={(e) => getImageHandler(e.clipboardData.files[0])}>
         <div className={classes.receiveImage}>{content}</div>
         <div className={classes.get}>
           <h3 className={classes.getImageHeading}>
