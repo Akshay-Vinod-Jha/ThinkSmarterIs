@@ -12,11 +12,9 @@ import PopUp from "./UI/PopUp";
 import { useSelector } from "react-redux";
 import { getPopUpState } from "./store/popupSlice";
 import TextExtraction from "./FolderForTools/TextExtraction/TextExtraction";
-
 import QA from "./FolderForTools/QA/QA";
-
 import Summarizer from "./FolderForTools/Summarizer/Summarizer";
-
+import Chatbot from "./FolderForTools/ChatBot/Chatbot";
 const App = () => {
   const showPop = useSelector(getPopUpState);
   return (
@@ -26,7 +24,6 @@ const App = () => {
           <PopUp content={showPop.style} />,
           document.getElementById("popup"),
         )}
-
       <QA />
     </div>
   );
