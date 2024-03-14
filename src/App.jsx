@@ -15,6 +15,7 @@ import TextExtraction from "./FolderForTools/TextExtraction/TextExtraction";
 import QA from "./FolderForTools/QA/QA";
 import Summarizer from "./FolderForTools/Summarizer/Summarizer";
 import Chatbot from "./FolderForTools/ChatBot/Chatbot";
+import Dictionary from "./FolderForTools/Dictionary/Dictionary";
 const App = () => {
   const showPop = useSelector(getPopUpState);
 
@@ -25,7 +26,8 @@ const App = () => {
           <PopUp content={showPop.style} />,
           document.getElementById("popup"),
         )}
-      <QA />
+      <Dictionary />
+
     </div>
   );
 };

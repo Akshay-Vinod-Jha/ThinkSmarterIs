@@ -8,7 +8,7 @@ import Copy from "./Copy.jsx";
 const History = ({ history, showHistory, setShowHistory, height }) => {
   return (
     <div
-      className={`${classes["history-container"]} ${showHistory ? classes.show : classes.hide}`}
+      className={`${classes["history-container"]} ${showHistory ? classes.show : classes.hide} font-lexend`}
       style={{ height: height }}
     >
       <div className={classes["history-title"]}>
