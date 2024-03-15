@@ -32,6 +32,10 @@
   border-radius: 1rem;
   height: 350px;
 }
+.canvas {
+  overflow: hidden;
+  object-fit: cover;
+}
 .get {
   justify-self: flex-end !important;
   display: flex;

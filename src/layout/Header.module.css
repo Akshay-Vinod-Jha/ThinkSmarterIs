@@ -1,6 +1,6 @@
 .header {
   min-width: 100vw;
-  height: 5rem;
+  height: 6rem;
   background-color: rgba(0, 0, 0, 1);
   display: flex;
   justify-content: space-between;
@@ -8,7 +8,7 @@
   padding-inline: 2rem;
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 100000000;
 }
 .btns {
   width: min(10%, max-content);
@@ -16,6 +16,20 @@
 .headerLogo {
   height: 4.5rem;
   cursor: pointer;
+}
+.left {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-block: 1rem;
+}
+.logoLabel {
+  color: rgba(255, 255, 255, 1);
+  font-size: x-large;
+  font-weight: 700;
+  font-family: "Lexend Peta", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 @media screen and (max-width: 750px) {
   .header {

@@ -24,10 +24,12 @@ const App = () => {
       {showPop.visible &&
         createPortal(
           <PopUp content={showPop.style} />,
-          document.getElementById("popup")
+          document.getElementById("popup"),
         )}
-      <Dictionary />
-
+      <Header />
+      <Home />
+      <SliderCantainer />
+      <Footer />
     </div>
   );
 };
