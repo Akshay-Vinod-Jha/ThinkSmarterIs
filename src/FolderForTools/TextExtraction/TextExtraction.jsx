@@ -16,7 +16,7 @@ const TextExtraction = () => {
   const [type, setType] = useState(null);
   const [showHistory, setShowHistory] = useState(false);
   const [generatedText, setGeneratedText] = useState(
-    "Generated Text will be Display Here",
+    "Generated Text will be Display Here"
   );
 
   const [isLoading, setIsLoding] = useState(false);
@@ -31,7 +31,7 @@ const TextExtraction = () => {
         description:
           "Provided Image Format is Not Supported, Try Another Image Format!",
         icon: <MdError color="#892330" fontSize="4rem" />,
-      }),
+      })
     );
     setSrc(null);
     setGeneratedText("Generated Text will be Display Here");
@@ -107,13 +107,14 @@ const TextExtraction = () => {
           setShowHistory={setShowHistory}
           getImageHandler={getImageHandler}
           type={type}
+          setSrc={setSrc}
         />
         <History
           height="650px"
           showHistory={showHistory}
           setShowHistory={setShowHistory}
           history={Array(5).fill(
-            "The Generated text History from the uploaded image is displayed here.",
+            "The Generated text History from the uploaded image is displayed here."
           )}
         />
       </div>
