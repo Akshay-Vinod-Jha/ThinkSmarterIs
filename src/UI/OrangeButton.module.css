@@ -16,6 +16,7 @@
   gap: 0.5rem;
   transition: all ease-in 0.1s 0.1ms;
   font-size: small;
+  min-width: max-content;
 }
 
 .button:hover {
