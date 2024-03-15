@@ -18,6 +18,7 @@ import Chatbot from "./FolderForTools/ChatBot/Chatbot";
 import Dictionary from "./FolderForTools/Dictionary/Dictionary";
 import TTS from "./FolderForTools/TextToSpeech/TTS";
 import YT from "./FolderForTools/YoutubeTranscript/YT";
+import AllToolsMainPage from "./layout/AllToolsMainPage/AllToolsMainPage";
 const App = () => {
   const showPop = useSelector(getPopUpState);
 
@@ -28,6 +29,7 @@ const App = () => {
           <PopUp content={showPop.style} />,
           document.getElementById("popup")
         )}
+      <YT />
     </div>
   );
 };
