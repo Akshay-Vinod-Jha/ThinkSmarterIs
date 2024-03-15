@@ -23,7 +23,7 @@ const App = () => {
       {showPop.visible &&
         createPortal(
           <PopUp content={showPop.style} />,
-          document.getElementById("popup"),
+          document.getElementById("popup")
         )}
       <QA />
     </div>

@@ -14,6 +14,22 @@ const QA = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [answer, setAnswer] = useState("Ouput will be display here...");
+
+  const errorHandler = () => {
+    dispatch(
+      showPopUp({
+        color: "#892330",
+        bgColor: "#e5c2c2",
+        title: "Something went Wrong!",
+        description: "Failed to Find Answer",
+        icon: <MdError color="#892330" fontSize="4rem" />,
+      })
+    );
+    setTimeout(() => {
+      dispatch(hidePopUp());
+    }, 5000);
+  };
+
   const getAnswer = async (context, question) => {
     window.scroll(0, 500);
     setIsLoading(true);
@@ -26,18 +42,27 @@ const QA = () => {
       setAnswer(data.answer);
     } catch (err) {
       console.log(err);
-      dispatch(
-        showPopUp({
-          color: "#892330",
-          bgColor: "#e5c2c2",
-          title: "Something went Wrong!",
-          description: "Failed to Find Answer",
-          icon: <MdError color="#892330" fontSize="4rem" />,
-        })
-      );
-      setTimeout(() => {
-        dispatch(hidePopUp());
-      }, 5000);
+      errorHandler;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const getAnswerFromImage = async (url, question) => {
+    window.scroll(0, 500);
+    setIsLoading(true);
+    try {
+      console.log(url);
+      const blob = await (await fetch(url)).blob();
+      const inference = new HfInference(HF_TOKEN);
+      const data = await inference.documentQuestionAnswering({
+        model: "impira/layoutlm-document-qa",
+        inputs: { image: blob, question },
+      });
+      setAnswer(data.answer);
+    } catch (err) {
+      console.log(err.message);
+      errorHandler();
     } finally {
       setIsLoading(false);
     }
@@ -49,6 +74,7 @@ const QA = () => {
           setShowHistory={setShowHistory}
           getAnswer={getAnswer}
           isLoading={isLoading}
+          getAnswerFromImage={getAnswerFromImage}
         />
         <History
           height="650px"

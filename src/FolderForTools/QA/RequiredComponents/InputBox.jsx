@@ -5,9 +5,33 @@ import PromptInputField from "../../../UI/PromptInputField";
 import OrangeButton from "../../../UI/OrangeButton";
 import Loader from "../../../UI/Loader";
 import MainBox from "./MainBox";
+import { getTextFromPdf } from "../../../common-funtions/getTextFromPdf";
 
-const InputBox = ({ setShowHistory, getAnswer, isLoading }) => {
+let text = "";
+const InputBox = ({
+  setShowHistory,
+  getAnswer,
+  isLoading,
+  getAnswerFromImage,
+}) => {
   const questionRef = useRef();
+  const contextRef = useRef();
+  const [display, setDipslay] = useState("textarea");
+  const [src, setSrc] = useState(null);
+
+  const answerHandler = async () => {
+    if (display === "textarea") {
+      getAnswer(contextRef.current.value, questionRef.current.value);
+      text = "";
+    } else if (display === "getDocument") {
+      if (src.split(";")[0].includes("image")) {
+        getAnswerFromImage(src, questionRef.current.value);
+      } else {
+        text = !text && (await getTextFromPdf(src));
+        getAnswer(text.join("\n"), questionRef.current.value);
+      }
+    }
+  };
 
   return (
     <div className={classes["InputBox-container"]}>
@@ -20,14 +44,17 @@ const InputBox = ({ setShowHistory, getAnswer, isLoading }) => {
           onClick={() => setShowHistory(true)}
         />
       </div>
-      <MainBox />
+      <MainBox
+        contextRef={contextRef}
+        display={display}
+        setDipslay={setDipslay}
+        src={src}
+        setSrc={setSrc}
+      />
       <div className={classes.question}>
         <PromptInputField placeholder="Ask Any Question?" ref={questionRef} />
         <div className={classes.answer}>
-          <OrangeButton
-            onClick={() =>
-              getAnswer(contextRef.current.value, questionRef.current.value)
-            }>
+          <OrangeButton onClick={answerHandler}>
             {isLoading && <Loader />}
             Answer
           </OrangeButton>
