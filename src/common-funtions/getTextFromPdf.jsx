@@ -1,12 +1,15 @@
 import { getTextFromImage } from "./getTextFormImage";
+
 let pdfjsLib = window["pdfjs-dist/build/pdf"];
 pdfjsLib.GlobalWorkerOptions.workerSrc =
   "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.min.js";
+
 const getText = async (page) => {
   try {
     const viewport = page.getViewport({ scale: 1.1 });
     const canvas = document.createElement("canvas");
     const context = canvas.getContext("2d");
+
     canvas.height = viewport.height;
     canvas.width = viewport.width;
     const renderContext = {

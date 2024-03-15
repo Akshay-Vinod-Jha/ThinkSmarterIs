@@ -28,7 +28,6 @@ const App = () => {
           <PopUp content={showPop.style} />,
           document.getElementById("popup")
         )}
-      <YT />
     </div>
   );
 };

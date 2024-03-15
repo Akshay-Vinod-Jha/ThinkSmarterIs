@@ -1,11 +1,3 @@
-.question {
-  display: flex;
-  gap: 1rem;
-  align-items: flex-end;
-}
-.answer {
-  width: 25%;
-}
 .QAteatarea::-webkit-scrollbar {
   display: none;
 }
@@ -18,49 +10,6 @@
   border: none;
   outline: none;
   padding: 0.75rem 1rem;
-}
-
-.getImage {
-  width: 100%;
-  height: 550px;
-  color: white;
-  /* background-color: rgba(255, 255, 255, 0.1); */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  margin: 1rem auto 0;
-  border-radius: 0.5rem;
-  position: relative;
-}
-.browse {
-  width: min(300px, 100%);
-}
-.getImageHeading {
-  font-size: large;
-  text-align: center;
-}
-.upload {
-  color: #728894;
-}
-.image {
-  width: fit-content;
-  max-width: 55vw;
-  object-position: center;
-  object-fit: content;
-  margin-inline: auto;
-  border-radius: 1rem;
-  height: 350px;
-}
-.get {
-  justify-self: flex-end !important;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
 }
 
 .navigation-container {
@@ -79,28 +28,7 @@
 }
 
 @media screen and (max-width: 750px) {
-  .getImageHeading {
-    font-size: large;
-  }
-  .image {
-    max-width: 100%;
-    height: auto;
-    margin-block: 1rem;
-  }
-  .get {
-    position: static;
-  }
-  .getImage {
-    height: auto;
-    justify-content: flex-start;
-  }
-}
-
-@media screen and (max-width: 750px) {
-  .question {
-    flex-direction: column;
-  }
-  .answer {
-    width: 100%;
+  .navigation-container {
+    justify-content: space-between;
   }
 }
