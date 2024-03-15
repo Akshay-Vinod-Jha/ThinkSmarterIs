@@ -10,7 +10,7 @@ const ParentBox = (props) => {
         <>
           <h1 className="w-full text-start text-white mb-4">
             Word:-
-            <span className="bg-white capatilize text-[#fc0001] hover:text-[#728894] font-semibold ml-4 px-4 py-2 rounded-lg">
+            <span className="bg-[#eb0900] capatilize text-[white]  font-semibold ml-4 px-4 py-2 rounded-lg">
               {props.value.word}
             </span>
           </h1>
@@ -32,12 +32,6 @@ const ParentBox = (props) => {
             />
           )}
         </>
-      )}
-      {props.requested && (
-        <Loading
-          label="Searching The Specified Word..This Can Take Some Time"
-          size="40px"
-        />
       )}
     </div>
   );
