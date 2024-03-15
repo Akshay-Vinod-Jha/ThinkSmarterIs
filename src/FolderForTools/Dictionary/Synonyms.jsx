@@ -12,7 +12,7 @@ const Synonyms = (props) => {
           props.avalue.map((av, ai) => {
             return (
               <div
-                className="w-full text-center py-2 rounded-lg text-sm bg-white text-[#fc0001] hover:bg-[#fc0001] hover:text-white"
+                className="w-full text-center py-2 rounded-lg text-sm bg-[#FD5D38] text-[black]"
                 key={ai}
               >
                 {av}

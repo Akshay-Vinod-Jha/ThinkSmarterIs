@@ -16,6 +16,8 @@ import QA from "./FolderForTools/QA/QA";
 import Summarizer from "./FolderForTools/Summarizer/Summarizer";
 import Chatbot from "./FolderForTools/ChatBot/Chatbot";
 import Dictionary from "./FolderForTools/Dictionary/Dictionary";
+import TTS from "./FolderForTools/TextToSpeech/TTS";
+import YT from "./FolderForTools/YoutubeTranscript/YT";
 const App = () => {
   const showPop = useSelector(getPopUpState);
 
@@ -24,10 +26,9 @@ const App = () => {
       {showPop.visible &&
         createPortal(
           <PopUp content={showPop.style} />,
-          document.getElementById("popup"),
+          document.getElementById("popup")
         )}
-      <Dictionary />
-
+      <YT />
     </div>
   );
 };
