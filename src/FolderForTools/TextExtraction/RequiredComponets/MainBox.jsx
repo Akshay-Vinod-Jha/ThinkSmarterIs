@@ -1,31 +1,18 @@
-import { useRef } from "react";
-import OrangeButton from "../../../UI/OrangeButton";
-import { CiImageOn } from "react-icons/ci";
+import { useRef, useState } from "react";
 import classes from "./MainBox.module.css";
-// import Loader from '../../../UI/Loader'
+import GetDocument from "../../../UI/GetDocument";
+import { MdHistory } from "react-icons/md";
+
+const MainBox = ({ src, setShowHistory, setSrc, getImageHandler }) => {
+  const [filetype, setFileType] = useState(null);
+  const inputRef = useRef(null);
 import { MdOutlineFileUpload } from "react-icons/md";
 import { FaRegFilePdf } from "react-icons/fa6";
 import GetDocument from "../../../UI/GetDocument";
 import { MdHistory } from "react-icons/md";
 
 const MainBox = ({ src, setSrc, setShowHistory, getImageHandler, type }) => {
-  // console.log(type);
   const inputRef = useRef(null);
-
-  // const content =
-  //   src && type === "image" ? (
-  //     <img className={classes.image} src={src} alt="input image" />
-  //   ) : type === "application/pdf" ? (
-  //     <FaRegFilePdf
-  //       color="rgba(255,255,255,.5)"
-  //       fontSize="clamp(15rem,20vw,20rem)"
-  //     />
-  //   ) : (
-  //     <CiImageOn
-  //       color="rgba(255,255,255,.5)"
-  //       fontSize="clamp(20rem,25vw,30rem)"
-  //     />
-  //   );
 
   return (
     <div className={classes["mainBox-cantainer"]}>
@@ -38,7 +25,17 @@ const MainBox = ({ src, setSrc, setShowHistory, getImageHandler, type }) => {
           onClick={() => setShowHistory(true)}
         />
       </div>
-      <GetDocument src={src} setSrc={setSrc} />
+
+
+      <GetDocument
+        src={src}
+        filetype={filetype}
+        setSrc={setSrc}
+        setFileType={setFileType}
+        height="92%"
+        call={getImageHandler}
+      />
+
     </div>
   );
 };

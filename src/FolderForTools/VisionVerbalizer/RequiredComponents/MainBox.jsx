@@ -1,8 +1,10 @@
 import classes from "./MainBox.module.css";
 import GetDocument from "../../../UI/GetDocument";
 import { MdHistory } from "react-icons/md";
-
+import { useState } from "react";
 const MainBox = ({ src, updateSrc, setShowHistory }) => {
+  const [filetype, setFileType] = useState(null);
+
   return (
     <div className={classes["mainBox-cantainer"]}>
       <div className={classes.titleContainer}>
@@ -14,7 +16,14 @@ const MainBox = ({ src, updateSrc, setShowHistory }) => {
           onClick={() => setShowHistory(true)}
         />
       </div>
-      <GetDocument src={src} setSrc={updateSrc} />
+      <GetDocument
+        src={src}
+        setSrc={updateSrc}
+        filetype={filetype}
+        setFileType={setFileType}
+        height="92%"
+        pdf={false}
+      />
     </div>
   );
 };
