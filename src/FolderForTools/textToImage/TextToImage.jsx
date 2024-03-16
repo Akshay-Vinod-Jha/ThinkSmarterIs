@@ -50,7 +50,7 @@ function TextToImage() {
           title: "Something went Wrong!",
           description: "Failed to Generate Image",
           icon: <MdError color="#892330" fontSize="4rem" />,
-        }),
+        })
       );
       promptInputRef.current.value = ``;
       setSrc(null);
@@ -80,7 +80,8 @@ function TextToImage() {
       className={
         cssClasses.textToImageContainer +
         "  w-[99vw] lg:h-[auto] min-h-screen bg-[#1E1E1E] grid grid-cols-1  gap-2 p-1 md:p-2 lg:p-3 xl:p-2"
-      }>
+      }
+    >
       {/* firstChild */}
 
       <div className="bg-black h-[auto] row-span-2  md:row-span-2 lg:row-span-3 rounded-xl grid grid-cols-4 gap-2 p-2">
@@ -127,14 +128,16 @@ function TextToImage() {
                 {src && !isLoading && (
                   <div
                     className={cssClasses.regenerate}
-                    onClick={() => get(promptInputRef.current.value)}>
+                    onClick={() => get(promptInputRef.current.value)}
+                  >
                     <BsArrowRepeat fontSize={"1.5rem"} />
                     Regenerate image
                   </div>
                 )}
                 <OrangeButton
                   onClick={() => get(promptInputRef.current.value)}
-                  isLoading={isLoading}>
+                  isLoading={isLoading}
+                >
                   {isLoading && <Loader />}
                   {isLoading ? "Generating..." : "Generate Image"}
                   {!isLoading && <FaWandMagicSparkles />}
@@ -150,7 +153,7 @@ function TextToImage() {
           showHistory={showHistory}
           setShowHistory={setShowHistory}
           history={Array(10).fill(
-            "The Generated text History from the uploaded image is displayed here.",
+            "The Generated text History from the uploaded image is displayed here."
           )}
         />
       </div>

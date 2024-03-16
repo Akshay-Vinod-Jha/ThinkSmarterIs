@@ -7,28 +7,39 @@ import Loader from "../../../UI/Loader";
 import MainBox from "./MainBox";
 import { getTextFromPdf } from "../../../common-funtions/getTextFromPdf";
 
-let text = "";
+let current = {
+  currentSrc: "",
+  currentText: "",
+};
 const InputBox = ({
   setShowHistory,
   getAnswer,
   isLoading,
   getAnswerFromImage,
+  setIsLoading,
+  questionRef,
+  contextRef,
+  display,
+  setDipslay,
+  src,
+  setSrc,
 }) => {
-  const questionRef = useRef();
-  const contextRef = useRef();
-  const [display, setDipslay] = useState("textarea");
-  const [src, setSrc] = useState(null);
+  const [filetype, setFileType] = useState(null);
 
   const answerHandler = async () => {
+    setIsLoading(true);
     if (display === "textarea") {
       getAnswer(contextRef.current.value, questionRef.current.value);
-      text = "";
     } else if (display === "getDocument") {
       if (src.split(";")[0].includes("image")) {
         getAnswerFromImage(src, questionRef.current.value);
+        current.currentText = "";
       } else {
-        text = !text && (await getTextFromPdf(src));
-        getAnswer(text.join("\n"), questionRef.current.value);
+        if (current.src !== src) {
+          current.src = src;
+          current.currentText = await getTextFromPdf(src);
+        }
+        getAnswer(current.currentText.join("\n"), questionRef.current.value);
       }
     }
   };
@@ -50,11 +61,13 @@ const InputBox = ({
         setDipslay={setDipslay}
         src={src}
         setSrc={setSrc}
+        filetype={filetype}
+        setFileType={setFileType}
       />
       <div className={classes.question}>
         <PromptInputField placeholder="Ask Any Question?" ref={questionRef} />
         <div className={classes.answer}>
-          <OrangeButton onClick={answerHandler}>
+          <OrangeButton onClick={answerHandler} isLoading={isLoading}>
             {isLoading && <Loader />}
             Answer
           </OrangeButton>

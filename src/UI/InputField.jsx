@@ -7,6 +7,7 @@ const InputField = forwardRef((props, ref) => {
       className={classes.inputfield}
       placeholder={props.placeholder}
       type={props.type}
+      onChange={props.onChange}
       required
     />
   );

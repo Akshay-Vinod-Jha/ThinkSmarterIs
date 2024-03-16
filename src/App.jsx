@@ -20,7 +20,6 @@ import TTS from "./FolderForTools/TextToSpeech/TTS";
 import YT from "./FolderForTools/YoutubeTranscript/YT";
 const App = () => {
   const showPop = useSelector(getPopUpState);
-
   return (
     <div>
       {showPop.visible &&
@@ -28,6 +27,7 @@ const App = () => {
           <PopUp content={showPop.style} />,
           document.getElementById("popup")
         )}
+      <SignIN />
     </div>
   );
 };

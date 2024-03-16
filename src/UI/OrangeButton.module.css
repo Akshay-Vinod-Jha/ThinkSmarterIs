@@ -21,7 +21,8 @@
 
 .button:hover {
   color: white;
-  background-color: #fc00005f;
+  /* background-color: #fc00005f; */
+  background-color: rgba(252, 0, 1, 0.75);
 }
 .button:active {
   opacity: 0.5;
