@@ -15,7 +15,7 @@
   object-fit: contain;
 }
 .generatedImageContainer {
-  /* height: 450px; */
+  height: 450px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,20 +43,20 @@
   cursor: pointer;
 }
 .download:active {
-  opacity: .5;
+  opacity: 0.5;
 }
 .regenerate {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 1.5rem;
-  gap: .25rem;
+  gap: 0.25rem;
   color: #728894;
   cursor: pointer;
-  font-size: .85rem;
+  font-size: 0.85rem;
 }
 .regenerate:active {
-  opacity: .5;
+  opacity: 0.5;
 }
 @media screen and (max-width: 750px) {
   .history {
@@ -68,9 +68,9 @@
   .generatedImageContainer {
     min-height: 450px;
     height: fit-content;
-  }.regenerate {
+  }
+  .regenerate {
     justify-content: start;
     margin: 1rem auto;
-
   }
 }

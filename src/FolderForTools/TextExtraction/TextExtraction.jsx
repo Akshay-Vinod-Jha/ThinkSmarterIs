@@ -74,6 +74,7 @@ const TextExtraction = () => {
           setSrc={setSrc}
           setShowHistory={setShowHistory}
           getImageHandler={getImageHandler}
+          setSrc={setSrc}
         />
         <History
           height="650px"
