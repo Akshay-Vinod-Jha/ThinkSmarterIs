@@ -19,6 +19,7 @@ import Dictionary from "./FolderForTools/Dictionary/Dictionary";
 import TTS from "./FolderForTools/TextToSpeech/TTS";
 import YT from "./FolderForTools/YoutubeTranscript/YT";
 import AllToolsMainPage from "./layout/AllToolsMainPage/AllToolsMainPage";
+import TTC from "./FolderForTools/TextToCode/TTC";
 const App = () => {
   const showPop = useSelector(getPopUpState);
 
