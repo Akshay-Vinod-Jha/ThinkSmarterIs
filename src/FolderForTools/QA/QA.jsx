@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import classes from "./QA.module.css";
 import History from "../../UI/History";
 import InputBox from "./RequiredComponents/InputBox";
@@ -7,13 +7,18 @@ import { HfInference } from "@huggingface/inference";
 import { useDispatch } from "react-redux";
 import { MdError } from "react-icons/md";
 import { hidePopUp, showPopUp } from "../../store/popupSlice.jsx";
+import TryThese from "./RequiredComponents/TryThese.jsx";
 const HF_TOKEN = "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";
 
 const QA = () => {
   const dispatch = useDispatch();
+  const questionRef = useRef();
+  const contextRef = useRef();
+  const [display, setDipslay] = useState("textarea");
+  const [src, setSrc] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
-  const [answer, setAnswer] = useState("Ouput will be display here...");
+  const [answer, setAnswer] = useState("Output will be display here...");
 
   const errorHandler = () => {
     dispatch(
@@ -36,7 +41,8 @@ const QA = () => {
     try {
       const inference = new HfInference(HF_TOKEN);
       const data = await inference.questionAnswering({
-        model: "deepset/roberta-base-squad2",
+        model:
+          "google-bert/bert-large-uncased-whole-word-masking-finetuned-squad",
         inputs: { question, context },
       });
       setAnswer(data.answer);
@@ -49,10 +55,9 @@ const QA = () => {
   };
 
   const getAnswerFromImage = async (url, question) => {
+    console.log(url);
     window.scroll(0, 500);
-    setIsLoading(true);
     try {
-      console.log(url);
       const blob = await (await fetch(url)).blob();
       const inference = new HfInference(HF_TOKEN);
       const data = await inference.documentQuestionAnswering({
@@ -75,9 +80,16 @@ const QA = () => {
           getAnswer={getAnswer}
           isLoading={isLoading}
           getAnswerFromImage={getAnswerFromImage}
+          setIsLoading={setIsLoading}
+          questionRef={questionRef}
+          contextRef={contextRef}
+          display={display}
+          setDipslay={setDipslay}
+          src={src}
+          setSrc={setSrc}
         />
         <History
-          height="650px"
+          height="660px"
           showHistory={showHistory}
           setShowHistory={setShowHistory}
           history={Array(5).fill(
@@ -87,6 +99,19 @@ const QA = () => {
       </div>
       <div className={classes.lower}>
         <Output isLoading={isLoading} output={answer} />
+      </div>
+      <div>
+        <TryThese
+          setSrc={setSrc}
+          questionRef={questionRef}
+          getAnswerFromImage={getAnswerFromImage}
+          display={display}
+          trythisHandler={(context, question) => {
+            window.scroll(0, 0);
+            contextRef.current.value = context;
+            questionRef.current.value = question;
+          }}
+        />
       </div>
     </div>
   );

@@ -13,6 +13,7 @@
     "@huggingface/inference": "^2.6.4",
     "@reduxjs/toolkit": "^2.2.1",
     "axios": "^1.6.7",
+    "firebase": "^10.9.0",
     "framer-motion": "^11.0.8",
     "html-react-parser": "^5.1.8",
     "html-to-text": "^9.0.5",

@@ -6,10 +6,18 @@ const OrangeButton = (props) => {
       className={classes.button}
       onClick={props.onClick}
       style={{
-        opacity: isLoading ? 0.5 : 1,
-        cursor: isLoading ? "not-allowed" : "pointer",
+        opacity:
+          isLoading || (props.hasOwnProperty("disabled") && !props.disabled)
+            ? 0.5
+            : 1,
+        cursor:
+          isLoading || (props.hasOwnProperty("disabled") && !props.disabled)
+            ? "not-allowed"
+            : "pointer",
       }}
-      disabled={isLoading}
+      disabled={
+        isLoading || (props.hasOwnProperty("disabled") && !props.disabled)
+      }
     >
       {props.children}
     </button>

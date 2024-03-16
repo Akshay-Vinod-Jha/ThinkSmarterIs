@@ -17,11 +17,12 @@
   font-size: small;
   color: rgba(255, 255, 255, 0.6);
   font-size: 1rem;
-  overflow-x: scroll !important;
+  overflow: scroll !important;
   /* background-color: #728894; */
   border: 1px solid #728894;
   padding: 1rem;
   border-radius: 0.5rem;
+  max-height: 75vh;
 }
 .text::-webkit-scrollbar {
   display: none;

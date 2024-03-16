@@ -22,7 +22,6 @@ import AllToolsMainPage from "./layout/AllToolsMainPage/AllToolsMainPage";
 import TTC from "./FolderForTools/TextToCode/TTC";
 const App = () => {
   const showPop = useSelector(getPopUpState);
-
   return (
     <div>
       {showPop.visible &&
@@ -30,7 +29,7 @@ const App = () => {
           <PopUp content={showPop.style} />,
           document.getElementById("popup")
         )}
-      <YT />
+      <SignIN />
     </div>
   );
 };
