@@ -16,7 +16,11 @@ const ParentYt = (props) => {
           <ALanguages value={props.value.availableLangs} />
         )}
       {props.value.transcription && props.value.transcription.length !== 0 && (
-        <Trancription value={props.value.transcription} />
+        <Trancription
+          value={props.value.transcription}
+          copyText={props.copyText}
+          setCopyText={props.setCopyText}
+        />
       )}
       {props.value.lengthInSeconds && (
         <div className="w-full flex justify-between items-center">

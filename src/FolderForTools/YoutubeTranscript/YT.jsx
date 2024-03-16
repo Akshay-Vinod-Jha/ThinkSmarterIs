@@ -52,13 +52,19 @@ const YT = () => {
   const [output, setOutput] = useState([]);
   const [request, setRequest] = useState(false);
   const [parent, setParent] = useState(false);
+  const [copyText, setCopyText] = useState("");
   const wordref = useRef();
   const callThisFunction = (receivedvalue) => {
+    setCopyText("");
     setRequest(true);
     setParent(false);
     console.log(receivedvalue);
     setRequested(true);
     my(receivedvalue);
+  };
+  const closeAll = () => {
+    setParent(false);
+    setRequest(false);
   };
   return (
     <div className="w-screen h-auto grid pb-10 grid-cols-1 md:grid-cols-4 place-content-center place-items-start gap-2">
@@ -81,7 +87,15 @@ const YT = () => {
         {parent && output.length !== 0 && (
           <>
             {output.map((value, index) => {
-              return <ParentYt value={value} index={index} key={index} />;
+              return (
+                <ParentYt
+                  value={value}
+                  index={index}
+                  key={index}
+                  copyText={copyText}
+                  setCopyText={setCopyText}
+                />
+              );
             })}
           </>
         )}
