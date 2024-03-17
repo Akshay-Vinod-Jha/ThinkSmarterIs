@@ -69,7 +69,7 @@ const YT = () => {
   return (
     <div className="w-screen h-auto grid pb-10 grid-cols-1 md:grid-cols-4 place-content-center place-items-start gap-2">
       <div className="w-full col-span-1 md:col-span-3 h-auto p-2 md:p-4">
-        <Title title="Yotube Transcriptor" setShowHistory={setShowHistory} />
+        <Title title="AI Transcript Tube" setShowHistory={setShowHistory} />
         <PromptAreaForMail
           placeholder="Enter The Video Id here.."
           ref={wordref}

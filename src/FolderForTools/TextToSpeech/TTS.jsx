@@ -8,7 +8,7 @@ const TTS = () => {
   return (
     <div className="w-screen h-auto grid grid-cols-1 md:grid-cols-4 place-content-start place-items-start py-4 px-2 gap-2">
       <div className="w-full col-span-1 md:col-span-3 px-1 gap-4">
-        <Title title="T-T-S/S-T-T" />
+        <Title title="VoiceSync" />
         <MainContainer />
       </div>
       <History
