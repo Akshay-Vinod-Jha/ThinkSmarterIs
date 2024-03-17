@@ -33,7 +33,7 @@ function Advantage(props) {
         The historical records are presented on the right side;
       </h1>
       <h1 className=" text-[white] text-center mb-4 w-full justify-center items-center font-lexend font-extrabold text-base md:text-lg lg:text-xl xl:text-xl">
-        you can also copy them for repeated utilization.
+        you can also copy them for repeated utilization.
       </h1>
       <div className="w-screen h-auto flex  flex-col-reverse  md:flex-row justify-center items-center px-6 md:px-6 gap-4 my-4">
         <div className="w-full md:col-span-1 md:w-[50%] lg:w-[25%]">
