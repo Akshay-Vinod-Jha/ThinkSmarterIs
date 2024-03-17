@@ -20,6 +20,7 @@ import TTS from "./FolderForTools/TextToSpeech/TTS";
 import YT from "./FolderForTools/YoutubeTranscript/YT";
 import AllToolsMainPage from "./layout/AllToolsMainPage/AllToolsMainPage";
 import TTC from "./FolderForTools/TextToCode/TTC";
+import Translation from "./FolderForTools/Translation/Translation";
 const App = () => {
   const showPop = useSelector(getPopUpState);
   return (
@@ -29,7 +30,7 @@ const App = () => {
           <PopUp content={showPop.style} />,
           document.getElementById("popup")
         )}
-      <TTS />
+      <Translation />
     </div>
   );
 };
