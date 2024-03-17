@@ -8,7 +8,7 @@ const MainBox = ({ src, setShowHistory, setSrc, getImageHandler }) => {
   return (
     <div className={classes["mainBox-cantainer"]}>
       <div className={classes.titleContainer}>
-        <h1 className={classes.title}>Text Extraction</h1>
+        <h1 className={classes.title}>AIExtracta</h1>
         <MdHistory
           color="#728894"
           fontSize="2rem"

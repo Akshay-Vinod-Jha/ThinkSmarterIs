@@ -64,7 +64,7 @@ const Dictionary = () => {
   return (
     <div className="w-screen h-auto grid grid-cols-1 md:grid-cols-4 place-content-center place-items-start gap-2">
       <div className="w-full col-span-1 md:col-span-3 h-auto p-2 md:p-4">
-        <Title title="Dictionary" setShowHistory={setShowHistory} />
+        <Title title="IntelliDict" setShowHistory={setShowHistory} />
         <PromptAreaForMail
           placeholder="Enter The Word Here..."
           ref={wordref}

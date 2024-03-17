@@ -9,7 +9,7 @@ const Copy = ({ size, text }) => {
 
   return (
     <div
-      className={classes.copy}
+      className={classes.copy+"  font-lexend"}
       onClick={() => {
         copyTextToClipboard(text);
         setCopy((copy) => !copy);
@@ -19,7 +19,7 @@ const Copy = ({ size, text }) => {
       }}
     >
       {copy ? (
-        <p className="flex justify-center items-center gap-2">
+        <p className="flex font-lexend justify-center items-center gap-2">
           Copied
           <IoCheckmarkDoneCircle className="text-green-500 text-base"></IoCheckmarkDoneCircle>
         </p>
