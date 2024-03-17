@@ -683,7 +683,7 @@ const Translation = (props) => {
   return (
     <div className="w-screen  h-auto grid grid-cols-1 md:grid-cols-4 place-content-center place-items-start p-2 ">
       <div className="w-[99%] p-2 col-span-1 md:col-span-3 grid grid-cols-1 gap-4 place-content-center place-items-center">
-        <Title title="ThinkSmarter Translation" />
+        <Title title="TranslateExpert" />
         <BigTextarea
           placeholder="Enter The Sentence To Translate Here.."
           ref={senetenceRef}
