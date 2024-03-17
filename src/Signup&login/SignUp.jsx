@@ -15,9 +15,11 @@ import { MdError } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";
 import { GoogleAuthProvider } from "firebase/auth";
 import Loader from "../UI/Loader.jsx";
-
+import { useNavigate } from "react-router-dom";
+import { addData as createNewUser } from "../common-funtions/addData.jsx";
 const SignUp = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isValidEmail, setIsvalidEmail] = useState(true);
   const [isValidPassword, setIsvalidPassword] = useState(true);
   const [isValidRepeatPassword, setIsValidRepeatPassword] = useState(true);
@@ -39,7 +41,7 @@ const SignUp = () => {
     }, 5000);
   }, []);
 
-  const successHandler = useCallback(() => {
+  const successHandler = useCallback((response) => {
     dispatch(
       showPopUp({
         color: "#fefefe",
@@ -51,6 +53,7 @@ const SignUp = () => {
     );
     setTimeout(() => {
       dispatch(hidePopUp());
+      navigate("/AllToolsMainPage", { state: { userId: response.user.uid } });
     }, 5000);
   }, []);
 
@@ -61,8 +64,8 @@ const SignUp = () => {
         email,
         password
       );
-      console.log(response);
-      successHandler();
+      createNewUser(response.user.uid, {});
+      successHandler(response);
     } catch (err) {
       errorHandler(err.message);
     } finally {
@@ -78,8 +81,8 @@ const SignUp = () => {
         prompt: "select_account",
       });
       const response = await signInWithPopup(auth, provider);
-      console.log(response);
-      successHandler();
+      createNewUser(response.user.uid, {});
+      successHandler(response);
     } catch (err) {
       errorHandler(err.message);
     }
@@ -198,14 +201,14 @@ const SignUp = () => {
               }
             >
               {isLoading && <Loader />}
-              {isLoading ? ` Creating An Account` : `Create An Account`}
+              {isLoading ? ` Creating Your Account` : `Create An Account`}
             </OrangeButton>
             <div className={classes.or}>or</div>
-            <OrangeButton onClick={signUpWithGoogleHandler}>
-              <FaGoogle color="white" fontSize="1.25em" />
-              <p className={classes.signwith}>SignUp With Google</p>
-            </OrangeButton>
           </form>
+          <OrangeButton onClick={signUpWithGoogleHandler}>
+            <FaGoogle color="white" fontSize="1.25em" />
+            <p className={classes.signwith}>SignUp With Google</p>
+          </OrangeButton>
         </div>
       </Reveal>
       <div className={classes.right}>

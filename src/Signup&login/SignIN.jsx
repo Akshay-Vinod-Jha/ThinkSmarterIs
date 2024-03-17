@@ -8,6 +8,7 @@ import { hidePopUp, showPopUp } from "../store/popupSlice.jsx";
 import { useDispatch } from "react-redux";
 import { auth } from "../../firebase.config.js";
 import { FaCheckCircle } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
@@ -15,9 +16,11 @@ import {
 } from "firebase/auth";
 import { MdError } from "react-icons/md";
 import Loader from "../UI/Loader.jsx";
+import { useNavigate } from "react-router-dom";
 
 const SignIN = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const emailRef = useRef();
   const passwordRef = useRef();
   const checkboxRef = useRef();
@@ -46,7 +49,7 @@ const SignIN = () => {
     }, 5000);
   }, []);
 
-  const successHandler = useCallback(() => {
+  const successHandler = useCallback((response) => {
     dispatch(
       showPopUp({
         color: "#fefefe",
@@ -58,6 +61,7 @@ const SignIN = () => {
     );
     setTimeout(() => {
       dispatch(hidePopUp());
+      navigate("/AllToolsMainPage", { state: { userId: response.user.uid } });
     }, 5000);
   }, []);
 
@@ -65,7 +69,7 @@ const SignIN = () => {
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
       console.log(response);
-      successHandler();
+      successHandler(response);
     } catch {
       errorHandler();
     } finally {
@@ -82,7 +86,7 @@ const SignIN = () => {
       });
       const response = await signInWithPopup(auth, provider);
       console.log(response);
-      successHandler();
+      successHandler(response);
     } catch (err) {
       errorHandler(err.message);
     }
@@ -165,10 +169,13 @@ const SignIN = () => {
             <div className={classes.or}>or</div>
             <OrangeButton onClick={signInWithGoogleHandler}>
               <FaGoogle color="white" fontSize="1.25em" />
-              <p className={classes.signwith}>sign up with Google</p>
+              <p className={classes.signwith}>Sign In with Google</p>
             </OrangeButton>
             <p className={classes.remember}>
-              Don’t have an account? <a className={classes.signupp}>sign-up</a>
+              Don’t have an account?
+              <Link className={classes.signupp} to="/signUp">
+                Sign-up
+              </Link>
             </p>
           </form>
         </div>

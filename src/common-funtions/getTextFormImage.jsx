@@ -1,11 +1,9 @@
-import { createWorker } from "tesseract.js";
+import Tesseract from "tesseract.js";
 
 export const getTextFromImage = async (image) => {
   try {
-    const worker = await createWorker("eng");
-    const ret = await worker.recognize(image);
-    await worker.terminate();
-    return ret.data.text;
+    const response = await Tesseract.recognize(image, "eng");
+    return response.data.text;
   } catch (err) {
     return err.message;
   }

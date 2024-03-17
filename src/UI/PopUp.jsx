@@ -1,10 +1,14 @@
 import Reveal from "../UI/Reveal.jsx";
 import classes from "./Popup.module.css";
 
+export const OverLay = ({ children }) => {
+  return <div className={classes.overlay}>{children}</div>;
+};
+
 const PopUp = ({ content }) => {
   const { title, icon, description, bgColor, color } = content;
   return (
-    <div className={classes.overlay}>
+    <OverLay>
       <Reveal>
         <div className={classes.lastOption}>
           <div
@@ -19,7 +23,7 @@ const PopUp = ({ content }) => {
           </div>
         </div>
       </Reveal>
-    </div>
+    </OverLay>
   );
 };
 

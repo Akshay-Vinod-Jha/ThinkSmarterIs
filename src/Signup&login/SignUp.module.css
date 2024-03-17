@@ -128,6 +128,7 @@
 .signupp {
   color: #fc0001;
   cursor: pointer;
+  margin-inline: 0.5rem;
 }
 .ready {
   background-color: #d7d5d5;

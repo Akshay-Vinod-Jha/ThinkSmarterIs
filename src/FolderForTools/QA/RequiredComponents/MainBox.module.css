@@ -14,21 +14,35 @@
 
 .navigation-container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
-  margin: 1rem;
+  margin-block: 1rem;
+  position: relative;
 }
 .navigation {
   color: rgba(255, 255, 255, 0.75);
   cursor: pointer;
 }
 .current {
-  border-bottom: 0.2rem solid #fc0001;
   color: white;
+}
+.line {
+  position: absolute;
+  bottom: -0.5rem;
+  width: 50%;
+  background-color: #fc1001;
+  height: 0.25rem;
+  transition: all 0.3s ease-in 1ms;
+}
+.left {
+  transform: translateX(-50%);
+}
+.right {
+  transform: translateX(50%);
 }
 
 @media screen and (max-width: 750px) {
   .navigation-container {
-    justify-content: space-between;
+    justify-content: space-around;
   }
 }

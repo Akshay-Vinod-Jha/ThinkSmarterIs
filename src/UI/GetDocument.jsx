@@ -61,7 +61,9 @@ const GetDocument = ({
     <div
       style={{ height }}
       className={classes.getImage}
-      onDragOver={(e) => e.preventDefault()}
+      onDragOver={(e) => {
+        e.preventDefault();
+      }}
       onDrop={(e) => getImageHandler(e.dataTransfer.files[0])}
       onPaste={(e) => getImageHandler(e.clipboardData.files[0])}
     >
