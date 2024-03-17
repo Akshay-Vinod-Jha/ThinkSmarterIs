@@ -60,6 +60,9 @@ const MainBox = ({
         >
           Via Document
         </div>
+        <div
+          className={`${classes.line} ${display === "textarea" ? classes.left : classes.right}`}
+        />
       </div>
       {curret[display]}
     </div>

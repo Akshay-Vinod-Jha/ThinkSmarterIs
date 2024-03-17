@@ -2,7 +2,7 @@
 import MainBox from "./RequiredComponets/MainBox";
 import TryThese from "./RequiredComponets/TryThese";
 import classes from "./TextExtraction.module.css";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import Output from "./RequiredComponets/Output";
 import History from "../../UI/History";
 import { MdError } from "react-icons/md";
@@ -74,7 +74,6 @@ const TextExtraction = () => {
           setSrc={setSrc}
           setShowHistory={setShowHistory}
           getImageHandler={getImageHandler}
-          setSrc={setSrc}
         />
         <History
           height="650px"

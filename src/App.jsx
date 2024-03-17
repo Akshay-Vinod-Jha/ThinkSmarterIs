@@ -1,7 +1,4 @@
-import SliderCantainer from "./layout/slider/SliderCantainer";
-import Header from "./layout/Header";
-import Home from "./layout/Home/Home";
-import Footer from "./layout/Footer";
+import HomePage from "./layout/HomePage";
 import SignUp from "./Signup&login/SignUp";
 import TextToImage from "./FolderForTools/textToImage/TextToImage";
 import SignIN from "./Signup&login/SignIN";
@@ -20,6 +17,8 @@ import TTS from "./FolderForTools/TextToSpeech/TTS";
 import YT from "./FolderForTools/YoutubeTranscript/YT";
 import AllToolsMainPage from "./layout/AllToolsMainPage/AllToolsMainPage";
 import TTC from "./FolderForTools/TextToCode/TTC";
+import { Route, Routes, Outlet } from "react-router-dom";
+
 const App = () => {
   const showPop = useSelector(getPopUpState);
   return (
@@ -29,7 +28,24 @@ const App = () => {
           <PopUp content={showPop.style} />,
           document.getElementById("popup")
         )}
-      <SignIN />
+      <Routes>
+        <Route path="/">
+          <Route index element={<HomePage />} />
+          <Route path="SignUp" element={<SignUp />} />
+          <Route path="SignIn" element={<SignIN />} />
+          <Route path="AllToolsMainPage">
+            <Route index element={<AllToolsMainPage />} />
+            <Route path="VISUALIZEAI" element={<TextToImage />} />
+            <Route path="VISIONVERBALIZER" element={<VisionVerbalizer />} />
+            <Route path="AITRANSCRIBETUBE" element={<YT />} />
+            <Route path="AIBRIEFBUDDY" element={<Summarizer />} />
+            <Route path="INQUIRYRESPONSE" element={<QA />} />
+            <Route path="SPELLCHECKER" element={<SpellChecker />} />
+            <Route path="TEXTTOCODE" element={<TTC />} />
+            <Route path="CHATBOT" element={<Chatbot />} />
+          </Route>
+        </Route>
+      </Routes>
     </div>
   );
 };

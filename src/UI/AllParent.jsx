@@ -182,6 +182,7 @@ function AllParent(props) {
       {arrayOfTools.map((value, index) => {
         return (
           <ToolsBox
+            key={`value.name${index}`}
             toolName={value.name}
             slogan={value.slogan}
             imageUrl={value.imageUrl}
@@ -194,7 +195,7 @@ function AllParent(props) {
                 steps: arrayOfSteps[index],
               });
             }}
-          ></ToolsBox>
+          />
         );
       })}
     </div>

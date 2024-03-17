@@ -1,6 +1,6 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { FaWandMagicSparkles } from "react-icons/fa6";
-// import { MdDownloading } from "react-icons/md";
+import { HiOutlineDownload } from "react-icons/hi";
 import cssClasses from "./TextToImage.module.css";
 import TryThese from "./RequiredComponents/TryThese";
 import MainBox from "./RequiredComponents/MainBox";
@@ -10,7 +10,7 @@ import History from "../../UI/History";
 import { CiImageOn } from "react-icons/ci";
 import Loading from "../../UI/Loading";
 import { HfInference } from "@huggingface/inference";
-import { MdError, MdDownloading } from "react-icons/md";
+import { MdError } from "react-icons/md";
 import Loader from "../../UI/Loader.jsx";
 import { MdHistory } from "react-icons/md";
 import { downloadImage } from "../../common-funtions/download.jsx";
@@ -18,17 +18,59 @@ import { useDispatch } from "react-redux";
 import { hidePopUp, showPopUp } from "../../store/popupSlice.jsx";
 import { TbDownload } from "react-icons/tb";
 import { BsArrowRepeat } from "react-icons/bs";
+import { useLocation } from "react-router-dom";
+import { readData } from "../../common-funtions/readData.jsx";
+import { updateData } from "../../common-funtions/updateData.jsx";
+import { MdCancel } from "react-icons/md";
+import { OverLay } from "../../UI/PopUp.jsx";
 
 const HF_TOKEN = "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";
 
 function TextToImage() {
+  const location = useLocation();
+  const userId = location.state.userId;
   const dispatch = useDispatch();
+  const [ispopup, setshowPopUp] = useState(false);
+
   const [src, setSrc] = useState(null);
   const [showHistory, setShowHistory] = useState(false);
   const [isLoading, setIsLoding] = useState(false);
+  const [isHistroyLoading, setIsHistoryLoading] = useState(false);
   const promptInputRef = useRef(null);
+  const [history, setHistory] = useState([]);
 
-  const get = useCallback(async (prompt) => {
+  const saveHistory = async (prompt, url, userId) => {
+    const obj = {
+      prompt,
+      base64Url: url,
+      time: new Date().toISOString(),
+    };
+    setHistory((history) => {
+      return [obj, ...history];
+    });
+    await updateData(userId, {
+      VisiualizeAI: [obj, ...history],
+    });
+  };
+
+  const errorHandler = useCallback(() => {
+    dispatch(
+      showPopUp({
+        color: "#892330",
+        bgColor: "#e5c2c2",
+        title: "Something went Wrong!",
+        description: "Failed to Generate Image",
+        icon: <MdError color="#892330" fontSize="4rem" />,
+      })
+    );
+    promptInputRef.current.value = ``;
+    setSrc(null);
+    setTimeout(() => {
+      dispatch(hidePopUp());
+    }, 5000);
+  }, []);
+
+  const get = async (prompt) => {
     window.scroll(0, 0);
     setIsLoding(true);
     try {
@@ -40,26 +82,49 @@ function TextToImage() {
       });
       let reader = new FileReader();
       reader.readAsDataURL(data);
-      reader.onloadend = () => setSrc(reader.result);
+      reader.onloadend = () => {
+        setSrc(reader.result);
+        saveHistory(prompt, reader.result, userId);
+      };
     } catch (err) {
       console.log(err);
-      dispatch(
-        showPopUp({
-          color: "#892330",
-          bgColor: "#e5c2c2",
-          title: "Something went Wrong!",
-          description: "Failed to Generate Image",
-          icon: <MdError color="#892330" fontSize="4rem" />,
-        })
-      );
-      promptInputRef.current.value = ``;
-      setSrc(null);
-      setTimeout(() => {
-        dispatch(hidePopUp());
-      }, 5000);
+      errorHandler();
     } finally {
       setIsLoding(false);
     }
+  };
+
+  const popupHandler = (ind, arr) => {
+    return (
+      <OverLay>
+        <div className={cssClasses.popup}>
+          <HiOutlineDownload
+            className={cssClasses.export}
+            fontSize="2rem"
+            onClick={() => downloadImage(arr[ind].base64Url)}
+          />
+          <MdCancel
+            className={cssClasses.cancel}
+            fontSize={"2rem"}
+            onClick={() => setshowPopUp(false)}
+          />
+          <div className={cssClasses.prompt}>{arr[ind].prompt}</div>
+          <div className={cssClasses.imgContainer}>
+            <img src={arr[ind].base64Url} />
+          </div>
+        </div>
+      </OverLay>
+    );
+  };
+
+  useEffect(() => {
+    const fetchHistory = async () => {
+      const data = await readData(userId);
+      setHistory(data["VisiualizeAI"]);
+      setIsHistoryLoading(false);
+    };
+    setIsHistoryLoading(true);
+    fetchHistory();
   }, []);
 
   const content = src ? (
@@ -74,6 +139,7 @@ function TextToImage() {
       fontSize="clamp(20rem,25vw,30rem)"
     />
   );
+
   return (
     //   {/* //outemost */}
     <div
@@ -89,7 +155,7 @@ function TextToImage() {
         <div className="col-span-4 md:col-span-3 p-1 lg:col-span-3  rounded-xl grid grid-cols-1">
           <div className="bg-transparent rounded-xl flex flex-col gap-2 justify-between items-center text-base text-[#728894]">
             <div className={cssClasses.titleContainer}>
-              <h1 className="ml-2 w-max text-2xl border-b-2 hover:border-none  border-[#728894]">
+              <h1 className="ml-2 w-max text-2xl border-b-2 hover:border-none border-[#728894]">
                 Visiualize AI
               </h1>
               <div className={cssClasses.iconCantainer}>
@@ -152,9 +218,11 @@ function TextToImage() {
           height="95vh"
           showHistory={showHistory}
           setShowHistory={setShowHistory}
-          history={Array(10).fill(
-            "The Generated text History from the uploaded image is displayed here."
-          )}
+          history={history}
+          popupHandler={popupHandler}
+          showPopUp={setshowPopUp}
+          popup={ispopup}
+          isHistroyLoading={isHistroyLoading}
         />
       </div>
       <div className="bg-black rounded-xl h-[fit-content]">

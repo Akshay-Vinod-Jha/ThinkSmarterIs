@@ -1,19 +1,10 @@
 import { useRef, useState } from "react";
 import classes from "./MainBox.module.css";
-import GetDocument from "../../../UI/GetDocument";
 import { MdHistory } from "react-icons/md";
+import GetDocument from "../../../UI/GetDocument";
 
 const MainBox = ({ src, setShowHistory, setSrc, getImageHandler }) => {
   const [filetype, setFileType] = useState(null);
-  const inputRef = useRef(null);
-import { MdOutlineFileUpload } from "react-icons/md";
-import { FaRegFilePdf } from "react-icons/fa6";
-import GetDocument from "../../../UI/GetDocument";
-import { MdHistory } from "react-icons/md";
-
-const MainBox = ({ src, setSrc, setShowHistory, getImageHandler, type }) => {
-  const inputRef = useRef(null);
-
   return (
     <div className={classes["mainBox-cantainer"]}>
       <div className={classes.titleContainer}>
@@ -26,7 +17,6 @@ const MainBox = ({ src, setSrc, setShowHistory, getImageHandler, type }) => {
         />
       </div>
 
-
       <GetDocument
         src={src}
         filetype={filetype}
@@ -34,8 +24,8 @@ const MainBox = ({ src, setSrc, setShowHistory, getImageHandler, type }) => {
         setFileType={setFileType}
         height="92%"
         call={getImageHandler}
+        pdf={true}
       />
-
     </div>
   );
 };
