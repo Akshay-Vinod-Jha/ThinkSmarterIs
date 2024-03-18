@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import History from "../../UI/History";
 import Title from "../Summarizer/RequiredComponents/Title";
 import PromptAreaForMail from "../Summarizer/RequiredComponents/PromptAreaForMail";
@@ -9,7 +9,28 @@ import { useDispatch } from "react-redux";
 import { hidePopUp, showPopUp } from "../../store/popupSlice.jsx";
 import { MdError } from "react-icons/md";
 import { TbBulb } from "react-icons/tb";
+import { useLocation } from "react-router-dom";
+import { updateData } from "../../common-funtions/updateData.jsx";
+import { readData } from "../../common-funtions/readData.jsx";
+import { MdCancel } from "react-icons/md";
+import classes from "./YT.module.css";
 const YT = () => {
+  const location = useLocation();
+  const userId = location.state.userId;
+  const [history, setHistory] = useState([]);
+  const [ispopup, setIsPopUP] = useState(false);
+  const [isHistroyLoading, setIsHistoryLoading] = useState(false);
+  const saveHistory = async (prompt, result, userId) => {
+    const obj = {
+      prompt,
+      output: result,
+      time: new Date().toISOString(),
+    };
+    setHistory((previousValue) => {
+      return [obj, ...previousValue];
+    });
+    await updateData(userId, { YT: [obj, ...history] });
+  };
   const dispatch = useDispatch();
   async function my(videoId) {
     const url = `https://youtube-transcriptor.p.rapidapi.com/transcript?video_id=${videoId}`;
@@ -23,8 +44,13 @@ const YT = () => {
     try {
       const response = await fetch(url, options);
       const result = await response.json();
-      console.log(result);
       setOutput([...result]);
+      console.log(result[0].transcription);
+      let dummy = "";
+      for (let i = 0; i < result[0].transcription.length; i++) {
+        dummy = dummy + result[0].transcription[i].subtitle;
+      }
+      saveHistory(videoId, dummy, userId);
       setParent(true);
     } catch (error) {
       setParent(false);
@@ -58,7 +84,6 @@ const YT = () => {
     setCopyText("");
     setRequest(true);
     setParent(false);
-    console.log(receivedvalue);
     setRequested(true);
     my(receivedvalue);
   };
@@ -66,6 +91,34 @@ const YT = () => {
     setParent(false);
     setRequest(false);
   };
+
+  useEffect(() => {
+    const fetchHistory = async () => {
+      const data = await readData(userId);
+      setHistory(data["YT"] ? data["YT"] : []);
+      setIsHistoryLoading(false);
+    };
+    setIsHistoryLoading(true);
+    fetchHistory();
+  }, []);
+
+  const popupHandler = (ind, arr) => {
+    console.log(ind);
+    return (
+      <div className={classes.popup}>
+        <MdCancel
+          className={classes.cancel}
+          fontSize={"2rem"}
+          onClick={() => setIsPopUP(false)}
+        />
+        <p className={classes.prompt}>Prompt:{arr[ind].prompt}</p>
+        <div className="w-full md:max-h-80 max-h-40 overflow-scroll no-scrollbar">
+          output:{arr[ind].output}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="w-screen h-auto grid pb-10 grid-cols-1 md:grid-cols-4 place-content-center place-items-start gap-2">
       <div className="w-full col-span-1 md:col-span-3 h-auto p-2 md:p-4">
@@ -131,12 +184,14 @@ const YT = () => {
         </div>
       </div>
       <History
-        height="650px"
+        height="660px"
+        popup={ispopup}
+        showPopUp={setIsPopUP}
+        isHistroyLoading={isHistroyLoading}
         showHistory={showHistory}
         setShowHistory={setShowHistory}
-        history={Array(5).fill(
-          "The Generated text History from the uploaded image is displayed here."
-        )}
+        history={history}
+        popupHandler={popupHandler}
       />
     </div>
   );

@@ -112,11 +112,14 @@ const VisionVerbalizer = () => {
           onClick={() => setIsPopUp(false)}
         />
         <div className={classes.imgContainer}>
+          <p className={classes.input}>Prompt</p>
           <img src={history[ind].prompt} />
         </div>
         <div className={classes.prompt}>
-          <Copy size="1rem" text={history[ind].prompt} />
-          {history[ind].output}
+          <div>
+            <Copy size="1rem" text={history[ind].prompt} />
+          </div>
+          {`Output: ${history[ind].output}`}
         </div>
       </div>
     );
