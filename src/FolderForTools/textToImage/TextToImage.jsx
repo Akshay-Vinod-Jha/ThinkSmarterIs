@@ -37,7 +37,6 @@ function TextToImage() {
   const [isHistroyLoading, setIsHistoryLoading] = useState(false);
   const promptInputRef = useRef(null);
   const [history, setHistory] = useState([]);
-
   const saveHistory = async (prompt, url, userId) => {
     const obj = {
       prompt,
