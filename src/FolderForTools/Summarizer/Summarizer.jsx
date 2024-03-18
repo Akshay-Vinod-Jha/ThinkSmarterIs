@@ -13,8 +13,11 @@ import { hidePopUp, showPopUp } from "../../store/popupSlice.jsx";
 import { MdError } from "react-icons/md";
 import History from "../../UI/History.jsx";
 import PromptAreaForText from "./RequiredComponents/PromptAreaForText.jsx";
+import { useLocation } from "react-router-dom";
 import PromptAreaForMail from "./RequiredComponents/PromptAreaForMail.jsx";
+import { updateData } from "../../common-funtions/updateData.jsx";
 const Summarizer = () => {
+  const location = useLocation();
   const [showHistory, setShowHistory] = useState(false);
   const [requested, setRequested] = useState(false);
   const [typing, setTyping] = useState(false);
@@ -26,6 +29,19 @@ const Summarizer = () => {
   const inputRef = useRef();
   const inputRefs = useRef();
   const dispatch = useDispatch();
+  const userId = location.state.userId;
+  const [history, setHistory] = useState([]);
+  const [isPopUp, setIsPopUp] = useState(false);
+  const [isHistoryLoading, setIsHistoryLoading] = useState(false);
+  const saveHistory = async (prompt, result, userId) => {
+    const obj = {
+      prompt,
+      output: result,
+      time: new Date().toISOString(),
+    };
+    setHistory((history) => [obj, ...history]);
+    await updateData(userId, { SUMMARIZER: [obj, ...history] });
+  };
 
   const clickHandler = (e, length) => {
     showmm(false);
@@ -51,9 +67,8 @@ const Summarizer = () => {
   const HF_TOKEN = "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";
   const inference = new HfInference(HF_TOKEN);
   const [a, setA] = useState(false);
-  async function getSummarizeddViaText(data, length) {
+  async function getSummarizeddViaText(data, length, userId) {
     try {
-      console.log(length);
       const response = await inference.summarization({
         model: "facebook/bart-large-cnn",
         inputs: data + "",
@@ -62,6 +77,7 @@ const Summarizer = () => {
           max_length: length + 25,
         },
       });
+      saveHistory(`${data}`, response.summary_text, userId);
       setText(response.summary_text);
       setBhetla(true);
       setRequested(false);
@@ -90,7 +106,7 @@ const Summarizer = () => {
       .then((anotherRes) => {
         const temp = convert(anotherRes);
         console.log(temp);
-        getSummarizeddViaText(temp, 25);
+        getSummarizeddViaText(temp, 25, userId);
       })
       .catch((error) => {
         console.log(error);
@@ -294,10 +310,11 @@ const Summarizer = () => {
         <History
           height="650px"
           showHistory={showHistory}
+          popup={isPopUp}
+          showPopUp={setIsPopUp}
+          isHistoryLoading={isHistoryLoading}
           setShowHistory={setShowHistory}
-          history={Array(5).fill(
-            "The Generated text History from the uploaded image is displayed here."
-          )}
+          history={history}
         />
       </div>
     </React.Fragment>

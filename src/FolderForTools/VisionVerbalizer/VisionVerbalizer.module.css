@@ -9,6 +9,17 @@
   font-weight: 400;
   font-style: normal;
 }
+.history-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: rgba(114, 136, 148, 1);
+  padding: 0.75rem;
+  border-radius: 1rem;
+  background-color: rgba(0, 0, 0, 1);
+  font-size: small;
+  cursor: pointer;
+}
 .upper {
   display: grid;
   padding: 0.5rem;
@@ -74,14 +85,6 @@
   border-radius: 1rem;
   position: relative;
 }
-.prompt {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  overflow-inline: scroll;
-  position: relative;
-  width: 98%;
-}
 
 .export {
   position: absolute;
@@ -92,6 +95,19 @@
   background-color: rgba(0, 0, 0, 0.75);
   border-radius: 0.5rem;
   z-index: 1000000;
+}
+.input {
+  position: sticky;
+  top: 0;
+  background-color: rgba(0, 0, 0, 1);
+}
+.prompt {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+}
+.prompt > div {
+  width: 5rem;
 }
 .export:active {
   opacity: 0.75;
