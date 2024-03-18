@@ -22,7 +22,6 @@ import { useLocation } from "react-router-dom";
 import { readData } from "../../common-funtions/readData.jsx";
 import { updateData } from "../../common-funtions/updateData.jsx";
 import { MdCancel } from "react-icons/md";
-import { OverLay } from "../../UI/PopUp.jsx";
 
 const HF_TOKEN = "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";
 
@@ -30,7 +29,7 @@ function TextToImage() {
   const location = useLocation();
   const userId = location.state.userId;
   const dispatch = useDispatch();
-  const [ispopup, setshowPopUp] = useState(false);
+  const [ispopup, setIsPopUp] = useState(false);
 
   const [src, setSrc] = useState(null);
   const [showHistory, setShowHistory] = useState(false);
@@ -96,31 +95,29 @@ function TextToImage() {
 
   const popupHandler = (ind, arr) => {
     return (
-      <OverLay>
-        <div className={cssClasses.popup}>
-          <HiOutlineDownload
-            className={cssClasses.export}
-            fontSize="2rem"
-            onClick={() => downloadImage(arr[ind].base64Url)}
-          />
-          <MdCancel
-            className={cssClasses.cancel}
-            fontSize={"2rem"}
-            onClick={() => setshowPopUp(false)}
-          />
-          <div className={cssClasses.prompt}>{arr[ind].prompt}</div>
-          <div className={cssClasses.imgContainer}>
-            <img src={arr[ind].base64Url} />
-          </div>
+      <div className={cssClasses.popup}>
+        <HiOutlineDownload
+          className={cssClasses.export}
+          fontSize="2rem"
+          onClick={() => downloadImage(arr[ind].base64Url)}
+        />
+        <MdCancel
+          className={cssClasses.cancel}
+          fontSize={"2rem"}
+          onClick={() => setIsPopUp(false)}
+        />
+        <div className={cssClasses.prompt}>{arr[ind].prompt}</div>
+        <div className={cssClasses.imgContainer}>
+          <img src={arr[ind].base64Url} />
         </div>
-      </OverLay>
+      </div>
     );
   };
 
   useEffect(() => {
     const fetchHistory = async () => {
       const data = await readData(userId);
-      setHistory(data["VisiualizeAI"]);
+      setHistory(data["VisiualizeAI"] ? data["VisiualizeAI"] : []);
       setIsHistoryLoading(false);
     };
     setIsHistoryLoading(true);
@@ -220,7 +217,7 @@ function TextToImage() {
           setShowHistory={setShowHistory}
           history={history}
           popupHandler={popupHandler}
-          showPopUp={setshowPopUp}
+          showPopUp={setIsPopUp}
           popup={ispopup}
           isHistroyLoading={isHistroyLoading}
         />

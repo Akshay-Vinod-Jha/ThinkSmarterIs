@@ -30,7 +30,7 @@
   object-fit: content;
   margin-inline: auto;
   border-radius: 1rem;
-  height: 350px;
+  height: 400px;
 }
 .canvas {
   overflow: hidden;
@@ -50,7 +50,7 @@
   }
   .image {
     max-width: 100%;
-    height: auto;
+    height: 375px;
     margin-block: 1rem;
   }
   .get {
