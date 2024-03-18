@@ -25,6 +25,81 @@
   background-color: #000000;
   border-radius: 0.5rem;
 }
+.popup {
+  background-color: rgba(0, 0, 0, 0.75);
+  display: grid;
+  grid-auto-flow: row;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  color: rgba(255, 255, 255, 0.75);
+  border: 1px solid #728894;
+  font-family: "Lexend Peta", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  animation: identifier 0.3s ease-in 1ms 1 forwards;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+.popup *::-webkit-scrollbar {
+  display: none;
+}
+.cancel {
+  z-index: 1000000;
+  position: absolute;
+  color: 728894;
+  right: -0.75rem;
+  top: -0.75rem;
+  cursor: pointer;
+}
+.cancel:active {
+  opacity: 0.75;
+}
+@keyframes identifier {
+  from {
+    width: 0;
+    height: 0;
+  }
+  to {
+    width: min(1000px, 90vw);
+    height: auto;
+    max-height: 80vh;
+  }
+}
+.imgContainer {
+  height: 100%;
+  overflow-y: scroll;
+  border-radius: 1rem;
+  position: relative;
+}
+.prompt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-inline: scroll;
+  position: relative;
+  width: 98%;
+}
+
+.export {
+  position: absolute;
+  top: 4rem;
+  right: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 0.5rem;
+  z-index: 1000000;
+}
+.export:active {
+  opacity: 0.75;
+}
+
+.imgContainer > img {
+  width: 100%;
+}
 @media screen and (max-width: 750px) {
   .upper {
     grid-template-columns: 1fr;

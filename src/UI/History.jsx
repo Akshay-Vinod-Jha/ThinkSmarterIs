@@ -7,6 +7,8 @@ import { createPortal } from "react-dom";
 import { timeAgo } from "../common-funtions/timeAgo.jsx";
 import { useState } from "react";
 import Loading from "./Loading.jsx";
+import { OverLay } from "./PopUp.jsx";
+import Reveal from "../UI/Reveal.jsx";
 const History = ({
   history,
   showHistory,
@@ -17,32 +19,39 @@ const History = ({
   showPopUp,
   isHistroyLoading,
 }) => {
+  console.log(history);
   const [current, setCurrent] = useState(-1);
   const item =
     history.length !== 0 ? (
       history.map((val, ind) => {
         return (
-          <div
-            className={`${classes["history-item"]}`}
-            key={`imagetotext${ind}`}
-            onClick={() => {
-              setCurrent(ind);
-              showPopUp(true);
-            }}
-          >
-            <p>{val.prompt}</p>
-            <div className={classes.icons}>
-              <div className={classes.timeago}>
-                <AiOutlineMessage
-                  className={classes.icon}
-                  fontSize="1.5rem"
-                  color="rgba(255,255,255,0.75)"
-                />
-                <p className={classes.time}> {timeAgo(val.time)}</p>
+          <Reveal>
+            <div
+              className={`${classes["history-item"]} w-full overflow-scroll no-scrollbar`}
+              key={`imagetotext${ind}`}
+              onClick={() => {
+                setCurrent(ind);
+                showPopUp(true);
+              }}
+            >
+              <p
+                className={`${classes.prompt} w-full overflow-scroll no-scrollbar`}
+              >
+                {val.prompt}
+              </p>
+              <div className={classes.icons}>
+                <div className={classes.timeago}>
+                  <AiOutlineMessage
+                    className={classes.icon}
+                    fontSize="1.5rem"
+                    color="rgba(255,255,255,0.75)"
+                  />
+                  <p className={classes.time}> {timeAgo(val.time)}</p>
+                </div>
+                <Copy size="small" text={val.prompt} />
               </div>
-              <Copy size="small" text={val.prompt} />
             </div>
-          </div>
+          </Reveal>
         );
       })
     ) : (
@@ -61,7 +70,7 @@ const History = ({
     >
       {popup &&
         createPortal(
-          popupHandler(current, history),
+          <OverLay>{popupHandler(current, history)}</OverLay>,
           document.getElementById("popup")
         )}
       <div className={classes["history-title"]}>
