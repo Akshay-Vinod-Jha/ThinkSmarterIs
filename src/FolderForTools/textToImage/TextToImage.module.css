@@ -145,7 +145,7 @@
     height: fit-content;
   }
   .regenerate {
-    justify-content: start;
+    justify-content: flex-start;
     margin: 1rem auto;
   }
   @keyframes identifier {
