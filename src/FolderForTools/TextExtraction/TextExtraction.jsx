@@ -1,4 +1,5 @@
 // import React from "react";
+import Bottom from "../../UI/Bottom.jsx";
 import MainBox from "./RequiredComponets/MainBox";
 import TryThese from "./RequiredComponets/TryThese";
 import classes from "./TextExtraction.module.css";
@@ -172,6 +173,7 @@ const TextExtraction = () => {
       <div className={classes.lower}>
         <TryThese getImageHandler={getImageHandler} />
       </div>
+      <Bottom label="Go to All tools" navigateTo=".." userId={userId} />
     </div>
   );
 };

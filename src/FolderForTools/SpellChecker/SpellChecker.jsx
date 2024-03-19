@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import ToolsTitle from "../../UI/ToolsTitle";
 import ShowingCorrectOne from "./ShowingCorrectOne";
 import MainParentErrorBox from "./MainParentErrorBox";
+import Bottom from "../../UI/Bottom.jsx";
 import MainErrorMessageDescriberParent from "./MainErrorMessageDescriberParent";
 import PromptAndButton from "./PromptAndButton";
 import { useDispatch } from "react-redux";
@@ -183,103 +184,106 @@ function SpellChecker() {
   const [underlinedText, setUnderlinedText] = useState(false);
   const [bhetla, setBhetla] = useState(false);
   return (
-    <div
-      className={`w-screen ${a ? "h-[100vh]" : "h-auto"} grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 place-content-center place-items-start pt-2`}
-    >
-      <div className="w-full col-span-1 md:col-span-3 lg:col-span-3 p-2 mt-4 grid grid-cols-1 place-content-center place-items-center">
-        <div className="w-full flex justify-between items-center mb-2 mt-4 text-white">
-          <h1 className="border-b-[.15rem] text-base md:text-lg lg:text-xl xl:text-2xl border-transparent hover:border-[#728894] font-lexend text-[#728894]">
-            Spell Checker
-          </h1>
-          <MdHistory
-            color="#728894"
-            fontSize="2rem"
-            className={cssClasses.history}
-            onClick={() => setShowHistory(true)}
+    <>
+      <div
+        className={`w-screen ${a ? "h-[100vh]" : "h-auto"} grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 place-content-center place-items-start pt-2`}
+      >
+        <div className="w-full col-span-1 md:col-span-3 lg:col-span-3 p-2 mt-4 grid grid-cols-1 place-content-center place-items-center">
+          <div className="w-full flex justify-between items-center mb-2 mt-4 text-white">
+            <h1 className="border-b-[.15rem] text-base md:text-lg lg:text-xl xl:text-2xl border-transparent hover:border-[#728894] font-lexend text-[#728894]">
+              Spell Checker
+            </h1>
+            <MdHistory
+              color="#728894"
+              fontSize="2rem"
+              className={cssClasses.history}
+              onClick={() => setShowHistory(true)}
+            />
+          </div>
+          <PromptAndButton
+            sentenceRef={sentenceRef}
+            ref={sentenceRef}
+            importantFun={importantFun}
+            requested={requested}
+            setRequested={setRequested}
+            setBhetla={setBhetla}
+            setIndex={setIndex}
+            setV={setV}
           />
-        </div>
-        <PromptAndButton
-          sentenceRef={sentenceRef}
-          ref={sentenceRef}
-          importantFun={importantFun}
-          requested={requested}
-          setRequested={setRequested}
-          setBhetla={setBhetla}
-          setIndex={setIndex}
-          setV={setV}
-        />
-        <MainErrorMessageDescriberParent
-          bhetla={bhetla}
-          underlinedText={underlinedText}
-          display={display}
-          state={state}
-          index={index}
-          setLocation={setLocation}
-          setDisplay={setDisplay}
-          setShowBelow={setShowBelow}
-          setContent={setContent}
-          location={location}
-          setIndex={setIndex}
-          updateTheColor={updateTheColor}
-          updateTheV={updateTheV}
-          updateShowBelow={updateShowBelow}
-          updateTheCorrectedOne={updateTheCorrectedOne}
-        />
-
-        {showBelow && (
-          <MainParentErrorBox
-            content={content}
-            color={color}
-            updateTheColor={updateTheColor}
+          <MainErrorMessageDescriberParent
+            bhetla={bhetla}
+            underlinedText={underlinedText}
+            display={display}
             state={state}
-            v={v}
-            callMe={callMe}
-            updateTheCorrectedOne={updateTheCorrectedOne}
+            index={index}
+            setLocation={setLocation}
+            setDisplay={setDisplay}
+            setShowBelow={setShowBelow}
+            setContent={setContent}
+            location={location}
+            setIndex={setIndex}
+            updateTheColor={updateTheColor}
             updateTheV={updateTheV}
+            updateShowBelow={updateShowBelow}
+            updateTheCorrectedOne={updateTheCorrectedOne}
           />
-        )}
-        {correctone && <ShowingCorrectOne sentence={sentence} />}
-        <div className="w-full flex flex-col my-4 font-lexend text-sm md:text-base lg:text-lg xl:text-xl justify-center items-center gap-2 bg-[#1E1E1E] rounded-xl">
-          <h1 className="w-full text-center flex justify-center text-sm md:text-base lg:text-lg xl:text-xl gap-2 font-extrabold items-center py-2 text-white">
-            <TbBulb color="yellow" fontSize="1.5rem" />
-            Don’t have idea ? Try these!
-          </h1>
-          <div className="w-full p-4 rounded-lg bg-[#1E1E1E]  font-normal grid grid-cols-1 lg:grid-cols-2 place-content-center place-items-center gap-2">
-            {[
-              ["Their going to there house for they're dinner."],
-              ["I seen him yesterday at the store."],
-              ["I cant believe its raining hear, its such a dissapointment."],
-              ["u r mine."],
-              ["Your going to love this movie."],
-              ["I could of done better on the test."],
-            ].map((value, index) => {
-              return (
-                <div
-                  key={index}
-                  onClick={() => {
-                    sentenceRef.current.value = value;
-                    closeAll();
-                  }}
-                  className="w-full px-8 py-4 text-justify h-20 overflow-scroll no-scrollbar text-sm bg-[#080b10] border-2 border-black hover:border-[#728894] hover:bg-black  rounded-md text-[#ffffffa0]"
-                >
-                  {value}
-                </div>
-              );
-            })}
+
+          {showBelow && (
+            <MainParentErrorBox
+              content={content}
+              color={color}
+              updateTheColor={updateTheColor}
+              state={state}
+              v={v}
+              callMe={callMe}
+              updateTheCorrectedOne={updateTheCorrectedOne}
+              updateTheV={updateTheV}
+            />
+          )}
+          {correctone && <ShowingCorrectOne sentence={sentence} />}
+          <div className="w-full flex flex-col my-4 font-lexend text-sm md:text-base lg:text-lg xl:text-xl justify-center items-center gap-2 bg-[#1E1E1E] rounded-xl">
+            <h1 className="w-full text-center flex justify-center text-sm md:text-base lg:text-lg xl:text-xl gap-2 font-extrabold items-center py-2 text-white">
+              <TbBulb color="yellow" fontSize="1.5rem" />
+              Don’t have idea ? Try these!
+            </h1>
+            <div className="w-full p-4 rounded-lg bg-[#1E1E1E]  font-normal grid grid-cols-1 lg:grid-cols-2 place-content-center place-items-center gap-2">
+              {[
+                ["Their going to there house for they're dinner."],
+                ["I seen him yesterday at the store."],
+                ["I cant believe its raining hear, its such a dissapointment."],
+                ["u r mine."],
+                ["Your going to love this movie."],
+                ["I could of done better on the test."],
+              ].map((value, index) => {
+                return (
+                  <div
+                    key={index}
+                    onClick={() => {
+                      sentenceRef.current.value = value;
+                      closeAll();
+                    }}
+                    className="w-full px-8 py-4 text-justify h-20 overflow-scroll no-scrollbar text-sm bg-[#080b10] border-2 border-black hover:border-[#728894] hover:bg-black  rounded-md text-[#ffffffa0]"
+                  >
+                    {value}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
+        <History
+          height="95vh"
+          showHistory={showHistory}
+          setShowHistory={setShowHistory}
+          history={history}
+          popupHandler={popupHandler}
+          showPopUp={setIsPopUp}
+          popup={ispopup}
+          isHistroyLoading={isHistroyLoading}
+        />
       </div>
-      <History
-        height="95vh"
-        showHistory={showHistory}
-        setShowHistory={setShowHistory}
-        history={history}
-        popupHandler={popupHandler}
-        showPopUp={setIsPopUp}
-        popup={ispopup}
-        isHistroyLoading={isHistroyLoading}
-      />
-    </div>
+      <Bottom label="Go to All tools" navigateTo=".." userId={userId} />
+    </>
   );
 }
 

@@ -3,6 +3,7 @@ import Title from "../Summarizer/RequiredComponents/Title";
 import PromptAreaForMail from "../Summarizer/RequiredComponents/PromptAreaForMail";
 import Loading from "../../UI/Loading";
 import Copy from "../../UI/Copy.jsx";
+import Bottom from "../../UI/Bottom.jsx";
 import History from "../../UI/History";
 import { FaLaptopCode } from "react-icons/fa6";
 import SelectLanguage from "./SelectLanguage";
@@ -143,66 +144,69 @@ const TTC = () => {
     );
   };
   return (
-    <div className="w-screen h-auto grid grid-cols-1 md:grid-cols-4 place-content-center place-items-start gap-2 py-4 px-2">
-      <div className="w-full col-span-1 md:col-span-3 px-1 flex flex-col gap-4">
-        <Title title="CodeCraft" setShowHistory={setShowHistory} />
-        <PromptAreaForMail
-          placeholder="Enter The Prompt Here To Generate Code.."
-          ref={promptRef}
-          callThisFunction={callThisFunction}
-          requested={requested}
-          buttonText="Generate"
-          icon={<FaLaptopCode className="text-base" />}
-        />
-        <SelectLanguage setSLanguage={setSLanguage} />
-        {requested && (
-          <Loading
-            label="Generating Code For You...This Can Take Some Time"
-            size="40px"
+    <>
+      <div className="w-screen h-auto grid grid-cols-1 md:grid-cols-4 place-content-center place-items-start gap-2 py-4 px-2">
+        <div className="w-full col-span-1 md:col-span-3 px-1 flex flex-col gap-4">
+          <Title title="CodeCraft" setShowHistory={setShowHistory} />
+          <PromptAreaForMail
+            placeholder="Enter The Prompt Here To Generate Code.."
+            ref={promptRef}
+            callThisFunction={callThisFunction}
+            requested={requested}
+            buttonText="Generate"
+            icon={<FaLaptopCode className="text-base" />}
           />
-        )}
-        {response && (
-          <ActualCodeBox slanguage={slanguage} actualCode={actualCode} />
-        )}
-        <div className="w-full flex flex-col my-4 font-lexend text-sm md:text-base lg:text-lg xl:text-xl justify-center items-center gap-2 bg-[#1E1E1E] rounded-xl">
-          <h1 className="w-full text-center flex justify-center text-sm md:text-base lg:text-lg xl:text-xl gap-2 font-extrabold items-center py-2 text-white">
-            <TbBulb color="yellow" fontSize="1.5rem" />
-            Don’t have idea ? Try these!
-          </h1>
-          <div className="w-full p-4 rounded-lg bg-[#1E1E1E]  font-normal grid grid-cols-1 lg:grid-cols-2 place-content-start place-items-start gap-2">
-            {[
-              ["Write a program To Print Hello World in C"],
-              ["Write a program To Add Two Numbers in C++"],
-              ["Write a Program To Make a Form in HTML"],
-              ["Write a Program To Calculate Factorial in C#"],
-            ].map((value, index) => {
-              return (
-                <div
-                  key={index}
-                  onClick={() => {
-                    promptRef.current.value = value;
-                    window.scrollTo(0, 0);
-                  }}
-                  className="w-full px-8 py-4 h-20 overflow-scroll no-scrollbar text-[10px] md:text-sm bg-[#080b10] border-2 border-black hover:border-[#728894] hover:bg-black  rounded-md text-[#ffffffa0]"
-                >
-                  {value}
-                </div>
-              );
-            })}
+          <SelectLanguage setSLanguage={setSLanguage} />
+          {requested && (
+            <Loading
+              label="Generating Code For You...This Can Take Some Time"
+              size="40px"
+            />
+          )}
+          {response && (
+            <ActualCodeBox slanguage={slanguage} actualCode={actualCode} />
+          )}
+          <div className="w-full flex flex-col my-4 font-lexend text-sm md:text-base lg:text-lg xl:text-xl justify-center items-center gap-2 bg-[#1E1E1E] rounded-xl">
+            <h1 className="w-full text-center flex justify-center text-sm md:text-base lg:text-lg xl:text-xl gap-2 font-extrabold items-center py-2 text-white">
+              <TbBulb color="yellow" fontSize="1.5rem" />
+              Don’t have idea ? Try these!
+            </h1>
+            <div className="w-full p-4 rounded-lg bg-[#1E1E1E]  font-normal grid grid-cols-1 lg:grid-cols-2 place-content-start place-items-start gap-2">
+              {[
+                ["Write a program To Print Hello World in C"],
+                ["Write a program To Add Two Numbers in C++"],
+                ["Write a Program To Make a Form in HTML"],
+                ["Write a Program To Calculate Factorial in C#"],
+              ].map((value, index) => {
+                return (
+                  <div
+                    key={index}
+                    onClick={() => {
+                      promptRef.current.value = value;
+                      window.scrollTo(0, 0);
+                    }}
+                    className="w-full px-8 py-4 h-20 overflow-scroll no-scrollbar text-[10px] md:text-sm bg-[#080b10] border-2 border-black hover:border-[#728894] hover:bg-black  rounded-md text-[#ffffffa0]"
+                  >
+                    {value}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
+        <History
+          height="95vh"
+          showHistory={showHistory}
+          setShowHistory={setShowHistory}
+          history={history}
+          popupHandler={popupHandler}
+          showPopUp={setIsPopUp}
+          popup={ispopup}
+          isHistroyLoading={isHistroyLoading}
+        />
       </div>
-      <History
-        height="95vh"
-        showHistory={showHistory}
-        setShowHistory={setShowHistory}
-        history={history}
-        popupHandler={popupHandler}
-        showPopUp={setIsPopUp}
-        popup={ispopup}
-        isHistroyLoading={isHistroyLoading}
-      />
-    </div>
+      <Bottom label="Go to All tools" navigateTo=".." userId={userId} />
+    </>
   );
 };
 
