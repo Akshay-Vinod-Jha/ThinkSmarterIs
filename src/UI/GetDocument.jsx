@@ -34,7 +34,9 @@ const GetDocument = ({
       const canvas = await getCanvas(page);
       canvas.style.height = "100%";
       canvas.style.width = "100%";
-      document.getElementById("canvas").appendChild(canvas);
+      const canvasContainer = document.getElementById("canvas");
+      canvasContainer.innerHTML = "";
+      canvasContainer.appendChild(canvas);
     });
   };
 

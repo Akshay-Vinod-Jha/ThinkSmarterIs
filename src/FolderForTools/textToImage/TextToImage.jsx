@@ -28,13 +28,13 @@ const HF_TOKEN = "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";
 function TextToImage() {
   const location = useLocation();
   const userId = location.state.userId;
-  const dispatch = useDispatch();
   const [ispopup, setIsPopUp] = useState(false);
+  const [isHistroyLoading, setIsHistoryLoading] = useState(false);
 
+  const dispatch = useDispatch();
   const [src, setSrc] = useState(null);
   const [showHistory, setShowHistory] = useState(false);
   const [isLoading, setIsLoding] = useState(false);
-  const [isHistroyLoading, setIsHistoryLoading] = useState(false);
   const promptInputRef = useRef(null);
   const [history, setHistory] = useState([]);
 

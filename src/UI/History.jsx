@@ -8,8 +8,7 @@ import { timeAgo } from "../common-funtions/timeAgo.jsx";
 import { useState } from "react";
 import Loading from "./Loading.jsx";
 import { OverLay } from "./PopUp.jsx";
-import Reveal from "../UI/Reveal.jsx";
-import { GiClick } from "react-icons/gi";
+
 const History = ({
   history,
   showHistory,
@@ -21,6 +20,7 @@ const History = ({
   isHistroyLoading,
 }) => {
   const [current, setCurrent] = useState(-1);
+
   const item =
     history.length !== 0 ? (
       history.map((val, ind) => {
@@ -29,7 +29,6 @@ const History = ({
             className={`${classes["history-item"]} w-full overflow-scroll no-scrollbar`}
             key={`historyItme${ind}`}
             onClick={() => {
-              console.log("clicked");
               showPopUp(true);
               setCurrent(ind);
             }}
@@ -62,7 +61,7 @@ const History = ({
         )}
       </div>
     );
-  console.log(popup);
+
   return (
     <div
       className={`${classes["history-container"]} ${showHistory ? classes.show : classes.hide} font-lexend`}
