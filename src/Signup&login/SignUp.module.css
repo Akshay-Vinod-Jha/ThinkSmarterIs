@@ -13,6 +13,12 @@
 .label {
   color: #fc0001;
   font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+}
+.label > p {
+  color: #ff0000 !important;
+  font-size: 0.75rem;
 }
 .checkbox-label {
   color: rgba(255, 255, 255, 0.9);
@@ -53,7 +59,7 @@
   display: flex;
   align-items: center;
   margin-block: 1rem;
-  gap: 0.5rem;
+  gap: 2rem;
   justify-content: center;
 }
 
@@ -80,6 +86,7 @@
 }
 .create {
   text-align: center;
+  margin-block: 1rem;
 }
 .checkbox {
   /* -webkit-appearance: none;
@@ -121,6 +128,7 @@
 .signupp {
   color: #fc0001;
   cursor: pointer;
+  margin-inline: 0.5rem;
 }
 .ready {
   background-color: #d7d5d5;
@@ -162,7 +170,7 @@
     grid-template-columns: 1fr;
     height: fit-content;
   }
-  .lefttop,
+
   .leftbottom {
     flex-direction: column;
   }
@@ -172,5 +180,8 @@
   .left {
     display: flex;
     flex-direction: column;
+  }
+  .welcome-image {
+    height: 3rem;
   }
 }

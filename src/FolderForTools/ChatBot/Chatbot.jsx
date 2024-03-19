@@ -1,16 +1,27 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import Copy from "../../UI/Copy.jsx";
 import History from "../../UI/History";
 import { HfInference } from "@huggingface/inference";
 import ChatingScreen from "./ChatingScreen";
 import { MdError } from "react-icons/md";
+import cssClasses from "./ChatBot.module.css";
 import { IoSend } from "react-icons/io5";
 import Title from "../Summarizer/RequiredComponents/Title";
 import { TbBulb } from "react-icons/tb";
 import PromptAreaForText from "../Summarizer/RequiredComponents/PromptAreaForText";
 import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { readData } from "../../common-funtions/readData.jsx";
+import { updateData } from "../../common-funtions/updateData.jsx";
+import { MdCancel } from "react-icons/md";
 import { hidePopUp, showPopUp } from "../../store/popupSlice.jsx";
 import { all } from "axios";
 const Chatbot = () => {
+  const location = useLocation();
+  const userId = location.state.userId;
+  const [ispopup, setIsPopUp] = useState(false);
+  const [isHistroyLoading, setIsHistoryLoading] = useState(false);
+  const [history, setHistory] = useState([]);
   const dispatch = useDispatch();
   const callMe = async (userMessage) => {
     setProcessState(true);
@@ -36,7 +47,6 @@ const Chatbot = () => {
       },
       body: JSON.stringify(requestData),
     };
-
     fetch(apiUrl, options)
       .then((response) => {
         if (response.status >= 200 && response.status <= 299) {
@@ -56,6 +66,7 @@ const Chatbot = () => {
         setProcessState(false);
         setRequested(false);
         sett(Math.random());
+        saveHistory(userMessage, data["openai"]["generated_text"], userId);
       })
       .catch((error) => {
         console.error(error);
@@ -92,6 +103,52 @@ const Chatbot = () => {
   const [allMessages, setAllMessages] = useState([]);
   const [processState, setProcessState] = useState(false);
   const inputRef = useRef();
+  const saveHistory = async (prompt, result, userId) => {
+    const obj = {
+      prompt,
+      output: result,
+      time: new Date().toISOString(),
+    };
+    setHistory((previousValue) => {
+      return [obj, ...previousValue];
+    });
+    await updateData(userId, {
+      ChatBot: [obj, ...history],
+    });
+  };
+  useEffect(() => {
+    const fetchHistory = async () => {
+      const data = await readData(userId);
+      setHistory(data["ChatBot"] ? data["ChatBot"] : []);
+      setIsHistoryLoading(false);
+    };
+    setIsHistoryLoading(true);
+    fetchHistory();
+  }, []);
+
+  const popupHandler = (ind, arr) => {
+    console.log(ind);
+    return (
+      <div className={cssClasses.popup}>
+        <MdCancel
+          className={cssClasses.cancel}
+          fontSize={"2rem"}
+          onClick={() => setIsPopUp(false)}
+        />
+        <div className="w-full p-2 flex flex-col gap-4">
+          <h1 className="w-full md:w-[50%] rounded-xl self-end py-1 px-2  bg-[#fc0001] text-white">
+            {arr[ind].prompt}
+          </h1>
+          <h1 className="w-full md:w-[50%] rounded-xl self-start py-1 px-2  bg-[white] text-[#fc0001]">
+            {arr[ind].output}
+          </h1>
+        </div>
+        <div className="w-full flex justify-end items-center">
+          <Copy text={arr[ind].output} />
+        </div>
+      </div>
+    );
+  };
   const clickHandler = (e, temp) => {
     sett(Math.random());
     if (inputRef.current.value.trim().length > 0) {
@@ -157,12 +214,14 @@ const Chatbot = () => {
         </div>
       </div>
       <History
-        height="650px"
+        height="95vh"
         showHistory={showHistory}
         setShowHistory={setShowHistory}
-        history={Array(5).fill(
-          "The Generated text History from the uploaded image is displayed here."
-        )}
+        history={history}
+        popupHandler={popupHandler}
+        showPopUp={setIsPopUp}
+        popup={ispopup}
+        isHistroyLoading={isHistroyLoading}
       />
     </div>
   );

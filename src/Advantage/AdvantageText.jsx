@@ -15,7 +15,7 @@ function AdvantageText(props) {
         {visible &&
           props.advantages.map((value, index) => {
             if (index != 0) {
-              return <li>{value}</li>;
+              return <li key={`advantage${index}`}>{value}</li>;
             }
           })}
       </ul>

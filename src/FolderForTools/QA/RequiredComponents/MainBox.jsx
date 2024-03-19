@@ -15,10 +15,26 @@ const TextArea = forwardRef((props, ref) => {
   );
 });
 
-const MainBox = ({ contextRef, display, setDipslay, src, setSrc }) => {
+const MainBox = ({
+  contextRef,
+  display,
+  setDipslay,
+  src,
+  setSrc,
+  filetype,
+  setFileType,
+}) => {
   const curret = {
     textarea: <TextArea ref={contextRef} placeholder="Enter The Paragraph" />,
-    getDocument: <GetDocument src={src} setSrc={setSrc} />,
+    getDocument: (
+      <GetDocument
+        src={src}
+        setSrc={setSrc}
+        filetype={filetype}
+        setFileType={setFileType}
+        height="550px"
+      />
+    ),
   };
 
   return (
@@ -44,6 +60,9 @@ const MainBox = ({ contextRef, display, setDipslay, src, setSrc }) => {
         >
           Via Document
         </div>
+        <div
+          className={`${classes.line} ${display === "textarea" ? classes.left : classes.right}`}
+        />
       </div>
       {curret[display]}
     </div>

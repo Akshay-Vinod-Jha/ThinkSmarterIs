@@ -1,5 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import History from "../../UI/History";
+import cssClasses from "./Dictionary.module.css";
 import Title from "../Summarizer/RequiredComponents/Title";
 import PromptAreaForMail from "../Summarizer/RequiredComponents/PromptAreaForMail";
 import { FaSearch } from "react-icons/fa";
@@ -8,14 +9,40 @@ import { useDispatch } from "react-redux";
 import { hidePopUp, showPopUp } from "../../store/popupSlice.jsx";
 import { MdError } from "react-icons/md";
 import { TbBulb } from "react-icons/tb";
+import Loading from "../../UI/Loading.jsx";
+import { useLocation } from "react-router-dom";
+import { readData } from "../../common-funtions/readData.jsx";
+import { updateData } from "../../common-funtions/updateData.jsx";
+import { MdCancel } from "react-icons/md";
+import Copy from "../../UI/Copy.jsx";
 const Dictionary = () => {
+  const location = useLocation();
+  const userId = location.state.userId;
+  const [history, setHistory] = useState([]);
+  const [ispopup, setIsPopUp] = useState(false);
+  const [isHistroyLoading, setIsHistoryLoading] = useState(false);
   const dispatch = useDispatch();
   const [showHistory, setShowHistory] = useState(false);
   const [requested, setRequested] = useState(false);
   const [object, setObject] = useState([]);
   const wordref = useRef();
+  const saveHistory = async (prompt, result, userId) => {
+    const obj = {
+      prompt,
+      output: result,
+      time: new Date().toISOString(),
+    };
+    setHistory((previousValue) => {
+      return [obj, ...previousValue];
+    });
+    await updateData(userId, {
+      Dictionary: [obj, ...history],
+    });
+  };
+
   const callThisFunction = (receivedvalue) => {
     console.log(receivedvalue);
+    seta(true);
     setRequested(true);
     callingApi(receivedvalue);
   };
@@ -29,7 +56,12 @@ const Dictionary = () => {
         }
       })
       .then((data) => {
-        console.log(data);
+        console.log(data[0].meanings[0].definitions[0].definition);
+        saveHistory(
+          receivedWord,
+          data[0].meanings[0].definitions[0].definition,
+          userId
+        );
         setObject(data);
         closingAll();
         seta(true);
@@ -55,14 +87,44 @@ const Dictionary = () => {
         seta(false);
       });
   };
+  useEffect(() => {
+    const fetchHistory = async () => {
+      console.log(userId);
+      const data = await readData(userId);
+      console.log(data);
+      setHistory(data["Dictionary"] ? data["Dictionary"] : []);
+      setIsHistoryLoading(false);
+    };
+    setIsHistoryLoading(true);
+    fetchHistory();
+  }, []);
+  const popupHandler = (ind, arr) => {
+    console.log(ind);
+    return (
+      <div className={cssClasses.popup}>
+        <MdCancel
+          className={cssClasses.cancel}
+          fontSize={"2rem"}
+          onClick={() => setIsPopUp(false)}
+        />
+        <p className={cssClasses.prompt}>Prompt:{arr[ind].prompt}</p>
+        <div className="w-full md:max-h-80 max-h-40 overflow-scroll no-scrollbar">
+          output:{arr[ind].output}
+        </div>
+        <div className="w-full flex justify-end items-center">
+          <Copy text={arr[ind].output} />
+        </div>
+      </div>
+    );
+  };
   const closingAll = () => {
     setRequested(false);
   };
-  const [a, seta] = useState(false);
+  const [a, seta] = useState(true);
   return (
     <div className="w-screen h-auto grid grid-cols-1 md:grid-cols-4 place-content-center place-items-start gap-2">
       <div className="w-full col-span-1 md:col-span-3 h-auto p-2 md:p-4">
-        <Title title="Dictionary" setShowHistory={setShowHistory} />
+        <Title title="IntelliDict" setShowHistory={setShowHistory} />
         <PromptAreaForMail
           placeholder="Enter The Word Here..."
           ref={wordref}
@@ -71,8 +133,7 @@ const Dictionary = () => {
           icon={<FaSearch />}
           requested={requested}
         />
-        {object.length !== 0 &&
-          a &&
+        {a &&
           object.map((value, index) => {
             return (
               <ParentBox
@@ -83,6 +144,12 @@ const Dictionary = () => {
               ></ParentBox>
             );
           })}
+        {requested && (
+          <Loading
+            label="Searching The Specified Word..This Can Take Some Time"
+            size="40px"
+          />
+        )}
         <div className="w-full flex flex-col my-4 font-lexend text-sm md:text-base lg:text-lg xl:text-xl justify-center items-center gap-2 bg-[#1E1E1E] rounded-xl">
           <h1 className="w-full text-center flex justify-center text-sm md:text-base lg:text-lg xl:text-xl gap-2 font-extrabold items-center py-2 text-white">
             <TbBulb color="yellow" fontSize="1.5rem" />
@@ -95,7 +162,7 @@ const Dictionary = () => {
               ["Pacemaker"],
               ["Arctic"],
               ["Knowledge"],
-              ["Information"],
+              ["Discount"],
             ].map((value, index) => {
               return (
                 <div
@@ -115,12 +182,14 @@ const Dictionary = () => {
         </div>
       </div>
       <History
-        height="650px"
+        height="95vh"
         showHistory={showHistory}
         setShowHistory={setShowHistory}
-        history={Array(5).fill(
-          "The Generated text History from the uploaded image is displayed here."
-        )}
+        history={history}
+        popupHandler={popupHandler}
+        showPopUp={setIsPopUp}
+        popup={ispopup}
+        isHistroyLoading={isHistroyLoading}
       />
     </div>
   );

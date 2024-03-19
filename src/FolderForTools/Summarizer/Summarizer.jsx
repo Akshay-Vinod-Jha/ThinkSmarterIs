@@ -13,8 +13,15 @@ import { hidePopUp, showPopUp } from "../../store/popupSlice.jsx";
 import { MdError } from "react-icons/md";
 import History from "../../UI/History.jsx";
 import PromptAreaForText from "./RequiredComponents/PromptAreaForText.jsx";
+import { useLocation } from "react-router-dom";
 import PromptAreaForMail from "./RequiredComponents/PromptAreaForMail.jsx";
+import { updateData } from "../../common-funtions/updateData.jsx";
+import classes from "./Summarizer.module.css";
+import { MdCancel } from "react-icons/md";
+import { readData } from "../../common-funtions/readData.jsx";
 const Summarizer = () => {
+  const location = useLocation();
+  const userId = location.state.userId;
   const [showHistory, setShowHistory] = useState(false);
   const [requested, setRequested] = useState(false);
   const [typing, setTyping] = useState(false);
@@ -26,6 +33,21 @@ const Summarizer = () => {
   const inputRef = useRef();
   const inputRefs = useRef();
   const dispatch = useDispatch();
+  const [history, setHistory] = useState([]);
+  const [isPopUp, setIsPopUP] = useState(false);
+  const [isHistroyLoading, setIsHistoryLoading] = useState(false);
+
+  const saveHistory = async (prompt, result) => {
+    const obj = {
+      prompt,
+      output: result,
+      time: new Date().toISOString(),
+    };
+    setHistory((history) => [obj, ...history]);
+    await updateData(userId, {
+      SUMMARIZER: [obj, ...history],
+    });
+  };
 
   const clickHandler = (e, length) => {
     showmm(false);
@@ -53,7 +75,6 @@ const Summarizer = () => {
   const [a, setA] = useState(false);
   async function getSummarizeddViaText(data, length) {
     try {
-      console.log(length);
       const response = await inference.summarization({
         model: "facebook/bart-large-cnn",
         inputs: data + "",
@@ -62,6 +83,7 @@ const Summarizer = () => {
           max_length: length + 25,
         },
       });
+      saveHistory(`${data}`, response.summary_text);
       setText(response.summary_text);
       setBhetla(true);
       setRequested(false);
@@ -89,7 +111,6 @@ const Summarizer = () => {
       })
       .then((anotherRes) => {
         const temp = convert(anotherRes);
-        console.log(temp);
         getSummarizeddViaText(temp, 25);
       })
       .catch((error) => {
@@ -120,6 +141,47 @@ const Summarizer = () => {
       setA(false);
     }, 5000);
   };
+
+  const popupHandler = (ind, arr) => {
+    return (
+      <div className={classes.popup}>
+        <MdCancel
+          className={classes.cancel}
+          fontSize={"2rem"}
+          onClick={() => setIsPopUP(false)}
+        />
+        <div className={classes.promptContainer}>
+          <div className={classes.heading}>
+            <p>Prompt:</p>
+            <div className={classes.copy}>
+              <Copy size={".9rem"} text={arr[ind].prompt} />
+            </div>
+          </div>
+          <p>{arr[ind].prompt}</p>
+        </div>
+        <div className={classes.promptContainer}>
+          <div className={classes.heading}>
+            <p>Summarize Text:</p>
+            <div className={classes.copy}>
+              <Copy size={".9rem"} text={arr[ind].output} />
+            </div>
+          </div>
+          <p>{arr[ind].output}</p>
+        </div>
+      </div>
+    );
+  };
+
+  useEffect(() => {
+    const fetchHistory = async () => {
+      const data = await readData(userId);
+      setHistory(data["SUMMARIZER"] ? data["SUMMARIZER"] : []);
+      setIsHistoryLoading(false);
+    };
+    setIsHistoryLoading(true);
+    fetchHistory();
+  }, []);
+
   return (
     <React.Fragment>
       <div
@@ -202,12 +264,12 @@ const Summarizer = () => {
                       }}
                     >
                       <FiMaximize2 className="font-extrabold text-2xl"></FiMaximize2>
-                      Maximize <h1 className="hidden lg:inline ml-2">Length</h1>
+                      Maximize <p className="hidden lg:inline ml-2">Length</p>
                     </h1>
                   </div>
                   {!mail && (
                     <h1 className="w-full flex justify-start items-center text-[#728894]">
-                      <h1
+                      <p
                         className=" underline decoration-solid underline-offset-4   mb-2 px-8 text-sm md:text-base lg:text-lg decoration-[#728894] hover:text-white cursor-pointer hover:decoration-white"
                         onClick={() => {
                           setMail(true);
@@ -217,12 +279,12 @@ const Summarizer = () => {
                         }}
                       >
                         Summarize an Website Text Based On It's URl..
-                      </h1>
+                      </p>
                     </h1>
                   )}
                   {mail && (
                     <h1 className="w-full flex justify-start items-center text-[#728894]">
-                      <h1
+                      <p
                         className="underline decoration-solid underline-offset-4  text-sm md:text-base lg:text-lg mb-2 decoration-[#728894] hover:text-white cursor-pointer hover:decoration-white"
                         onClick={() => {
                           setMail(false);
@@ -232,7 +294,7 @@ const Summarizer = () => {
                         }}
                       >
                         Summarize Text By Providing Prompt..
-                      </h1>
+                      </p>
                     </h1>
                   )}
                 </>
@@ -292,12 +354,14 @@ const Summarizer = () => {
           </div>
         </div>
         <History
-          height="650px"
+          height="660px"
           showHistory={showHistory}
+          popup={isPopUp}
+          showPopUp={setIsPopUP}
+          isHistroyLoading={isHistroyLoading}
           setShowHistory={setShowHistory}
-          history={Array(5).fill(
-            "The Generated text History from the uploaded image is displayed here."
-          )}
+          history={history}
+          popupHandler={popupHandler}
         />
       </div>
     </React.Fragment>

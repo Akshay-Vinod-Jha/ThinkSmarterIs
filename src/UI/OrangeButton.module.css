@@ -14,15 +14,17 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  transition: all ease-in 0.1s 0.1ms;
+  transition: all 0.1s ease-in 0.1ms;
   font-size: small;
   min-width: max-content;
+  height: 2.5rem;
 }
 
 .button:hover {
   color: white;
-  background-color: #fc00005f;
+  /* background-color: #fc00005f; */
+  background-color: rgba(252, 0, 1, 0.75);
 }
 .button:active {
-  opacity: 0.5;
+  background-color: rgba(252, 0, 1, 0.5);
 }

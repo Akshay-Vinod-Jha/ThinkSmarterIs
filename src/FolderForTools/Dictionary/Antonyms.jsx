@@ -12,7 +12,7 @@ const Antonyms = (props) => {
           props.avalue.map((av, ai) => {
             return (
               <div
-                className="w-full text-sm text-center py-2 rounded-lg bg-[#fc0001] hover:text-[#fc0001] hover:bg-white"
+                className="w-full text-sm text-center py-2 rounded-lg bg-[#FD5D38]"
                 key={ai}
               >
                 {av}

@@ -5,7 +5,10 @@ import { FaBackward } from "react-icons/fa";
 import { FaForward } from "react-icons/fa";
 import AdvantageText from "./AdvantageText";
 import Steps from "./Steps";
+import { useNavigate } from "react-router-dom";
 function Advantage(props) {
+  console.log(props.information.name.split(" ").join("").toUpperCase());
+  const navigate = useNavigate();
   return (
     <div className="w-full flex flex-col justify-center items-center p-6 md:p-6 font-lexend">
       <div className="w-40 md:w-50 lg:w-60 aspect-square overflow-hidden rounded-xl outline outline-1 outline-offset-8 outline-white">
@@ -15,7 +18,7 @@ function Advantage(props) {
           className="w-40 md:w-50 hover:scale-110 duration-150 lg:w-60 aspect-square object-cover rounded-xl "
         />
       </div>
-      <h1 className="tracking-widest font-extrabold text-white mt-4 uppercase text-base md:text-lg lg:text-xl xl:text-xl border-b-2 border-[#728894]">
+      <h1 className="tracking-widest font-normal text-white mt-4 uppercase text-base md:text-lg lg:text-xl xl:text-xl border-b-2 border-[#728894]">
         {props.information.name}
       </h1>
       <div className="w-full border-2 border-[#72889426] hover:border-[#728894] duration-150 rounded-xl py-4 pl-3 md:pl-6 mt-8">
@@ -29,11 +32,11 @@ function Advantage(props) {
       </div>
       <AdvantageText advantages={props.information.advantages}></AdvantageText>
       <Steps arrayOfSteps={props.information.steps}></Steps>
-      <h1 className="mt-8 text-[white]  w-full justify-center items-center text-center font-lexend font-extrabold text-base md:text-lg lg:text-xl xl:text-xl">
+      <h1 className="mt-8 text-[white]  w-full justify-center items-center text-center font-lexend font-normal text-base md:text-lg lg:text-xl xl:text-xl">
         The historical records are presented on the right side;
       </h1>
-      <h1 className=" text-[white] text-center mb-4 w-full justify-center items-center font-lexend font-extrabold text-base md:text-lg lg:text-xl xl:text-xl">
-        you can also copy them for repeated utilization.
+      <h1 className=" text-[white] text-center mb-4 w-full justify-center items-center font-lexend font-normal text-base md:text-lg lg:text-xl xl:text-xl">
+        you can also copy them for repeated utilization.
       </h1>
       <div className="w-screen h-auto flex  flex-col-reverse  md:flex-row justify-center items-center px-6 md:px-6 gap-4 my-4">
         <div className="w-full md:col-span-1 md:w-[50%] lg:w-[25%]">
@@ -42,7 +45,14 @@ function Advantage(props) {
           </OrangeButton>
         </div>
         <div className="w-full md:col-span-1 md:w-[50%] lg:w-[25%]">
-          <OrangeButton>
+          <OrangeButton
+            onClick={() =>
+              navigate(
+                `/AllToolsMainPage/${props.information.name.split(" ").join("").toUpperCase()}`,
+                { state: { userId: props.userId } }
+              )
+            }
+          >
             Start<FaForward className="ml-2"></FaForward>
           </OrangeButton>
         </div>
