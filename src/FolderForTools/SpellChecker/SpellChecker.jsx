@@ -18,6 +18,9 @@ import { readData } from "../../common-funtions/readData.jsx";
 import { updateData } from "../../common-funtions/updateData.jsx";
 import { MdCancel } from "react-icons/md";
 function SpellChecker() {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   const dispatch = useDispatch();
   const loc = useLocation();
   const [history, setHistory] = useState([]);
@@ -116,9 +119,14 @@ function SpellChecker() {
           fontSize={"2rem"}
           onClick={() => setIsPopUp(false)}
         />
-        <p className={cssClasses.prompt}>Prompt:{arr[ind].prompt}</p>
+        <p className={cssClasses.prompt}>
+          {" "}
+          <span className="text-[#fc0001] mr-2">Prompt: </span>
+          {arr[ind].prompt}
+        </p>
         <div className="w-full md:max-h-80 max-h-40 overflow-scroll no-scrollbar">
-          output:{arr[ind].output}
+          <span className="text-[#fc0001] mr-2">output:</span>
+          {arr[ind].output}
         </div>
         <div className="w-full flex justify-end items-center">
           <Copy text={arr[ind].output} />

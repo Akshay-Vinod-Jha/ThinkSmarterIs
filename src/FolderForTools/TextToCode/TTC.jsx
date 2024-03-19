@@ -20,6 +20,9 @@ import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlig
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import cssClasses from "./TTC.module.css";
 const TTC = () => {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   const location = useLocation();
   const userId = location.state.userId;
   const [ispopup, setIsPopUp] = useState(false);
@@ -58,7 +61,7 @@ const TTC = () => {
       headers: {
         "Content-Type": "application/json",
         authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYjg5ZDY4ODAtNGU0ZC00MGVjLWE4MDktZGE1YjgyNzc2MmNjIiwidHlwZSI6ImFwaV90b2tlbiJ9.onYRvxjLlSM7eYAObKF97w1YLJ5npJ9XEPcghdoMI5g",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiN2ZlZTliMmUtM2NiYS00OGUxLWEyY2MtNGRmYzRhZDQ5ZGIwIiwidHlwZSI6ImFwaV90b2tlbiJ9._DR06u2PoXz0c8Yf6oGYN4_DY0xHR7daF6lBMclPseY",
       },
       body: JSON.stringify({
         providers: "openai",
@@ -121,7 +124,10 @@ const TTC = () => {
           fontSize={"2rem"}
           onClick={() => setIsPopUp(false)}
         />
-        <p className={cssClasses.prompt}>Prompt:{arr[ind].prompt}</p>
+        <p className={cssClasses.prompt}>
+          <span className="text-[#fc0001]">Prompt: </span>
+          {arr[ind].prompt}
+        </p>
         <div className="w-full md:max-h-80 max-h-40 overflow-scroll no-scrollbar">
           <h1 className="w-full flex justify-start items-center text-white font-lexend">
             Output

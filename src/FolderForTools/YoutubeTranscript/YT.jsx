@@ -17,6 +17,9 @@ import { MdCancel } from "react-icons/md";
 import classes from "./YT.module.css";
 import Copy from "../../UI/Copy.jsx";
 const YT = () => {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   const location = useLocation();
   const userId = location.state.userId;
   const [history, setHistory] = useState([]);
@@ -39,7 +42,7 @@ const YT = () => {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "9a80c4118amshc8f71e453f28de7p1e6248jsn99ca17e8c1a6",
+        "X-RapidAPI-Key": "6625a2fd44msh7fb777f6e5e5f32p1b33e7jsnf58f85412f51",
         "X-RapidAPI-Host": "youtube-transcriptor.p.rapidapi.com",
       },
     };
@@ -47,7 +50,7 @@ const YT = () => {
       const response = await fetch(url, options);
       const result = await response.json();
       setOutput([...result]);
-      console.log(result[0].transcription);
+      // console.log(result[0].transcription);
       let dummy = "";
       for (let i = 0; i < result[0].transcription.length; i++) {
         dummy = dummy + result[0].transcription[i].subtitle;
@@ -113,11 +116,15 @@ const YT = () => {
           onClick={() => setIsPopUP(false)}
         />
         <div className={classes.inputContainer}>
-          <p className={classes.prompt}>Prompt:{arr[ind].prompt}</p>
+          <p className={classes.prompt}>
+            <span className="text-[#fc0001]">Prompt:</span>
+            {arr[ind].prompt}
+          </p>
           <Copy size={".9rem"} text={arr[ind].output} />
         </div>
         <div className="w-full md:max-h-80 max-h-40 overflow-scroll no-scrollbar">
-          output:{arr[ind].output}
+          <span className="text-[#fc0001]">output:</span>
+          {arr[ind].output}
         </div>
       </div>
     );

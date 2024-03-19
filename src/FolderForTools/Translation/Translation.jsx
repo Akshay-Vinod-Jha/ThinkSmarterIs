@@ -564,6 +564,9 @@ const languages = [
   },
 ];
 const Translation = (props) => {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   const [showHistory, setShowHistory] = useState(false);
   const senetenceRef = useRef();
   const dispatch = useDispatch();
@@ -649,7 +652,7 @@ const Translation = (props) => {
       headers: {
         "content-type": "application/x-www-form-urlencoded",
         "Accept-Encoding": "application/gzip",
-        "X-RapidAPI-Key": "3aa648af9dmsh88005152e916e32p19bf95jsn5ab659df5e3f",
+        "X-RapidAPI-Key": "6625a2fd44msh7fb777f6e5e5f32p1b33e7jsnf58f85412f51",
         "X-RapidAPI-Host": "google-translate1.p.rapidapi.com",
       },
       body: new URLSearchParams({
@@ -702,7 +705,7 @@ const Translation = (props) => {
       headers: {
         "content-type": "application/x-www-form-urlencoded",
         "Accept-Encoding": "application/gzip",
-        "X-RapidAPI-Key": "3aa648af9dmsh88005152e916e32p19bf95jsn5ab659df5e3f",
+        "X-RapidAPI-Key": "6625a2fd44msh7fb777f6e5e5f32p1b33e7jsnf58f85412f51",
         "X-RapidAPI-Host": "google-translate1.p.rapidapi.com",
       },
       body: new URLSearchParams({
@@ -715,7 +718,8 @@ const Translation = (props) => {
     try {
       const response = await fetch(url, options);
       const result = await response.json();
-      console.log(result.data.translations.translatedText);
+      console.log(result);
+      console.log(result.data.translations[0].translatedText);
       sla(true);
       sa(result.data.translations[0].translatedText);
       saveHistory(text, result.data.translations[0].translatedText, userId);

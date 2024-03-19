@@ -18,6 +18,9 @@ import Copy from "../../UI/Copy";
 import { useLocation } from "react-router-dom";
 
 const VisionVerbalizer = () => {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   const location = useLocation();
   const userId = location.state.userId;
   const [src, setSrc] = useState(null);
@@ -113,7 +116,9 @@ const VisionVerbalizer = () => {
           onClick={() => setIsPopUp(false)}
         />
         <div className={classes.imgContainer}>
-          <p className={classes.input}>Input</p>
+          <p className={classes.inputs} style={{ color: "#fc1001" }}>
+            Input
+          </p>
           <img src={history[ind].prompt} />
         </div>
         <div className={classes.prompt}>

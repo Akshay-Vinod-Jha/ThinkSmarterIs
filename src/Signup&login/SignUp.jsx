@@ -2,7 +2,7 @@
 import logopng from "../../images/ThinkSmarterLogo.png";
 import InputField from "../UI/InputField.jsx";
 import classes from "./SignUp.module.css";
-import signup from "../../images/signup.jpeg";
+import signup from "../../images/signup.png";
 import OrangeButton from "../UI/OrangeButton.jsx";
 import { FaGoogle } from "react-icons/fa";
 import Reveal from "../UI/Reveal.jsx";

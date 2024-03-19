@@ -26,6 +26,9 @@ import Bottom from "../../UI/Bottom.jsx";
 const HF_TOKEN = "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";
 
 function TextToImage() {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   const location = useLocation();
   const userId = location.state.userId;
   const [ispopup, setIsPopUp] = useState(false);
@@ -106,7 +109,10 @@ function TextToImage() {
           fontSize={"2rem"}
           onClick={() => setIsPopUp(false)}
         />
-        <div className={cssClasses.prompt}>{arr[ind].prompt}</div>
+        <div className={cssClasses.prompt}>
+          <span style={{ color: "#fc1001" }}>Prompt: </span>
+          {arr[ind].prompt}
+        </div>
         <div className={cssClasses.imgContainer}>
           <img src={arr[ind].base64Url} />
         </div>

@@ -4,7 +4,10 @@ import WhiteButton from "../../UI/WhiteButton";
 import HomeAnimation from "./HomeAnimation";
 import classes from "./Home.module.css";
 import Reveal from "../../UI/Reveal";
+import { useNavigate } from "react-router-dom";
+
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <div className={classes["home-cantainer"]}>
       <HomeAnimation />
@@ -27,8 +30,18 @@ const Home = () => {
           })}
         </h1>
         <div className={classes.homeBtns}>
-          <OrangeButton>Explore More</OrangeButton>
-          <WhiteButton>Know More</WhiteButton>
+          <div className="w-full relative flex justify-center items-center">
+            <div className="w-[100%] md:w-[50%]">
+              <OrangeButton
+                onClick={() => {
+                  navigate("/AllToolsMainPage");
+                }}
+              >
+                Explore Tools
+              </OrangeButton>
+            </div>
+          </div>
+          {/* <WhiteButton>Know More</WhiteButton> */}
         </div>
       </Reveal>
     </div>

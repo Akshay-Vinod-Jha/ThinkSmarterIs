@@ -42,7 +42,7 @@ const History = ({
               <div className={classes.timeago}>
                 <AiOutlineMessage
                   className={classes.icon}
-                  fontSize="1.5rem"
+                  fontSize="1.25rem"
                   color="rgba(255,255,255,0.75)"
                 />
                 <p className={classes.time}> {timeAgo(val.time)}</p>

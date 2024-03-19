@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { GiThink } from "react-icons/gi";
 import OrangeButton from "../UI/OrangeButton";
 import { FaBackward } from "react-icons/fa";
@@ -7,8 +7,10 @@ import AdvantageText from "./AdvantageText";
 import Steps from "./Steps";
 import { useNavigate } from "react-router-dom";
 function Advantage(props) {
-  console.log(props.information.name.split(" ").join("").toUpperCase());
   const navigate = useNavigate();
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   return (
     <div className="w-full flex flex-col justify-center items-center p-6 md:p-6 font-lexend">
       <div className="w-40 md:w-50 lg:w-60 aspect-square overflow-hidden rounded-xl outline outline-1 outline-offset-8 outline-white">
@@ -46,12 +48,16 @@ function Advantage(props) {
         </div>
         <div className="w-full md:col-span-1 md:w-[50%] lg:w-[25%]">
           <OrangeButton
-            onClick={() =>
-              navigate(
-                `/AllToolsMainPage/${props.information.name.split(" ").join("").toUpperCase()}`,
-                { state: { userId: props.userId } }
-              )
-            }
+            onClick={() => {
+              if (props.userId) {
+                navigate(
+                  `/AllToolsMainPage/${props.information.name.split(" ").join("").toUpperCase()}`,
+                  { state: { userId: props.userId } }
+                );
+              } else {
+                navigate("/SignIN");
+              }
+            }}
           >
             Start<FaForward className="ml-2"></FaForward>
           </OrangeButton>

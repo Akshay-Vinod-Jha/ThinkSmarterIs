@@ -1,12 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import cssclasses from "./AllToolsMainPage.module.css";
 import Advantage from "../../Advantage/Advantage";
 import AllParent from "../../UI/AllParent";
 import Bottom from "../../UI/Bottom";
-import { useLocation } from "react-router-dom";
-// import { Outlet } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { auth } from "../../../firebase.config";
+import OrangeButton from "../../UI/OrangeButton";
+import { signOut } from "firebase/auth";
 function AllToolsMainPage() {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
+  const navigate = useNavigate();
+  const signOutHandler = async () => {
+    await signOut(auth);
+    navigate("/");
+  };
+
   const location = useLocation();
+  const userId =
+    location.state !== null
+      ? location.state.userId
+      : auth.currentUser !== null
+        ? auth.currentUser.uid
+        : null;
+
   const [state, setState] = useState(false);
   const [clicked, updateOnClicked] = useState({});
   const updateState = () => {
@@ -19,6 +37,11 @@ function AllToolsMainPage() {
   };
   return (
     <>
+      <div className="w-full p-2 h-auto flex justify-end items-center">
+        <div className="w-max">
+          <OrangeButton onClick={signOutHandler}>Sign out</OrangeButton>
+        </div>
+      </div>
       {!state && (
         <div
           className={
@@ -42,7 +65,7 @@ function AllToolsMainPage() {
       )}
       {state && (
         <Advantage
-          userId={location.state.userId}
+          userId={userId}
           information={clicked}
           updateState={updateState}
         />

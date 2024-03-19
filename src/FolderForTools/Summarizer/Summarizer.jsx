@@ -21,6 +21,9 @@ import classes from "./Summarizer.module.css";
 import { MdCancel } from "react-icons/md";
 import { readData } from "../../common-funtions/readData.jsx";
 const Summarizer = () => {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   const location = useLocation();
   const userId = location.state.userId;
   const [showHistory, setShowHistory] = useState(false);
