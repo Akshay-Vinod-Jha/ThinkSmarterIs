@@ -22,10 +22,11 @@ import { useLocation } from "react-router-dom";
 import { readData } from "../../common-funtions/readData.jsx";
 import { updateData } from "../../common-funtions/updateData.jsx";
 import { MdCancel } from "react-icons/md";
-
+import { auth } from "../../../firebase.config.js";
 const HF_TOKEN = "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";
 
 function TextToImage() {
+  console.log(auth);
   const location = useLocation();
   const userId = location.state.userId;
   const dispatch = useDispatch();

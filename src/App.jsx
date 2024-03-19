@@ -42,7 +42,7 @@ const App = () => {
             <Route path="AIBRIEFBUDDY" element={<Summarizer />} />
             <Route path="INQUIRYRESPONSE" element={<QA />} />
             <Route path="SPELLCHECKER" element={<SpellChecker />} />
-            <Route path="TEXTTOCODE" element={<TTC />} />
+            <Route path="CODECRAFT" element={<TTC />} />
             <Route path="CHATBOT" element={<Chatbot />} />
             <Route path="INTELLIDICT" element={<Dictionary />} />
             <Route path="TRANSLATEXPERT" element={<Translation />} />

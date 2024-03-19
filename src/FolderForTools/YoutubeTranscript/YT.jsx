@@ -14,6 +14,7 @@ import { updateData } from "../../common-funtions/updateData.jsx";
 import { readData } from "../../common-funtions/readData.jsx";
 import { MdCancel } from "react-icons/md";
 import classes from "./YT.module.css";
+import Copy from "../../UI/Copy.jsx";
 const YT = () => {
   const location = useLocation();
   const userId = location.state.userId;
@@ -114,6 +115,9 @@ const YT = () => {
         <p className={classes.prompt}>Prompt:{arr[ind].prompt}</p>
         <div className="w-full md:max-h-80 max-h-40 overflow-scroll no-scrollbar">
           output:{arr[ind].output}
+        </div>
+        <div className="w-full flex justify-end items-center">
+          <Copy text={arr[ind].output} />
         </div>
       </div>
     );

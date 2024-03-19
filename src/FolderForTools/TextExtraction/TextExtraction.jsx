@@ -75,14 +75,14 @@ const TextExtraction = () => {
           setShowHistory={setShowHistory}
           getImageHandler={getImageHandler}
         />
-        <History
+        {/* <History
           height="650px"
           showHistory={showHistory}
           setShowHistory={setShowHistory}
           history={Array(5).fill(
             "The Generated text History from the uploaded image is displayed here."
           )}
-        />
+        /> */}
       </div>
       <Output isLoading={isLoading}>{generatedText}</Output>
       <div className={classes.lower}>

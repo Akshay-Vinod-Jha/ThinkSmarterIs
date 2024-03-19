@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import History from "../../UI/History";
+import Copy from "../../UI/Copy";
 import Title from "../Summarizer/RequiredComponents/Title";
 import BigTextarea from "./BigTextarea";
 import { TbBulb } from "react-icons/tb";
+import cssClasses from "./Translation.module.css";
 import OrangeButton from "../../UI/OrangeButton";
 import { PiDetectiveFill } from "react-icons/pi";
 import { MdError } from "react-icons/md";
@@ -10,12 +12,20 @@ import { useDispatch } from "react-redux";
 import { hidePopUp, showPopUp } from "../../store/popupSlice.jsx";
 import Loader from "../../UI/Loader";
 import Conversion from "./Conversion";
-import Copy from "../../UI/Copy";
+import { useLocation } from "react-router-dom";
+import { readData } from "../../common-funtions/readData.jsx";
+import { updateData } from "../../common-funtions/updateData.jsx";
+import { MdCancel } from "react-icons/md";
+
 const Translation = (props) => {
   const [showHistory, setShowHistory] = useState(false);
   const senetenceRef = useRef();
   const dispatch = useDispatch();
-
+  const location = useLocation();
+  const userId = location.state.userId;
+  const [ispopup, setIsPopUp] = useState(false);
+  const [isHistroyLoading, setIsHistoryLoading] = useState(false);
+  const [history, setHistory] = useState([]);
   const [languagecode, setLanguageCode] = useState([
     {
       language: "af",
@@ -569,6 +579,54 @@ const Translation = (props) => {
   const [impl, setimpl] = useState("en");
   const [lastArea, sla] = useState(false);
   const [anything, sa] = useState("");
+  const saveHistory = async (prompt, result, userId) => {
+    const obj = {
+      prompt,
+      output: result,
+      time: new Date().toISOString(),
+    };
+    setHistory((previousValue) => {
+      return [obj, ...previousValue];
+    });
+    await updateData(userId, {
+      Translation: [obj, ...history],
+    });
+  };
+  useEffect(() => {
+    const fetchHistory = async () => {
+      const data = await readData(userId);
+      setHistory(data["Translation"] ? data["Translation"] : []);
+      setIsHistoryLoading(false);
+    };
+    setIsHistoryLoading(true);
+    fetchHistory();
+  }, []);
+
+  const popupHandler = (ind, arr) => {
+    console.log(ind);
+    return (
+      <div className={cssClasses.popup}>
+        <MdCancel
+          className={cssClasses.cancel}
+          fontSize={"2rem"}
+          onClick={() => setIsPopUp(false)}
+        />
+        <h1 className="w-full flex justify-start text-white items-center text-left">
+          Prompt:
+        </h1>
+        <h1 className="w-full flex justify-start text-[#fc0001] items-center">
+          {arr[ind].prompt}
+        </h1>
+        <br />
+        <h1 className="w-full flex justify-start text-white items-center text-left">
+          Response:
+        </h1>
+        <h1 className="w-full flex justify-start text-[#fc0001] items-center">
+          {arr[ind].output}
+        </h1>
+      </div>
+    );
+  };
   const closeAll = () => {
     setImpCode("en");
     ssdl([false, ""]);
@@ -659,6 +717,7 @@ const Translation = (props) => {
       console.log(result.data.translations.translatedText);
       sla(true);
       sa(result.data.translations[0].translatedText);
+      saveHistory(text, result.data.translations[0].translatedText, userId);
     } catch (error) {
       console.error(error);
       sla(false);
@@ -773,12 +832,14 @@ const Translation = (props) => {
         </div>
       </div>
       <History
-        height="650px"
+        height="95vh"
         showHistory={showHistory}
         setShowHistory={setShowHistory}
-        history={Array(5).fill(
-          "The Generated text History from the uploaded image is displayed here."
-        )}
+        history={history}
+        popupHandler={popupHandler}
+        showPopUp={setIsPopUp}
+        popup={ispopup}
+        isHistroyLoading={isHistroyLoading}
       />
     </div>
   );

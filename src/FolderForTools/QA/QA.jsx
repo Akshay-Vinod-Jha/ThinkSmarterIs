@@ -88,14 +88,14 @@ const QA = () => {
           src={src}
           setSrc={setSrc}
         />
-        <History
+        {/* <History
           height="660px"
           showHistory={showHistory}
           setShowHistory={setShowHistory}
           history={Array(5).fill(
             "The Generated text History from the uploaded image is displayed here."
           )}
-        />
+        /> */}
       </div>
       <div className={classes.lower}>
         <Output isLoading={isLoading} output={answer} />
