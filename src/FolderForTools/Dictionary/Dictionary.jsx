@@ -15,10 +15,7 @@ import { useLocation } from "react-router-dom";
 import { readData } from "../../common-funtions/readData.jsx";
 import { updateData } from "../../common-funtions/updateData.jsx";
 import { MdCancel } from "react-icons/md";
-<<<<<<< HEAD
-=======
 import Copy from "../../UI/Copy.jsx";
->>>>>>> 62e70018569f3375778880805f595cbac29f0cf3
 const Dictionary = () => {
   const location = useLocation();
   const userId = location.state.userId;
@@ -197,22 +194,8 @@ const Dictionary = () => {
           isHistroyLoading={isHistroyLoading}
         />
       </div>
-<<<<<<< HEAD
-      <History
-        height="95vh"
-        showHistory={showHistory}
-        setShowHistory={setShowHistory}
-        history={history}
-        popupHandler={popupHandler}
-        showPopUp={setIsPopUp}
-        popup={ispopup}
-        isHistroyLoading={isHistroyLoading}
-      />
-    </div>
-=======
       <Bottom label="Go to All tools" navigateTo=".." userId={userId} />
     </>
->>>>>>> 62e70018569f3375778880805f595cbac29f0cf3
   );
 };
 

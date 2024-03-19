@@ -21,7 +21,7 @@ function ToolsBox(props) {
             className="w-full aspect-square  duration-200"
           />
         </div>
-        <h1 className="text-[white] text-center md:text-left capitalize h-full  text-base w-[100%]">
+        <h1 className="text-[white] text-center md:text-left capitalize   text-base w-[100%]">
           {parse(props.slogan)}
         </h1>
       </div>

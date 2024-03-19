@@ -100,11 +100,7 @@ function SpellChecker() {
       console.log(userId);
       const data = await readData(userId);
       console.log(data);
-<<<<<<< HEAD
-      // setHistory(data["SpellChecker"] ? data["SpellChecker"] : []);
-=======
       setHistory(data["SpellChecker"] ? data["SpellChecker"] : []);
->>>>>>> 62e70018569f3375778880805f595cbac29f0cf3
       setIsHistoryLoading(false);
     };
     setIsHistoryLoading(true);
@@ -286,22 +282,8 @@ function SpellChecker() {
           isHistroyLoading={isHistroyLoading}
         />
       </div>
-<<<<<<< HEAD
-      <History
-        height="95vh"
-        showHistory={showHistory}
-        setShowHistory={setShowHistory}
-        history={history}
-        popupHandler={popupHandler}
-        showPopUp={setIsPopUp}
-        popup={ispopup}
-        isHistroyLoading={isHistroyLoading}
-      />
-    </div>
-=======
       <Bottom label="Go to All tools" navigateTo=".." userId={userId} />
     </>
->>>>>>> 62e70018569f3375778880805f595cbac29f0cf3
   );
 }
 
