@@ -3,7 +3,10 @@ import Title from "../Summarizer/RequiredComponents/Title";
 import PromptAreaForMail from "../Summarizer/RequiredComponents/PromptAreaForMail";
 import Loading from "../../UI/Loading";
 import Copy from "../../UI/Copy.jsx";
+<<<<<<< HEAD
+=======
 import Bottom from "../../UI/Bottom.jsx";
+>>>>>>> 62e70018569f3375778880805f595cbac29f0cf3
 import History from "../../UI/History";
 import { FaLaptopCode } from "react-icons/fa6";
 import SelectLanguage from "./SelectLanguage";
@@ -123,6 +126,7 @@ const TTC = () => {
           className={cssClasses.cancel}
           fontSize={"2rem"}
           onClick={() => setIsPopUp(false)}
+<<<<<<< HEAD
         />
         <p className={cssClasses.prompt}>
           <span className="text-[#fc0001]">Prompt: </span>
@@ -147,6 +151,55 @@ const TTC = () => {
           <Copy text={arr[ind].output} />
         </div>
       </div>
+    );
+  };
+  return (
+    <div className="w-screen h-auto grid grid-cols-1 md:grid-cols-4 place-content-center place-items-start gap-2 py-4 px-2">
+      <div className="w-full col-span-1 md:col-span-3 px-1 flex flex-col gap-4">
+        <Title title="CodeCraft" setShowHistory={setShowHistory} />
+        <PromptAreaForMail
+          placeholder="Enter The Prompt Here To Generate Code.."
+          ref={promptRef}
+          callThisFunction={callThisFunction}
+          requested={requested}
+          buttonText="Generate"
+          icon={<FaLaptopCode className="text-base" />}
+=======
+>>>>>>> 62e70018569f3375778880805f595cbac29f0cf3
+        />
+        <p className={cssClasses.prompt}>Prompt:{arr[ind].prompt}</p>
+        <div className="w-full md:max-h-80 max-h-40 overflow-scroll no-scrollbar">
+          <h1 className="w-full flex justify-start items-center text-white font-lexend">
+            Output
+          </h1>
+          <div className="w-full max-h-40 md:max-h-80 overflow-scroll no-scrollbar">
+            <SyntaxHighlighter
+              language={arr[ind].style}
+              style={atomOneDark}
+              id="code"
+              className="rounded-xl overflow-scroll no-scrollbar"
+            >
+              {arr[ind].output}
+            </SyntaxHighlighter>
+          </div>
+        </div>
+        <div className="w-full flex justify-end items-center">
+          <Copy text={arr[ind].output} />
+        </div>
+      </div>
+<<<<<<< HEAD
+      <History
+        height="95vh"
+        showHistory={showHistory}
+        setShowHistory={setShowHistory}
+        history={history}
+        popupHandler={popupHandler}
+        showPopUp={setIsPopUp}
+        popup={ispopup}
+        isHistroyLoading={isHistroyLoading}
+      />
+    </div>
+=======
     );
   };
   return (
@@ -213,6 +266,7 @@ const TTC = () => {
       </div>
       <Bottom label="Go to All tools" navigateTo=".." userId={userId} />
     </>
+>>>>>>> 62e70018569f3375778880805f595cbac29f0cf3
   );
 };
 

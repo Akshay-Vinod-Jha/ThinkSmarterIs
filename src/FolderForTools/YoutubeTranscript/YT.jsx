@@ -126,6 +126,9 @@ const YT = () => {
           <span className="text-[#fc0001]">output:</span>
           {arr[ind].output}
         </div>
+        <div className="w-full flex justify-end items-center">
+          <Copy text={arr[ind].output} />
+        </div>
       </div>
     );
   };

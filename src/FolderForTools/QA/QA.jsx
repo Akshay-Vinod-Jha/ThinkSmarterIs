@@ -176,6 +176,16 @@ const QA = () => {
           src={src}
           setSrc={setSrc}
         />
+<<<<<<< HEAD
+        {/* <History
+          height="660px"
+          showHistory={showHistory}
+          setShowHistory={setShowHistory}
+          history={Array(5).fill(
+            "The Generated text History from the uploaded image is displayed here."
+          )}
+        /> */}
+=======
         <History
           height="95vh"
           showHistory={showHistory}
@@ -186,6 +196,7 @@ const QA = () => {
           popup={ispopup}
           isHistroyLoading={isHistroyLoading}
         />
+>>>>>>> 62e70018569f3375778880805f595cbac29f0cf3
       </div>
       <div className={classes.lower}>
         <Output isLoading={isLoading} output={answer} />

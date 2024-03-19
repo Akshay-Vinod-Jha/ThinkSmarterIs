@@ -22,6 +22,8 @@ import { useLocation } from "react-router-dom";
 import { readData } from "../../common-funtions/readData.jsx";
 import { updateData } from "../../common-funtions/updateData.jsx";
 import { MdCancel } from "react-icons/md";
+import { auth } from "../../../firebase.config.js";
+
 import Bottom from "../../UI/Bottom.jsx";
 const HF_TOKEN = "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";
 
@@ -29,6 +31,7 @@ function TextToImage() {
   useEffect(() => {
     window.scroll(0, 0);
   }, []);
+
   const location = useLocation();
   const userId = location.state.userId;
   const [ispopup, setIsPopUp] = useState(false);
@@ -40,7 +43,6 @@ function TextToImage() {
   const [isLoading, setIsLoding] = useState(false);
   const promptInputRef = useRef(null);
   const [history, setHistory] = useState([]);
-
   const saveHistory = async (prompt, url, userId) => {
     const obj = {
       prompt,

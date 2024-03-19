@@ -51,6 +51,7 @@ const MainContainer = () => {
   const wordRef = useRef();
   const wordRef2 = useRef();
   const { speak } = useSpeechSynthesis();
+  const [request, setRequest] = useState(false);
   const clickHandler = () => {
     try {
       setRequest(true);
