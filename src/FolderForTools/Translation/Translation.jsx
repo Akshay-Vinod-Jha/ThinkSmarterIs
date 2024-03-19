@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import History from "../../UI/History";
+import Bottom from "../../UI/Bottom.jsx";
 import Copy from "../../UI/Copy";
 import Title from "../Summarizer/RequiredComponents/Title";
 import BigTextarea from "./BigTextarea";
@@ -611,17 +612,17 @@ const Translation = (props) => {
           fontSize={"2rem"}
           onClick={() => setIsPopUp(false)}
         />
-        <h1 className="w-full flex justify-start text-white items-center text-left">
+        <h1 className="w-full flex justify-start text-[#fc0001]  items-center text-left">
           Prompt:
         </h1>
-        <h1 className="w-full flex justify-start text-[#fc0001] items-center">
+        <h1 className="w-full flex justify-start text-white items-center">
           {arr[ind].prompt}
         </h1>
         <br />
-        <h1 className="w-full flex justify-start text-white items-center text-left">
+        <h1 className="w-full flex justify-start text-[#fc0001] items-center text-left">
           Response:
         </h1>
-        <h1 className="w-full flex justify-start text-[#fc0001] items-center">
+        <h1 className="w-full flex justify-start text-white items-center">
           {arr[ind].output}
         </h1>
       </div>
@@ -740,108 +741,115 @@ const Translation = (props) => {
   };
 
   return (
-    <div className="w-screen  h-auto grid grid-cols-1 md:grid-cols-4 place-content-center place-items-start p-2 ">
-      <div className="w-[99%] p-2 col-span-1 md:col-span-3 grid grid-cols-1 gap-4 place-content-center place-items-center">
-        <Title title="TranslateExpert" setShowHistory={setShowHistory} />
-        <BigTextarea
-          placeholder="Enter The Sentence To Translate Here.."
-          ref={senetenceRef}
-        />
-        <div className="w-full ">
-          <OrangeButton
-            onClick={() => {
-              sdlbe(true);
-              console.log(senetenceRef.current.value);
-              if (senetenceRef.current.value.trim() !== "") {
-                detectLanguage(senetenceRef.current.value);
-              }
-            }}
-          >
-            {dlbe && <Loader />}
-            Click To Detect Language
-            <PiDetectiveFill className="text-base" />
-          </OrangeButton>
-        </div>
-        {sdl[0] && (
-          <div className="w-full font-lexend text-white grid grid-cols-1 md:grid-cols-4 place-content-center place-items-start">
-            <h1 className="w-full col-span-1 md:col-span-3">
-              Detected Language
-            </h1>
-            <h1 className="w-full col-span-1 flex justify-center items-center bg-white py-2 rounded-lg text-[#fc0001]">
-              {sdl[1]}
-            </h1>
+    <>
+      <div className="w-screen  h-auto grid grid-cols-1 md:grid-cols-4 place-content-center place-items-start p-2 ">
+        <div className="w-[99%] p-2 col-span-1 md:col-span-3 grid grid-cols-1 gap-4 place-content-center place-items-center">
+          <Title title="TranslateExpert" setShowHistory={setShowHistory} />
+          <BigTextarea
+            placeholder="Enter The Sentence To Translate Here.."
+            ref={senetenceRef}
+          />
+          <div className="w-full ">
+            <OrangeButton
+              onClick={() => {
+                sdlbe(true);
+                console.log(senetenceRef.current.value);
+                if (senetenceRef.current.value.trim() !== "") {
+                  detectLanguage(senetenceRef.current.value);
+                }
+              }}
+            >
+              {dlbe && <Loader />}
+              Click To Detect Language
+              <PiDetectiveFill className="text-base" />
+            </OrangeButton>
           </div>
-        )}
-        {sdl[0] && (
-          <Conversion languagecode={languagecode} sdl={sdl} setimpl={setimpl} />
-        )}
-        {sdl[0] && (
-          <OrangeButton
-            onClick={() => {
-              console.log(impl);
-              setToTranslate(true);
-              callTranslateFUn(impCode, impl, senetenceRef.current.value);
-            }}
-          >
-            {toTranslate && <Loader />}
-            Translate The Text
-          </OrangeButton>
-        )}
-        {lastArea && (
-          <>
-            <textarea
-              ref={anotherref}
-              name="a"
-              id="a"
-              readOnly={true}
-              value={anything}
-              className="w-[100%] cursor-not-allowed border-2 outline-none resize-none border-[#ffffff39] h-80 font-lexend text-sm md:text-base text-white bg-black rounded-xl px-2 py-4"
-            ></textarea>
-            <div className="w-full flex justify-end items-center">
-              <Copy text={anything} />
+          {sdl[0] && (
+            <div className="w-full font-lexend text-white grid grid-cols-1 md:grid-cols-4 place-content-center place-items-start">
+              <h1 className="w-full col-span-1 md:col-span-3">
+                Detected Language
+              </h1>
+              <h1 className="w-full col-span-1 flex justify-center items-center bg-white py-2 rounded-lg text-[#fc0001]">
+                {sdl[1]}
+              </h1>
             </div>
-          </>
-        )}
-        <div className="w-full flex flex-col my-4 font-lexend text-sm md:text-base lg:text-lg xl:text-xl justify-center items-center gap-2 bg-[#1E1E1E] rounded-xl">
-          <h1 className="w-full text-center flex justify-center text-sm md:text-base lg:text-lg xl:text-xl gap-2 font-extrabold items-center py-2 text-white">
-            <TbBulb color="yellow" fontSize="1.5rem" />
-            Don’t have idea ? Try these!
-          </h1>
-          {
-            <div className="w-full p-4 rounded-lg bg-[#1E1E1E]  font-normal grid grid-cols-1 lg:grid-cols-2 place-content-center place-items-center gap-2">
-              {[
-                ["Hello! Welcome to the world of speech synthesis."],
-                ["वह बच्चों के साथ खेल रहा है"],
-              ].map((value, index) => {
-                return (
-                  <div
-                    key={index}
-                    onClick={() => {
-                      senetenceRef.current.value = value;
-                      window.scrollTo(0, 0);
-                      closeAll();
-                    }}
-                    className="w-full px-8 py-4 text-justify h-24 overflow-scroll no-scrollbar text-sm bg-[#080b10] border-2 border-black hover:border-[#728894] hover:bg-black  rounded-md text-[#ffffffa0]"
-                  >
-                    {value}
-                  </div>
-                );
-              })}
-            </div>
-          }
+          )}
+          {sdl[0] && (
+            <Conversion
+              languagecode={languagecode}
+              sdl={sdl}
+              setimpl={setimpl}
+            />
+          )}
+          {sdl[0] && (
+            <OrangeButton
+              onClick={() => {
+                console.log(impl);
+                setToTranslate(true);
+                callTranslateFUn(impCode, impl, senetenceRef.current.value);
+              }}
+            >
+              {toTranslate && <Loader />}
+              Translate The Text
+            </OrangeButton>
+          )}
+          {lastArea && (
+            <>
+              <textarea
+                ref={anotherref}
+                name="a"
+                id="a"
+                readOnly={true}
+                value={anything}
+                className="w-[100%] cursor-not-allowed border-2 outline-none resize-none border-[#ffffff39] h-80 font-lexend text-sm md:text-base text-white bg-black rounded-xl px-2 py-4"
+              ></textarea>
+              <div className="w-full flex justify-end items-center">
+                <Copy text={anything} />
+              </div>
+            </>
+          )}
+          <div className="w-full flex flex-col my-4 font-lexend text-sm md:text-base lg:text-lg xl:text-xl justify-center items-center gap-2 bg-[#1E1E1E] rounded-xl">
+            <h1 className="w-full text-center flex justify-center text-sm md:text-base lg:text-lg xl:text-xl gap-2 font-extrabold items-center py-2 text-white">
+              <TbBulb color="yellow" fontSize="1.5rem" />
+              Don’t have idea ? Try these!
+            </h1>
+            {
+              <div className="w-full p-4 rounded-lg bg-[#1E1E1E]  font-normal grid grid-cols-1 lg:grid-cols-2 place-content-center place-items-center gap-2">
+                {[
+                  ["Hello! Welcome to the world of speech synthesis."],
+                  ["वह बच्चों के साथ खेल रहा है"],
+                ].map((value, index) => {
+                  return (
+                    <div
+                      key={index}
+                      onClick={() => {
+                        senetenceRef.current.value = value;
+                        window.scrollTo(0, 0);
+                        closeAll();
+                      }}
+                      className="w-full px-8 py-4 text-justify h-24 overflow-scroll no-scrollbar text-sm bg-[#080b10] border-2 border-black hover:border-[#728894] hover:bg-black  rounded-md text-[#ffffffa0]"
+                    >
+                      {value}
+                    </div>
+                  );
+                })}
+              </div>
+            }
+          </div>
         </div>
+        <History
+          height="95vh"
+          showHistory={showHistory}
+          setShowHistory={setShowHistory}
+          history={history}
+          popupHandler={popupHandler}
+          showPopUp={setIsPopUp}
+          popup={ispopup}
+          isHistroyLoading={isHistroyLoading}
+        />
       </div>
-      <History
-        height="95vh"
-        showHistory={showHistory}
-        setShowHistory={setShowHistory}
-        history={history}
-        popupHandler={popupHandler}
-        showPopUp={setIsPopUp}
-        popup={ispopup}
-        isHistroyLoading={isHistroyLoading}
-      />
-    </div>
+      <Bottom label="Go to All tools" navigateTo=".." userId={userId} />
+    </>
   );
 };
 

@@ -10,18 +10,18 @@ function ToolsBox(props) {
       <div className="text-[white] hover:text-[#728894] font-semibold   uppercase text-base md:text-lg lg:text-xl xl:text-xl text-left w-full border-b-2 border-[#ffffff51] py-2">
         {props.toolName}
       </div>
-      <div className="w-full h-[80%] flex flex-row justify-around items-center">
-        <div className="w-[25%] md:w-[25%] lg:w-[20%] overflow-hidden rounded-full aspect-[1/1] border-4 border-[#72889496]">
+      <div className="w-full h-[80%] flex md:flex-row flex-col  justify-around items-center gap-2 md:gap-4">
+        <div className="w-[40%] md:w-[25%] lg:w-[20%] overflow-hidden rounded-full aspect-[1/1] border-4 border-[#72889496]">
           <img
             src={props.imageUrl}
             style={{
               objectFit: "cover",
             }}
             alt=""
-            className="w-full aspect-square hover:scale-125 duration-200"
+            className="w-full aspect-square  duration-200"
           />
         </div>
-        <h1 className="text-[white] capitalize text-justify hover:text-[#728894] text-base w-[55%]">
+        <h1 className="text-[white] text-center md:text-left capitalize h-full  text-base w-[100%]">
           {parse(props.slogan)}
         </h1>
       </div>

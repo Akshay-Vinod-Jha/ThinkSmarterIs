@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import Bottom from "../../UI/Bottom.jsx";
 import { HfInference } from "@huggingface/inference";
 import Loading from "../../UI/Loading";
 import Copy from "../../UI/Copy";
@@ -176,6 +177,7 @@ const Summarizer = () => {
     const fetchHistory = async () => {
       const data = await readData(userId);
       setHistory(data["SUMMARIZER"] ? data["SUMMARIZER"] : []);
+      console.log(userId);
       setIsHistoryLoading(false);
     };
     setIsHistoryLoading(true);
@@ -364,6 +366,7 @@ const Summarizer = () => {
           popupHandler={popupHandler}
         />
       </div>
+      <Bottom label="Go to All tools" navigateTo=".." userId={userId} />
     </React.Fragment>
   );
 };

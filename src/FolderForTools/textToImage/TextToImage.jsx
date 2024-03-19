@@ -22,7 +22,7 @@ import { useLocation } from "react-router-dom";
 import { readData } from "../../common-funtions/readData.jsx";
 import { updateData } from "../../common-funtions/updateData.jsx";
 import { MdCancel } from "react-icons/md";
-
+import Bottom from "../../UI/Bottom.jsx";
 const HF_TOKEN = "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";
 
 function TextToImage() {
@@ -231,6 +231,7 @@ function TextToImage() {
           }}
         />
       </div>
+      <Bottom label="Go to All tools" navigateTo=".." userId={userId} />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 // import React from "react";
 import MainBox from "./RequiredComponents/MainBox";
 import TryThese from "./RequiredComponents/TryThese";
+import Bottom from "../../UI/Bottom";
 import classes from "./VisionVerbalizer.module.css";
 import { useEffect, useState, useCallback } from "react";
 import { HfInference } from "@huggingface/inference";
@@ -144,6 +145,7 @@ const VisionVerbalizer = () => {
       <div className={classes.lower}>
         <TryThese updateSrc={setSrc} />
       </div>
+      <Bottom label="Go to All tools" navigateTo=".." userId={userId} />
     </div>
   );
 };
