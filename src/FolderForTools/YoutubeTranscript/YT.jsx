@@ -119,6 +119,9 @@ const YT = () => {
         <div className="w-full md:max-h-80 max-h-40 overflow-scroll no-scrollbar">
           output:{arr[ind].output}
         </div>
+        <div className="w-full flex justify-end items-center">
+          <Copy text={arr[ind].output} />
+        </div>
       </div>
     );
   };

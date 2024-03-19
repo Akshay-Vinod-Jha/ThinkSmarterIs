@@ -5,7 +5,11 @@ import Bottom from "../../UI/Bottom.jsx";
 import { HfInference } from "@huggingface/inference";
 import ChatingScreen from "./ChatingScreen";
 import { MdError } from "react-icons/md";
+<<<<<<< HEAD
+import cssClasses from "./Chatbot.module.css";
+=======
 import cssClasses from "./ChatBot.module.css";
+>>>>>>> 62e70018569f3375778880805f595cbac29f0cf3
 import { IoSend } from "react-icons/io5";
 import Title from "../Summarizer/RequiredComponents/Title";
 import { TbBulb } from "react-icons/tb";
@@ -226,8 +230,22 @@ const Chatbot = () => {
           isHistroyLoading={isHistroyLoading}
         />
       </div>
+<<<<<<< HEAD
+      <History
+        height="95vh"
+        showHistory={showHistory}
+        setShowHistory={setShowHistory}
+        history={history}
+        popupHandler={popupHandler}
+        showPopUp={setIsPopUp}
+        popup={ispopup}
+        isHistroyLoading={isHistroyLoading}
+      />
+    </div>
+=======
       <Bottom label="Go to All tools" navigateTo=".." userId={userId} />
     </>
+>>>>>>> 62e70018569f3375778880805f595cbac29f0cf3
   );
 };
 
