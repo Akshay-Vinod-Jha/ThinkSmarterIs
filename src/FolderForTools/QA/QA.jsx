@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import classes from "./QA.module.css";
 import History from "../../UI/History";
 import InputBox from "./RequiredComponents/InputBox";
@@ -9,8 +9,18 @@ import { MdError } from "react-icons/md";
 import { hidePopUp, showPopUp } from "../../store/popupSlice.jsx";
 import TryThese from "./RequiredComponents/TryThese.jsx";
 const HF_TOKEN = "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";
-
+import { useLocation } from "react-router-dom";
+import { readData } from "../../common-funtions/readData.jsx";
+import { updateData } from "../../common-funtions/updateData.jsx";
+import { MdCancel } from "react-icons/md";
+import Copy from "../../UI/Copy.jsx";
+import Bottom from "../../UI/Bottom.jsx";
 const QA = () => {
+  const location = useLocation();
+  const userId = location.state.userId;
+  const [ispopup, setIsPopUp] = useState(false);
+  const [isHistroyLoading, setIsHistoryLoading] = useState(false);
+  const [history, setHistory] = useState([]);
   const dispatch = useDispatch();
   const questionRef = useRef();
   const contextRef = useRef();
@@ -19,8 +29,23 @@ const QA = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [answer, setAnswer] = useState("Output will be display here...");
+  const saveHistory = async (prompt, context, output, type) => {
+    const obj = {
+      prompt,
+      context,
+      output,
+      type,
+      time: new Date().toISOString(),
+    };
+    setHistory((history) => {
+      return [obj, ...history];
+    });
+    await updateData(userId, {
+      QA: [obj, ...history],
+    });
+  };
 
-  const errorHandler = () => {
+  const errorHandler = useCallback(() => {
     dispatch(
       showPopUp({
         color: "#892330",
@@ -33,7 +58,7 @@ const QA = () => {
     setTimeout(() => {
       dispatch(hidePopUp());
     }, 5000);
-  };
+  }, []);
 
   const getAnswer = async (context, question) => {
     window.scroll(0, 500);
@@ -46,6 +71,7 @@ const QA = () => {
         inputs: { question, context },
       });
       setAnswer(data.answer);
+      saveHistory(question, context, data.answer, "text");
     } catch (err) {
       console.log(err);
       errorHandler;
@@ -55,8 +81,9 @@ const QA = () => {
   };
 
   const getAnswerFromImage = async (url, question) => {
-    console.log(url);
     window.scroll(0, 500);
+    setIsLoading(true);
+
     try {
       const blob = await (await fetch(url)).blob();
       const inference = new HfInference(HF_TOKEN);
@@ -65,6 +92,11 @@ const QA = () => {
         inputs: { image: blob, question },
       });
       setAnswer(data.answer);
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onloadend = () => {
+        saveHistory(question, reader.result, data.answer, "image");
+      };
     } catch (err) {
       console.log(err.message);
       errorHandler();
@@ -72,6 +104,59 @@ const QA = () => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    const fetchHistory = async () => {
+      const data = await readData(userId);
+      setHistory(data["QA"] ? data["QA"] : []);
+      setIsHistoryLoading(false);
+    };
+    setIsHistoryLoading(true);
+    fetchHistory();
+  }, []);
+
+  const popupHandler = (ind, arr) => {
+    return (
+      <div
+        className={`${classes.popupp} ${arr[ind].type === "text" ? classes.popup : classes.image}`}
+      >
+        <MdCancel
+          className={classes.cancel}
+          fontSize={"2rem"}
+          onClick={() => setIsPopUp(false)}
+        />
+        <div className={classes.promptContainer}>
+          <div className={classes.heading}>
+            <p>Context:</p>
+          </div>
+
+          {arr[ind].type === "text" ? (
+            <p>{arr[ind].context}</p>
+          ) : (
+            <img src={arr[ind].context} className={classes.img} />
+          )}
+        </div>
+        <div className={classes.right}>
+          <div className={classes.promptContainer}>
+            <div className={classes.heading}>
+              <p>Question:</p>
+            </div>
+            <p>{arr[ind].prompt}</p>
+          </div>
+          <div className={classes.promptContainer}>
+            <div className={classes.heading}>
+              <p>Answer:</p>
+              <div className={classes.copy}>
+                <Copy size={".9rem"} text={arr[ind].output} />
+              </div>
+            </div>
+            <p>{arr[ind].output}</p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className={classes.QA}>
       <div className={classes.upper}>
@@ -88,6 +173,7 @@ const QA = () => {
           src={src}
           setSrc={setSrc}
         />
+<<<<<<< HEAD
         {/* <History
           height="660px"
           showHistory={showHistory}
@@ -96,6 +182,18 @@ const QA = () => {
             "The Generated text History from the uploaded image is displayed here."
           )}
         /> */}
+=======
+        <History
+          height="95vh"
+          showHistory={showHistory}
+          setShowHistory={setShowHistory}
+          history={history}
+          popupHandler={popupHandler}
+          showPopUp={setIsPopUp}
+          popup={ispopup}
+          isHistroyLoading={isHistroyLoading}
+        />
+>>>>>>> 62e70018569f3375778880805f595cbac29f0cf3
       </div>
       <div className={classes.lower}>
         <Output isLoading={isLoading} output={answer} />
@@ -113,6 +211,7 @@ const QA = () => {
           }}
         />
       </div>
+      <Bottom label="Go to All tools" navigateTo=".." userId={userId} />
     </div>
   );
 };

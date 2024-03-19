@@ -22,20 +22,24 @@ import { useLocation } from "react-router-dom";
 import { readData } from "../../common-funtions/readData.jsx";
 import { updateData } from "../../common-funtions/updateData.jsx";
 import { MdCancel } from "react-icons/md";
+<<<<<<< HEAD
 import { auth } from "../../../firebase.config.js";
+=======
+import Bottom from "../../UI/Bottom.jsx";
+>>>>>>> 62e70018569f3375778880805f595cbac29f0cf3
 const HF_TOKEN = "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";
 
 function TextToImage() {
   console.log(auth);
   const location = useLocation();
   const userId = location.state.userId;
-  const dispatch = useDispatch();
   const [ispopup, setIsPopUp] = useState(false);
+  const [isHistroyLoading, setIsHistoryLoading] = useState(false);
 
+  const dispatch = useDispatch();
   const [src, setSrc] = useState(null);
   const [showHistory, setShowHistory] = useState(false);
   const [isLoading, setIsLoding] = useState(false);
-  const [isHistroyLoading, setIsHistoryLoading] = useState(false);
   const promptInputRef = useRef(null);
   const [history, setHistory] = useState([]);
   const saveHistory = async (prompt, url, userId) => {
@@ -231,6 +235,7 @@ function TextToImage() {
           }}
         />
       </div>
+      <Bottom label="Go to All tools" navigateTo=".." userId={userId} />
     </div>
   );
 }

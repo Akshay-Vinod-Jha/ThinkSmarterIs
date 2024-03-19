@@ -121,7 +121,7 @@ function AllParent(props) {
       name: "IntelliDict",
       imageUrl: "../../images/dictionary.png",
       slogan:
-        "A toolto identify <span className='text-[#fc0001]'>antonyms, synonyms, part-of-speech categorization,phonetic pronunciation,examples</span> and other relevant information.",
+        "A toolto identify <span className='text-[#fc0001]'>antonyms, synonyms, part-of-speech, pronunciation,</span> other relevant information.",
       slogan2:
         "An advanced linguistic analysis tool adept at retrieving antonyms, synonyms, part-of-speech information, and other related linguistic data for a given word. This tool also provides phonetic transcriptions and comprehensive meanings accompanied by real-life examples to aid in understanding the word's usage in context. With its multifaceted capabilities, this tool serves as an invaluable resource for writers, linguists, educators, and language enthusiasts alike, facilitating nuanced exploration and comprehension of lexical elements across various contexts and languages.",
       advantages: [

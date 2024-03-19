@@ -40,6 +40,7 @@
   background-color: rgba(0, 0, 0, 1);
   font-size: small;
   cursor: pointer;
+  max-height: 175px;
 }
 
 .icons {
@@ -70,20 +71,7 @@
   background-color: #1e1e1e;
   transition: all 1s ease 1ms;
 }
-.overlay {
-  background-color: rgba(0, 0, 0, 0.75);
-  z-index: 100000;
-  position: fixed;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-  height: 100vh;
-  width: 100vw;
-}
 
-/* .prompt::-webkit-scrollbar {
-  display: none; */
-/* } */
 .empty {
   height: 500px;
   color: #728894;

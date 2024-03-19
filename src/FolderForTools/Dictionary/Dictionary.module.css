@@ -1,12 +1,3 @@
-.history {
-  display: none;
-  /* cursor: pointer; */
-}
-@media screen and (max-width: 750px) {
-  .history {
-    display: block;
-  }
-}
 .popup {
   background-color: rgba(0, 0, 0, 0.75);
   display: grid;
@@ -25,25 +16,8 @@
   width: 0;
   height: 0;
 }
-
 .popup *::-webkit-scrollbar {
   display: none;
-}
-.promptContainer {
-  flex-basis: 50%;
-  overflow: scroll;
-}
-.heading {
-  position: sticky;
-  top: 0;
-  background-color: rgba(0, 0, 0, 0.9);
-  color: #fc1001;
-  display: flex;
-  justify-content: space-between;
-}
-
-.heading:hover > .copy {
-  display: block;
 }
 .cancel {
   z-index: 1000000;
@@ -63,19 +37,16 @@
   }
   to {
     width: min(1000px, 90vw);
-    height: 75vh;
+    height: auto;
+    max-height: 80vh;
   }
 }
 
-@media screen and (max-width: 750px) {
-  @keyframes identifier {
-    from {
-      width: 0;
-      height: 0;
-    }
-    to {
-      width: min(1000px, 90vw);
-      height: 50vh;
-    }
-  }
+.prompt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-inline: scroll;
+  position: relative;
+  width: 98%;
 }

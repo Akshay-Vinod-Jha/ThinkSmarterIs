@@ -7,6 +7,18 @@
     display: block;
   }
 }
+<<<<<<< HEAD
+=======
+.history {
+  display: none;
+  /* cursor: pointer; */
+}
+@media screen and (max-width: 750px) {
+  .history {
+    display: block;
+  }
+}
+>>>>>>> 62e70018569f3375778880805f595cbac29f0cf3
 .popup {
   background-color: rgba(0, 0, 0, 0.75);
   display: grid;
