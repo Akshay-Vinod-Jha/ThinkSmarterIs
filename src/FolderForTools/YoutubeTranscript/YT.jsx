@@ -14,6 +14,7 @@ import { updateData } from "../../common-funtions/updateData.jsx";
 import { readData } from "../../common-funtions/readData.jsx";
 import { MdCancel } from "react-icons/md";
 import classes from "./YT.module.css";
+import Copy from "../../UI/Copy.jsx";
 const YT = () => {
   const location = useLocation();
   const userId = location.state.userId;
@@ -103,7 +104,6 @@ const YT = () => {
   }, []);
 
   const popupHandler = (ind, arr) => {
-    console.log(ind);
     return (
       <div className={classes.popup}>
         <MdCancel
@@ -111,7 +111,10 @@ const YT = () => {
           fontSize={"2rem"}
           onClick={() => setIsPopUP(false)}
         />
-        <p className={classes.prompt}>Prompt:{arr[ind].prompt}</p>
+        <div className={classes.inputContainer}>
+          <p className={classes.prompt}>Prompt:{arr[ind].prompt}</p>
+          <Copy size={".9rem"} text={arr[ind].output} />
+        </div>
         <div className="w-full md:max-h-80 max-h-40 overflow-scroll no-scrollbar">
           output:{arr[ind].output}
         </div>

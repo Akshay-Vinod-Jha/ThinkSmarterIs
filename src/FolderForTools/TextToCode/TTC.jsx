@@ -1,7 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Title from "../Summarizer/RequiredComponents/Title";
 import PromptAreaForMail from "../Summarizer/RequiredComponents/PromptAreaForMail";
 import Loading from "../../UI/Loading";
+import Copy from "../../UI/Copy.jsx";
 import History from "../../UI/History";
 import { FaLaptopCode } from "react-icons/fa6";
 import SelectLanguage from "./SelectLanguage";
@@ -10,7 +11,19 @@ import { hidePopUp, showPopUp } from "../../store/popupSlice.jsx";
 import ActualCodeBox from "./ActualCodeBox";
 import { TbBulb } from "react-icons/tb";
 import { MdError } from "react-icons/md";
+import { useLocation } from "react-router-dom";
+import { readData } from "../../common-funtions/readData.jsx";
+import { updateData } from "../../common-funtions/updateData.jsx";
+import { MdCancel } from "react-icons/md";
+import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
+import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import cssClasses from "./TTC.module.css";
 const TTC = () => {
+  const location = useLocation();
+  const userId = location.state.userId;
+  const [ispopup, setIsPopUp] = useState(false);
+  const [isHistroyLoading, setIsHistoryLoading] = useState(false);
+  const [history, setHistory] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
   const [requested, setRequested] = useState(false);
   const [response, setResponse] = useState(false);
@@ -23,6 +36,20 @@ const TTC = () => {
     setRequested(true);
     callApi(receivedvalue);
     setResponse(false);
+  };
+  const saveHistory = async (prompt, result, style, userId) => {
+    const obj = {
+      prompt,
+      output: result,
+      style: style,
+      time: new Date().toISOString(),
+    };
+    setHistory((previousValue) => {
+      return [obj, ...previousValue];
+    });
+    await updateData(userId, {
+      TextToCode: [obj, ...history],
+    });
   };
   function callApi(requestString) {
     const requestOptions = {
@@ -49,6 +76,12 @@ const TTC = () => {
         setActualCode(data["openai"]["generated_text"]);
         setRequested(false);
         setResponse(true);
+        saveHistory(
+          requestString,
+          data["openai"]["generated_text"],
+          slanguage,
+          userId
+        );
       })
       .catch((error) => {
         console.error(error);
@@ -68,7 +101,47 @@ const TTC = () => {
         }, 5000);
       });
   }
+  useEffect(() => {
+    const fetchHistory = async () => {
+      const data = await readData(userId);
+      setHistory(data["TextToCode"] ? data["TextToCode"] : []);
+      setIsHistoryLoading(false);
+    };
+    setIsHistoryLoading(true);
+    fetchHistory();
+  }, []);
 
+  const popupHandler = (ind, arr) => {
+    console.log(ind);
+    return (
+      <div className={cssClasses.popup}>
+        <MdCancel
+          className={cssClasses.cancel}
+          fontSize={"2rem"}
+          onClick={() => setIsPopUp(false)}
+        />
+        <p className={cssClasses.prompt}>Prompt:{arr[ind].prompt}</p>
+        <div className="w-full md:max-h-80 max-h-40 overflow-scroll no-scrollbar">
+          <h1 className="w-full flex justify-start items-center text-white font-lexend">
+            Output
+          </h1>
+          <div className="w-full max-h-40 md:max-h-80 overflow-scroll no-scrollbar">
+            <SyntaxHighlighter
+              language={arr[ind].style}
+              style={atomOneDark}
+              id="code"
+              className="rounded-xl overflow-scroll no-scrollbar"
+            >
+              {arr[ind].output}
+            </SyntaxHighlighter>
+          </div>
+        </div>
+        <div className="w-full flex justify-end items-center">
+          <Copy text={arr[ind].output} />
+        </div>
+      </div>
+    );
+  };
   return (
     <div className="w-screen h-auto grid grid-cols-1 md:grid-cols-4 place-content-center place-items-start gap-2 py-4 px-2">
       <div className="w-full col-span-1 md:col-span-3 px-1 flex flex-col gap-4">
@@ -120,12 +193,14 @@ const TTC = () => {
         </div>
       </div>
       <History
-        height="650px"
+        height="95vh"
         showHistory={showHistory}
         setShowHistory={setShowHistory}
-        history={Array(5).fill(
-          "The Generated text History from the uploaded image is displayed here."
-        )}
+        history={history}
+        popupHandler={popupHandler}
+        showPopUp={setIsPopUp}
+        popup={ispopup}
+        isHistroyLoading={isHistroyLoading}
       />
     </div>
   );

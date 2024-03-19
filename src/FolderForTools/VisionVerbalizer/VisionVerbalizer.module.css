@@ -107,7 +107,7 @@
   flex-direction: row-reverse;
 }
 .prompt > div {
-  width: 5rem;
+  width: fit-content;
 }
 .export:active {
   opacity: 0.75;

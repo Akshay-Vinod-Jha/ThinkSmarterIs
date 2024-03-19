@@ -7,12 +7,38 @@ import PromptAndButton from "./PromptAndButton";
 import { useDispatch } from "react-redux";
 import { hidePopUp, showPopUp } from "../../store/popupSlice.jsx";
 import { MdError } from "react-icons/md";
+import Copy from "../../UI/Copy.jsx";
 import History from "../../UI/History.jsx";
 import { MdHistory } from "react-icons/md";
 import cssClasses from "./SpellChecker.module.css";
 import { TbBulb } from "react-icons/tb";
+import { useLocation } from "react-router-dom";
+import { readData } from "../../common-funtions/readData.jsx";
+import { updateData } from "../../common-funtions/updateData.jsx";
+import { MdCancel } from "react-icons/md";
 function SpellChecker() {
   const dispatch = useDispatch();
+  const loc = useLocation();
+  const [history, setHistory] = useState([]);
+  const userId = loc.state.userId;
+  console.log(userId);
+  const [ispopup, setIsPopUp] = useState(false);
+  const [isHistroyLoading, setIsHistoryLoading] = useState(false);
+
+  const saveHistory = async (prompt, result, userId) => {
+    const obj = {
+      prompt,
+      output: result,
+      time: new Date().toISOString(),
+    };
+    setHistory((previousValue) => {
+      return [obj, ...previousValue];
+    });
+    await updateData(userId, {
+      SpellChecker: [obj, ...history],
+    });
+  };
+
   const importantFun = async (text) => {
     closeAll();
     setUnderlinedText(true);
@@ -33,8 +59,20 @@ function SpellChecker() {
       if (important.edits.length === 0) {
         throw Error("Error Occurred");
       }
-      setState(important.edits);
-
+      console.log("changing");
+      setState([...important.edits]);
+      console.log(important.edits);
+      let correctedOne = text;
+      important.edits.map((value) => {
+        let result = "";
+        for (let j = value.start; j < value.end; j++) {
+          result = result + value.sentence[j];
+        }
+        correctedOne = correctedOne.replace(result, value.replacement);
+        return [result, value.replacement];
+      });
+      console.log(correctedOne);
+      saveHistory(text, correctedOne, userId);
       setBhetla(true);
     } catch (err) {
       console.log(err);
@@ -56,6 +94,38 @@ function SpellChecker() {
       setRequested(false);
     }
   };
+  useEffect(() => {
+    const fetchHistory = async () => {
+      console.log(userId);
+      const data = await readData(userId);
+      console.log(data);
+      setHistory(data["SpellChecker"] ? data["SpellChecker"] : []);
+      setIsHistoryLoading(false);
+    };
+    setIsHistoryLoading(true);
+    fetchHistory();
+  }, []);
+
+  const popupHandler = (ind, arr) => {
+    console.log(ind);
+    return (
+      <div className={cssClasses.popup}>
+        <MdCancel
+          className={cssClasses.cancel}
+          fontSize={"2rem"}
+          onClick={() => setIsPopUp(false)}
+        />
+        <p className={cssClasses.prompt}>Prompt:{arr[ind].prompt}</p>
+        <div className="w-full md:max-h-80 max-h-40 overflow-scroll no-scrollbar">
+          output:{arr[ind].output}
+        </div>
+        <div className="w-full flex justify-end items-center">
+          <Copy text={arr[ind].output} />
+        </div>
+      </div>
+    );
+  };
+
   const closeAll = () => {
     setUnderlinedText(false);
     setBhetla(false);
@@ -200,12 +270,14 @@ function SpellChecker() {
         </div>
       </div>
       <History
-        height="650px"
+        height="95vh"
         showHistory={showHistory}
         setShowHistory={setShowHistory}
-        history={Array(5).fill(
-          "The Generated text History from the uploaded image is displayed here."
-        )}
+        history={history}
+        popupHandler={popupHandler}
+        showPopUp={setIsPopUp}
+        popup={ispopup}
+        isHistroyLoading={isHistroyLoading}
       />
     </div>
   );
