@@ -22,6 +22,9 @@ import { MdCancel } from "react-icons/md";
 import { hidePopUp, showPopUp } from "../../store/popupSlice.jsx";
 import { all } from "axios";
 const Chatbot = () => {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   const location = useLocation();
   const userId = location.state.userId;
   const [ispopup, setIsPopUp] = useState(false);
@@ -32,7 +35,7 @@ const Chatbot = () => {
     setProcessState(true);
     const apiUrl = "https://api.edenai.run/v2/text/chat";
     const authToken =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMzYyODMxYjgtMjZkNS00ZjM2LTg5NzAtOWJjZGJhNDVlOTFjIiwidHlwZSI6ImFwaV90b2tlbiJ9.TNWbM7zN5KQaqoHfWj5r4N8u0QJenA_Q-gzULTYC6vo";
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiN2ZlZTliMmUtM2NiYS00OGUxLWEyY2MtNGRmYzRhZDQ5ZGIwIiwidHlwZSI6ImFwaV90b2tlbiJ9._DR06u2PoXz0c8Yf6oGYN4_DY0xHR7daF6lBMclPseY";
 
     const requestData = {
       providers: "openai",

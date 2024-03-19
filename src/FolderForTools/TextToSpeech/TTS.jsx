@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import History from "../../UI/History";
 import Title from "../Summarizer/RequiredComponents/Title";
 import MainContainer from "./MainContainer";
 import Bottom from "../../UI/Bottom";
 import { useLocation } from "react-router-dom";
 const TTS = () => {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   const [showHistory, setShowHistory] = useState(false);
   const location = useLocation();
   const userId = location.state.userId;

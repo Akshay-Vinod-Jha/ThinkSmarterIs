@@ -9,8 +9,9 @@ const Copy = ({ size, text }) => {
 
   return (
     <div
-      className={classes.copy+"  font-lexend"}
-      onClick={() => {
+      className={classes.copy + "  font-lexend"}
+      onClick={(e) => {
+        e.stopPropagation();
         copyTextToClipboard(text);
         setCopy((copy) => !copy);
         setTimeout(() => {

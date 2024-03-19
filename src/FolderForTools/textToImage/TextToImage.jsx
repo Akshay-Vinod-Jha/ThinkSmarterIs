@@ -22,15 +22,16 @@ import { useLocation } from "react-router-dom";
 import { readData } from "../../common-funtions/readData.jsx";
 import { updateData } from "../../common-funtions/updateData.jsx";
 import { MdCancel } from "react-icons/md";
-<<<<<<< HEAD
 import { auth } from "../../../firebase.config.js";
-=======
+
 import Bottom from "../../UI/Bottom.jsx";
->>>>>>> 62e70018569f3375778880805f595cbac29f0cf3
 const HF_TOKEN = "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";
 
 function TextToImage() {
-  console.log(auth);
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
+
   const location = useLocation();
   const userId = location.state.userId;
   const [ispopup, setIsPopUp] = useState(false);
@@ -110,7 +111,10 @@ function TextToImage() {
           fontSize={"2rem"}
           onClick={() => setIsPopUp(false)}
         />
-        <div className={cssClasses.prompt}>{arr[ind].prompt}</div>
+        <div className={cssClasses.prompt}>
+          <span style={{ color: "#fc1001" }}>Prompt: </span>
+          {arr[ind].prompt}
+        </div>
         <div className={cssClasses.imgContainer}>
           <img src={arr[ind].base64Url} />
         </div>

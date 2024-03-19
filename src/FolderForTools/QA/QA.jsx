@@ -16,6 +16,9 @@ import { MdCancel } from "react-icons/md";
 import Copy from "../../UI/Copy.jsx";
 import Bottom from "../../UI/Bottom.jsx";
 const QA = () => {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   const location = useLocation();
   const userId = location.state.userId;
   const [ispopup, setIsPopUp] = useState(false);

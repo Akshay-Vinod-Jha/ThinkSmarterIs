@@ -3,7 +3,7 @@ import Bottom from "../../UI/Bottom.jsx";
 import MainBox from "./RequiredComponets/MainBox";
 import TryThese from "./RequiredComponets/TryThese";
 import classes from "./TextExtraction.module.css";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Output from "./RequiredComponets/Output";
 import History from "../../UI/History";
 import { MdError } from "react-icons/md";
@@ -11,7 +11,6 @@ import { useDispatch } from "react-redux";
 import { showPopUp, hidePopUp } from "../../store/popupSlice";
 import { getTextFromPdf } from "../../common-funtions/getTextFromPdf";
 import { getTextFromImage } from "../../common-funtions/getTextFormImage";
-import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { readData } from "../../common-funtions/readData.jsx";
 import { updateData } from "../../common-funtions/updateData.jsx";
@@ -24,6 +23,9 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
   "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.min.js";
 
 const TextExtraction = () => {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   const [src, setSrc] = useState(null);
   const [showHistory, setShowHistory] = useState(false);
   const [generatedText, setGeneratedText] = useState(

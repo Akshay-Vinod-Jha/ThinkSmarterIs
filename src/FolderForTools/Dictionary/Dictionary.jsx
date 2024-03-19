@@ -20,6 +20,9 @@ import { MdCancel } from "react-icons/md";
 import Copy from "../../UI/Copy.jsx";
 >>>>>>> 62e70018569f3375778880805f595cbac29f0cf3
 const Dictionary = () => {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
   const location = useLocation();
   const userId = location.state.userId;
   const [history, setHistory] = useState([]);
@@ -111,9 +114,13 @@ const Dictionary = () => {
           fontSize={"2rem"}
           onClick={() => setIsPopUp(false)}
         />
-        <p className={cssClasses.prompt}>Prompt:{arr[ind].prompt}</p>
+        <p className={cssClasses.prompt}>
+          <span className="text-[#fc0001]">Prompt: </span>
+          {arr[ind].prompt}
+        </p>
         <div className="w-full md:max-h-80 max-h-40 overflow-scroll no-scrollbar">
-          output:{arr[ind].output}
+          <span className="text-[#fc0001]">Output: </span>
+          {arr[ind].output}
         </div>
         <div className="w-full flex justify-end items-center">
           <Copy text={arr[ind].output} />
