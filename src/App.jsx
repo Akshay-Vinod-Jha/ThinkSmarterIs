@@ -11,6 +11,7 @@ import { createPortal } from "react-dom";
 import PopUp from "./UI/PopUp";
 import { useSelector } from "react-redux";
 import { getPopUpState } from "./store/popupSlice";
+import AllToolsMainPage from "./layout/AllToolsMainPage/AllToolsMainPage";
 import TextExtraction from "./FolderForTools/TextExtraction/TextExtraction";
 import QA from "./FolderForTools/QA/QA";
 import Summarizer from "./FolderForTools/Summarizer/Summarizer";
@@ -26,10 +27,7 @@ const App = () => {
           <PopUp content={showPop.style} />,
           document.getElementById("popup"),
         )}
-      <Header />
-      <Home />
-      <SliderCantainer />
-      <Footer />
+      <TextToImage />
     </div>
   );
 };
