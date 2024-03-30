@@ -20,7 +20,9 @@ import TTC from "./FolderForTools/TextToCode/TTC";
 import { Route, Routes } from "react-router-dom";
 import Translation from "./FolderForTools/Translation/Translation";
 // import TextExtraction from "./FolderForTools/TextExtraction/TextExtraction";
+import { auth } from "../firebase.config";
 const App = () => {
+  console.log(auth);
   const showPop = useSelector(getPopUpState);
   return (
     <div>

@@ -22,10 +22,16 @@ import { useLocation } from "react-router-dom";
 import { readData } from "../../common-funtions/readData.jsx";
 import { updateData } from "../../common-funtions/updateData.jsx";
 import { MdCancel } from "react-icons/md";
+import { auth } from "../../../firebase.config.js";
+
 import Bottom from "../../UI/Bottom.jsx";
 const HF_TOKEN = "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";
 
 function TextToImage() {
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
+
   const location = useLocation();
   const userId = location.state.userId;
   const [ispopup, setIsPopUp] = useState(false);
@@ -105,7 +111,10 @@ function TextToImage() {
           fontSize={"2rem"}
           onClick={() => setIsPopUp(false)}
         />
-        <div className={cssClasses.prompt}>{arr[ind].prompt}</div>
+        <div className={cssClasses.prompt}>
+          <span style={{ color: "#fc1001" }}>Prompt: </span>
+          {arr[ind].prompt}
+        </div>
         <div className={cssClasses.imgContainer}>
           <img src={arr[ind].base64Url} />
         </div>
@@ -132,6 +141,7 @@ function TextToImage() {
   ) : (
     <CiImageOn
       color="rgba(255,255,255,.5)"
+      o
       fontSize="clamp(20rem,25vw,30rem)"
     />
   );

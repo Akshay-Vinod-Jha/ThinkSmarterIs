@@ -44,13 +44,14 @@ const MainContainer = () => {
     SpeechRecognition.startListening({ continuous: true });
   };
 
-  const { speak } = useSpeechSynthesis();
   const [first, setFirst] = useState(true);
   const [request, setRequest] = useState(false);
-  const wordRef = useRef();
-  const wordRef2 = useRef();
   const [textIs, setTextIs] = useState("");
   const [hold, setHold] = useState(false);
+  const wordRef = useRef();
+  const wordRef2 = useRef();
+  const { speak } = useSpeechSynthesis();
+  // const [request, setRequest] = useState(false);
   const clickHandler = () => {
     try {
       setRequest(true);

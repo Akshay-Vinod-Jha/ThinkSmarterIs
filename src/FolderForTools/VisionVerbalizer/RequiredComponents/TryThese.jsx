@@ -1,6 +1,6 @@
 // import React from 'react'
 import ex1 from "../../../../images/imagetotext1.jpg";
-import ex2 from "../../../../images/imagetotext2.avif";
+import ex2 from "../../../../images/imagetotext2.jpg";
 import ex3 from "../../../../images/imagetotext3.jpg";
 import ex4 from "../../../../images/imagetotext4.webp";
 import { TbBulb } from "react-icons/tb";

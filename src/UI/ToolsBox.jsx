@@ -11,17 +11,17 @@ function ToolsBox(props) {
         {props.toolName}
       </div>
       <div className="w-full h-[80%] flex md:flex-row flex-col  justify-around items-center gap-2 md:gap-4">
-        <div className="w-[40%] md:w-[25%] lg:w-[20%] overflow-hidden rounded-full aspect-[1/1] border-4 border-[#72889496]">
+        <div className="w-[40%] md:w-[25%] lg:w-[20%] overflow-hidden md:rounded-full md:aspect-[1/1] border-2 border-[#72889496]">
           <img
             src={props.imageUrl}
             style={{
               objectFit: "cover",
             }}
             alt=""
-            className="w-full aspect-square  duration-200"
+            className="w-full  md:object-cover md:aspect-square object-cover duration-200"
           />
         </div>
-        <h1 className="text-[white] text-center md:text-left capitalize   text-base w-[100%]">
+        <h1 className="text-[white] text-center md:text-left capitalize text-base w-[100%]">
           {parse(props.slogan)}
         </h1>
       </div>
