@@ -10,6 +10,9 @@
   font-weight: 700;
   display: inline;
 }
+.right {
+  width: 100%;
+}
 .label {
   color: #fc0001;
   font-weight: 500;
@@ -119,6 +122,7 @@
 .singupimage {
   object-fit: fill;
   min-height: 100vh;
+  width: 100%;
 }
 .or {
   color: rgba(255, 255, 255, 0.75);
