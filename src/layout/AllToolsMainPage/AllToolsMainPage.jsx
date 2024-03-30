@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { auth } from "../../../firebase.config";
 import OrangeButton from "../../UI/OrangeButton";
 import { signOut } from "firebase/auth";
-function AllToolsMainPage() {
+function AllToolsMainPage(props) {
   useEffect(() => {
     window.scroll(0, 0);
   }, []);
@@ -38,11 +38,13 @@ function AllToolsMainPage() {
   };
   return (
     <>
-      <div className="w-full p-2 h-auto flex justify-end items-center">
-        <div className="w-max">
-          <OrangeButton onClick={signOutHandler}>Sign out</OrangeButton>
+      {userId && (
+        <div className="w-full bg-black p-2 h-auto flex justify-end items-center">
+          <div className="w-max">
+            <OrangeButton onClick={signOutHandler}>Sign out</OrangeButton>
+          </div>
         </div>
-      </div>
+      )}
       {!state && (
         <div
           className={
@@ -52,7 +54,10 @@ function AllToolsMainPage() {
         >
           <h1 className="w-full md:w-[50%] lg:w-[50%] mt-4 font-semibold tracking-widest text-white text-center text-xl md:text-2xl lg:text-3xl">
             "Welcome to the
-            <span className="text-[#fc0001] scale-150">AI Integration Hub</span>
+            <span className="text-[#fc0001] scale-150">
+              {" "}
+              AI Integration Hub
+            </span>
             : Your Gateway to Integrated Intelligence"
           </h1>
           <AllParent
@@ -68,7 +73,17 @@ function AllToolsMainPage() {
           updateState={updateState}
         />
       )}
-      <Bottom label="Go To Home" navigateTo="/" />
+      <div className="w-full bg-black">
+        <div className="w-[92%] md:w-full mx-auto">
+          <Bottom
+            label="Go To Home"
+            navigateTo="/"
+            onClick={() => {
+              props.updateSignOut(true);
+            }}
+          />
+        </div>
+      </div>
     </>
   );
 }

@@ -121,9 +121,11 @@ const MainContainer = () => {
               className="w-full mx-4 py-2 px-3 text-white rounded-lg border-2 border-[#ffffff38] bg-black resize-none h-[20rem] font-lexend text-sm md:text-base"
               placeholder="Type Your Content Here.."
             ></textarea>
-            <OrangeButton onClick={clickHandler}>
-              {request && <Loader />}Convert To Speech
-            </OrangeButton>
+            <div className="w-full md:w-[50%] md:mx-auto lg:w-[50%] lg:mx-auto">
+              <OrangeButton onClick={clickHandler}>
+                {request && <Loader />}Convert To Speech
+              </OrangeButton>
+            </div>
           </div>
         )}
         {!first && (

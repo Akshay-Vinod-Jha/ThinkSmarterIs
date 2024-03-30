@@ -6,7 +6,7 @@ import ImportantError from "../UI/ImportantError";
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 // import React, { useEffect } from "react";
-const HomePage = () => {
+const HomePage = (props) => {
   useEffect(() => {
     window.scroll(0, 0);
   }, []);

@@ -613,7 +613,10 @@ const Translation = (props) => {
         <MdCancel
           className={cssClasses.cancel}
           fontSize={"2rem"}
-          onClick={() => setIsPopUp(false)}
+          onClick={() => {
+            setIsPopUp(false);
+            props.updateShowing(false);
+          }}
         />
         <h1 className="w-full flex justify-start text-[#fc0001]  items-center text-left">
           Prompt:
@@ -746,7 +749,9 @@ const Translation = (props) => {
 
   return (
     <>
-      <div className="w-screen  h-auto grid grid-cols-1 md:grid-cols-4 place-content-center place-items-start p-2 ">
+      <div
+        className={`w-screen ${props.showing ? "h-[100vh] overflow-hidden" : "h-auto"} grid grid-cols-1 md:grid-cols-4 place-content-center place-items-start p-2 `}
+      >
         <div className="w-[99%] p-2 col-span-1 md:col-span-3 grid grid-cols-1 gap-4 place-content-center place-items-center">
           <Title title="TranslateExpert" setShowHistory={setShowHistory} />
           <BigTextarea
@@ -849,10 +854,13 @@ const Translation = (props) => {
           popupHandler={popupHandler}
           showPopUp={setIsPopUp}
           popup={ispopup}
+          updateShowing={props.updateShowing}
           isHistroyLoading={isHistroyLoading}
         />
       </div>
-      <Bottom label="Go to All tools" navigateTo=".." userId={userId} />
+      {!props.showing && (
+        <Bottom label="Go to All tools" navigateTo=".." userId={userId} />
+      )}{" "}
     </>
   );
 };
