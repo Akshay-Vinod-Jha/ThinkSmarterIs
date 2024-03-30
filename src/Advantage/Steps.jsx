@@ -10,7 +10,7 @@ function Steps(props) {
       <h1 className="w-full pl-4 capatilize text-base md:text-lg lg:text-xl xl:text-xl">
         How It Works?
       </h1>
-      <div className="w-full h-20  text-[#728894] pl-8 mt-2 text-base md:text-lg lg:text-xl xl:text-xl">{`Step ${
+      <div className="w-full h-20 overflow-scroll no-scrollbar  text-[#728894] pl-8 mt-2 text-base md:text-lg lg:text-xl xl:text-xl">{`Step ${
         currentIndex + 1
       }:-${props.arrayOfSteps[currentIndex]}`}</div>
       <div className="w-full mt-4 px-2 md:px-4 flex flex-row justify-between items-center">
