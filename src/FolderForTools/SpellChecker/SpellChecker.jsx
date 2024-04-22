@@ -53,7 +53,7 @@ function SpellChecker(props) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          key: "SZ8UPZQ1YFFHDJRL3BPERB2OZ7GANIPY", // replace with your API key
+          key: "8IQU8QPES9OOD105A3X5XXNCZIWC9P81", // replace with your API key
           session_id: "test session",
           text,
         }),

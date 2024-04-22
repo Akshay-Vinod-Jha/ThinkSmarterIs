@@ -27,7 +27,7 @@ const App = () => {
   const [showing, updateShowing] = useState(false);
   const showPop = useSelector(getPopUpState);
   return (
-    <div>
+    <div className="w-screen h-auto overflow-x-hidden no-scrollbar">
       {showPop.visible &&
         createPortal(
           <PopUp content={showPop.style} />,
